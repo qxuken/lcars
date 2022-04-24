@@ -380,7 +380,7 @@
    * to projects. If this property is not specified, any tag is allowed. This
    * list is useful in preventing typos when specifying tags for projects.
    */
-  "allowedProjectTags": ["apps", "tools", "packages", "web", "desktop"],
+  "allowedProjectTags": ["apps", "tools", "packages", "web", "desktop", "pomodoro"],
 
   /**
    * (Required) This is the inventory of projects to be managed by Rush.
@@ -469,14 +469,14 @@
     //   "tags": ["tools"]
     // }
     {
-      "packageName": "@pomodorqo/electron",
-      "projectFolder": "apps/electron",
-      "tags": ["apps", "desktop"]
+      "packageName": "@qxuken/pomodoro-desktop",
+      "projectFolder": "apps/pomodoro-desktop",
+      "tags": ["apps", "desktop", "pomodoro"]
     },
     {
-      "packageName": "@pomodorqo/ui",
-      "projectFolder": "packages/ui",
-      "tags": ["packages", "web", "desktop"]
+      "packageName": "@qxuken/pomodoro-ui",
+      "projectFolder": "packages/pomodoro-ui",
+      "tags": ["packages", "web", "desktop", "pomodoro"]
     }
   ]
 }

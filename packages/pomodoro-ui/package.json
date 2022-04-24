@@ -1,5 +1,5 @@
 {
-  "name": "@pomodorqo/ui",
+  "name": "@qxuken/pomodoro-ui",
   "version": "0.0.0",
   "main": "lib/main.js",
   "types": "lib/src/main.d.ts",

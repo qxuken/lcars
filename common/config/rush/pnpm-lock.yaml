@@ -5,7 +5,7 @@ importers:
   .:
     specifiers: {}
 
-  ../../apps/electron:
+  ../../apps/pomodoro-desktop:
     specifiers:
       '@electron-forge/cli': ^6.0.0-beta.63
       '@electron-forge/maker-deb': ^6.0.0-beta.63
@@ -13,7 +13,7 @@ importers:
       '@electron-forge/maker-squirrel': ^6.0.0-beta.63
       '@electron-forge/maker-zip': ^6.0.0-beta.63
       '@electron-forge/plugin-webpack': 6.0.0-beta.63
-      '@pomodorqo/ui': workspace:*
+      '@qxuken/pomodoro-ui': workspace:*
       '@types/node': 17.0.25
       '@types/react': 18.0.5
       '@types/react-dom': 18.0.1
@@ -35,7 +35,7 @@ importers:
       typescript: ~4.5.4
       webpack: 5.72.0
     dependencies:
-      '@pomodorqo/ui': link:../../packages/ui
+      '@qxuken/pomodoro-ui': link:../../packages/pomodoro-ui
       '@types/react': 18.0.5
       '@types/react-dom': 18.0.1
       electron-is-dev: 2.0.0
@@ -64,11 +64,11 @@ importers:
       typescript: 4.5.5
       webpack: 5.72.0
 
-  ../../packages/ui:
+  ../../packages/pomodoro-ui:
     specifiers:
       '@types/node': ~17.0.25
       '@types/react': ~18.0.6
-      react: 18.0.0
+      react: ~18.0.0
       ts-loader: ~9.2.8
       typescript: ~4.6.3
       webpack: ~5.72.0
@@ -756,7 +756,7 @@ packages:
   /@types/react-dom/18.0.1:
     resolution: {integrity: sha512-jCwTXvHtRLiyVvKm9aEdHXs8rflVOGd5Sl913JZrPshfXjn8NYsTNZOz70bCsA31IR0TOqwi3ad+X4tSCBoMTw==}
     dependencies:
-      '@types/react': 18.0.5
+      '@types/react': 18.0.6
     dev: false
 
   /@types/react/18.0.5:
@@ -773,7 +773,6 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.0.11
-    dev: true
 
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
@@ -1351,11 +1350,13 @@ packages:
   /at-least-node/1.0.0:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
+    requiresBuild: true
     dev: true
 
   /author-regex/1.0.0:
     resolution: {integrity: sha1-0IiFvmubv5Q5/gh8dihyRfCoFFA=}
     engines: {node: '>=0.8'}
+    requiresBuild: true
     dev: true
 
   /aws-sign2/0.7.0:
@@ -1587,6 +1588,7 @@ packages:
   /camelcase/5.3.1:
     resolution: {integrity: sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -1679,6 +1681,7 @@ packages:
 
   /cliui/6.0.0:
     resolution: {integrity: sha512-t6wbgtoCXvAzst7QgXxJYqPt0usEfbgQdftEPbLL/cvv6HPE5VgvqCuAIDR0NgU52ds6rFwqrgakNLrHEjCbrQ==}
+    requiresBuild: true
     dependencies:
       string-width: 4.2.3
       strip-ansi: 6.0.1
@@ -1780,6 +1783,7 @@ packages:
   /commander/5.1.0:
     resolution: {integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==}
     engines: {node: '>= 6'}
+    requiresBuild: true
     dev: true
 
   /commander/7.2.0:
@@ -2009,6 +2013,7 @@ packages:
   /decamelize/1.2.0:
     resolution: {integrity: sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -2202,6 +2207,7 @@ packages:
   /electron-installer-common/0.10.3:
     resolution: {integrity: sha512-mYbP+6i+nHMIm0WZHXgGdmmXMe+KXncl6jZYQNcCF9C1WsNA9C5SZ2VP4TLQMSIoFO+X4ugkMEA5uld1bmyEvA==}
     engines: {node: '>= 10.0.0'}
+    requiresBuild: true
     dependencies:
       '@malept/cross-spawn-promise': 1.1.1
       asar: 3.1.0
@@ -3093,6 +3099,7 @@ packages:
 
   /gar/1.0.4:
     resolution: {integrity: sha512-w4n9cPWyP7aHxKxYHFQMegj7WIAsL/YX/C4Bs5Rr8s1H9M1rNtRWRsw+ovYMkXDQ5S4ZbYHsHAPmevPjPgw44w==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -3118,6 +3125,7 @@ packages:
   /get-folder-size/2.0.1:
     resolution: {integrity: sha512-+CEb+GDCM7tkOS2wdMKTn9vU7DgnKUTuDlehkNJKNSovdCOVxs14OfKCk4cvSaR3za4gj+OBdl9opPN9xrJ0zA==}
     hasBin: true
+    requiresBuild: true
     dependencies:
       gar: 1.0.4
       tiny-each-async: 2.0.3
@@ -5280,6 +5288,7 @@ packages:
 
   /require-main-filename/2.0.0:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -5989,6 +5998,7 @@ packages:
 
   /tiny-each-async/2.0.3:
     resolution: {integrity: sha1-jru/1tYpXxNwAD+7NxYq/loKUdE=}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -6002,6 +6012,7 @@ packages:
 
   /tmp-promise/3.0.3:
     resolution: {integrity: sha512-RwM7MoPojPxsOBYnyd2hy0bxtIlVrihNs9pj5SUvY8Zz1sQcQG2tG1hSr8PDxfgEB8RNKDhqbIlroIarSNDNsQ==}
+    requiresBuild: true
     dependencies:
       tmp: 0.2.1
     dev: true
@@ -6025,6 +6036,7 @@ packages:
   /tmp/0.2.1:
     resolution: {integrity: sha512-76SUhtfqR2Ijn+xllcI5P1oyannHNHByD80W1q447gU3mp9G9PSpGdWmjUOHRDPiHYacIk66W7ubDTuPF3BEtQ==}
     engines: {node: '>=8.17.0'}
+    requiresBuild: true
     dependencies:
       rimraf: 3.0.2
     dev: true
@@ -6540,6 +6552,7 @@ packages:
 
   /which-module/2.0.0:
     resolution: {integrity: sha1-2e8H3Od7mQK4o6j6SzHD4/fm6Ho=}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -6576,6 +6589,7 @@ packages:
   /wrap-ansi/6.2.0:
     resolution: {integrity: sha512-r6lPcBGxZXlIcymEu7InxDMhdW0KDxpLgoFLcguasxCaJ/SOIZwINatK9KY/tf+ZrlywOKU0UDj3ATXUBfxJXA==}
     engines: {node: '>=8'}
+    requiresBuild: true
     dependencies:
       ansi-styles: 4.3.0
       string-width: 4.2.3
@@ -6586,6 +6600,7 @@ packages:
   /wrap-ansi/7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
     engines: {node: '>=10'}
+    requiresBuild: true
     dependencies:
       ansi-styles: 4.3.0
       string-width: 4.2.3
@@ -6656,6 +6671,7 @@ packages:
 
   /y18n/4.0.3:
     resolution: {integrity: sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -6676,6 +6692,7 @@ packages:
   /yargs-parser/18.1.3:
     resolution: {integrity: sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dependencies:
       camelcase: 5.3.1
       decamelize: 1.2.0
@@ -6695,6 +6712,7 @@ packages:
   /yargs/15.4.1:
     resolution: {integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==}
     engines: {node: '>=8'}
+    requiresBuild: true
     dependencies:
       cliui: 6.0.0
       decamelize: 1.2.0
@@ -6713,6 +6731,7 @@ packages:
   /yargs/16.2.0:
     resolution: {integrity: sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==}
     engines: {node: '>=10'}
+    requiresBuild: true
     dependencies:
       cliui: 7.0.4
       escalade: 3.1.1

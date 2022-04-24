@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom/client";
-import { Thing } from "@pomodorqo/ui";
+import { Thing } from "@qxuken/pomodoro-ui";
 
 export let App = () => (
   <div>

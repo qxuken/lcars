@@ -1,6 +1,6 @@
 {
-  "name": "@pomodorqo/electron",
-  "productName": "@pomodorqo/desktop",
+  "name": "@qxuken/pomodoro-desktop",
+  "productName": "@qxuken/pomodoro-desktop",
   "version": "1.0.0",
   "main": ".webpack/main",
   "scripts": {
@@ -23,7 +23,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "pomodorqo"
+            "name": "qxuken pomodoro"
           }
         },
         {
@@ -90,6 +90,6 @@
     "electron-squirrel-startup": "^1.0.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "@pomodorqo/ui": "workspace:*"
+    "@qxuken/pomodoro-ui": "workspace:*"
   }
 }
