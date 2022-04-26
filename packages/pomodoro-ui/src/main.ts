@@ -1,2 +1,2 @@
-export { default as Thing } from './App'
+export { App as Thing } from './App'
 import './index.css'
