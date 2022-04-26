@@ -16,7 +16,7 @@ const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     height: 226,
     width: 747,
-    resizable: false,
+    resizable: isDev,
     minimizable: true,
     maximizable: false,
     fullscreenable: false,
