@@ -1,2 +1,3 @@
+export * from './TextUtils';
+export * from './PascalCase';
 export * from './TextFormatter';
-export * from './Text';

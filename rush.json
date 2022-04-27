@@ -380,7 +380,16 @@
    * to projects. If this property is not specified, any tag is allowed. This
    * list is useful in preventing typos when specifying tags for projects.
    */
-  "allowedProjectTags": ["apps", "tools", "packages", "web", "desktop", "pomodoro", "build", "utils"],
+  "allowedProjectTags": [
+    "apps",
+    "tools",
+    "packages",
+    "web",
+    "desktop",
+    "pomodoro",
+    "build",
+    "utils"
+  ],
 
   /**
    * (Required) This is the inventory of projects to be managed by Rush.
@@ -479,6 +488,11 @@
       "tags": ["packages", "utils"]
     },
     {
+      "packageName": "@qxuken/package-json-parser",
+      "projectFolder": "packages/package-json-parser",
+      "tags": ["packages", "utils"]
+    },
+    {
       "packageName": "@qxuken/pomodoro-ui",
       "projectFolder": "packages/pomodoro-ui",
       "tags": ["packages", "web", "desktop", "pomodoro"]
@@ -487,7 +501,6 @@
       "packageName": "@qxuken/vite-lib-config",
       "projectFolder": "tools/vite-lib-config",
       "tags": ["tools", "build"]
-    },
-
+    }
   ]
 }
