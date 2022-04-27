@@ -1,6 +1,6 @@
 {
   "name": "@qxuken/pomodoro-desktop",
-  "productName": "@qxuken/pomodoro-desktop",
+  "productName": "pomodoro-desktop",
   "version": "1.0.0",
   "main": ".webpack/main",
   "scripts": {
