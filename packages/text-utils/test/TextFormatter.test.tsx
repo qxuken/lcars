@@ -7,12 +7,8 @@ describe('TextFormatter', () => {
     let text = 'text';
     let formattedText = TextUtils.capitalize('text');
 
-    const testRenderer = TestRenderer.create(
-      <TextFormatter text={text} formatter={TextUtils.capitalize} />
-    );
+    const testRenderer = TestRenderer.create(<TextFormatter text={text} formatter={TextUtils.capitalize} />);
 
-    expect(testRenderer.root.findByType('span').children).toEqual([
-      formattedText,
-    ]);
+    expect(testRenderer.root.findByType('span').children).toEqual([formattedText]);
   });
 });

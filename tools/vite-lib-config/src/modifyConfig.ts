@@ -3,11 +3,7 @@ import dts from 'vite-plugin-dts';
 import { PackageJsonParser } from '@qxuken/package-json-parser';
 import type { PackageJson } from '@qxuken/package-json-parser';
 
-export function modifyConfig(
-  config: UserConfig,
-  entry: string,
-  packageJson: PackageJson
-): UserConfigExport {
+export function modifyConfig(config: UserConfig, entry: string, packageJson: PackageJson): UserConfigExport {
   let parsedPackageJson = new PackageJsonParser(packageJson);
 
   let plugins = config.plugins ?? [];

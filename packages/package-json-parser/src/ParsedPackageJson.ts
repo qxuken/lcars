@@ -25,8 +25,6 @@ export class PackageJsonParser {
   }
 
   peerDependenciesList(): string[] {
-    return Maybe.fromEmpty(this.json.peerDependencies).fold<string[]>([])(
-      (peers) => Object.keys(peers)
-    );
+    return Maybe.fromEmpty(this.json.peerDependencies).fold<string[]>([])((peers) => Object.keys(peers));
   }
 }
