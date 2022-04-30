@@ -1,0 +1,6 @@
+.text {
+  font-family: Antonio;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-white);
+}
