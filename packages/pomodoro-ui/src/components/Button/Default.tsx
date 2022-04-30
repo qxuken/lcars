@@ -1,10 +1,13 @@
-import { DetailedHTMLProps, ButtonHTMLAttributes } from 'react';
 import cn from 'classnames';
+import { useWrapIfText } from '../Text';
+import { IDefaultButtonProps } from './interfaces';
 import style from './styles.module.css';
 
-export interface ButtonProps
-  extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {}
-
-export function Button(props: ButtonProps) {
-  return <button {...props} className={cn(props.className, style.button)} />;
+export function DefaultButton({ className, children, ...props }: IDefaultButtonProps): JSX.Element {
+  const content = useWrapIfText(children);
+  return (
+    <button {...props} className={cn(className, style.button)}>
+      {content}
+    </button>
+  );
 }

@@ -1,10 +1,10 @@
-import { DetailedHTMLProps, ButtonHTMLAttributes } from 'react';
-import cn from 'classnames';
-import style from './styles.module.css';
-
-export interface IButtonProps
-  extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {}
+import { ButtonWithCounter } from './WithCounter';
+import { DefaultButton } from './Default';
+import { IButtonProps, isButtonWithCounter } from './interfaces';
 
 export function Button(props: IButtonProps): JSX.Element {
-  return <button {...props} className={cn(props.className, style.button)} />;
+  if (isButtonWithCounter(props)) {
+    return <ButtonWithCounter {...props} />;
+  }
+  return <DefaultButton {...props} />;
 }
