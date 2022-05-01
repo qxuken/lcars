@@ -1,6 +1,7 @@
 {
   "name": "@qxuken/pomodoro-desktop",
   "productName": "lcars-pomodoro",
+  "description": "Pomodoro timer inspired by LCARS design",
   "version": "1.0.0",
   "main": ".webpack/main",
   "scripts": {

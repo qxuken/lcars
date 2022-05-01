@@ -1,2 +1,1 @@
-export { App as Thing } from './App';
-import './index.css';
+export * from './components';

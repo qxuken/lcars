@@ -10,7 +10,12 @@
   color: var(--color-white);
   background-color: var(--main-color);
   border-color: var(--main-color);
-  border-style: solid;
+  border-style: none;
+}
+
+.button-with-counter {
+  display: flex;
+  align-items: center;
 }
 
 .counter {
