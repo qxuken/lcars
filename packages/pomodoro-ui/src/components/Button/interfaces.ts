@@ -1,10 +1,12 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import { Color } from '../global';
 
 export interface IDefaultButtonProps
   extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {}
 
 export interface IButtonWithCounterProps extends IDefaultButtonProps {
   counter: number;
+  color?: Color;
 }
 
 export type IButtonProps = IButtonWithCounterProps | IDefaultButtonProps;

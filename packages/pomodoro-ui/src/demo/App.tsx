@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Button, Text } from '../components';
+import { FullLayout } from '../composition';
 import './app.css';
 
 export function App(): JSX.Element {
@@ -16,6 +17,10 @@ export function App(): JSX.Element {
         <Button onClick={onClick} counter={10}>
           value: {value}
         </Button>
+      </div>
+      <div>
+        <Text as="h2">Full layout:</Text>
+        <FullLayout />
       </div>
     </div>
   );

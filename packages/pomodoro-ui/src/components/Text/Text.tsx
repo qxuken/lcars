@@ -1,8 +1,11 @@
 import cn from 'classnames';
-import { ITextProps } from './interfaces';
+import { ITextProps, TextSize } from './interfaces';
 import styles from './styles.module.css';
 
-export function Text({ className, as = 'span', ...props }: ITextProps): JSX.Element {
+export function Text({ className, as = 'span', size = TextSize.medium, ...props }: ITextProps): JSX.Element {
   const Tag = as;
-  return <Tag {...props} className={cn(className, styles.text)} />;
+  console.log(styles);
+  console.log(size);
+  console.log(cn(className, styles.text, styles[size]));
+  return <Tag {...props} className={cn(className, styles.text, styles[size])} />;
 }

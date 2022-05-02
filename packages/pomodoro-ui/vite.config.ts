@@ -2,6 +2,7 @@ import { resolve } from 'path';
 import { defineConfig, UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import pxtorem from 'postcss-pxtorem';
+import nesting from 'postcss-nesting';
 import { modifyConfig } from '@qxuken/vite-lib-config';
 
 import packageJson from './package.json';
@@ -12,7 +13,7 @@ let baseConfig: UserConfig = {
   plugins: [react()],
   css: {
     postcss: {
-      plugins: [pxtorem({ propList: ['*'] })],
+      plugins: [nesting(), pxtorem({ propList: ['*'] })],
     },
   },
 };
