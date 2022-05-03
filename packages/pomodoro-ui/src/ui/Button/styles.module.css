@@ -1,63 +1,58 @@
-.button {
-  min-width: 100%;
-  line-height: 1;
-  padding: 0 4px;
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--color-white);
-  border-style: none;
-  cursor: pointer;
+@layer components {
+  .button {
+    min-width: 100%;
+    padding: 4px 4px;
+    text-align: center;
+    color: var(--color-white);
+    border-style: none;
+    cursor: pointer;
 
-  &.with-counter {
-    display: flex;
-    align-items: center;
-  }
+    &.with-counter {
+      display: flex;
+      align-items: center;
+    }
 
-  &.size-small {
-    font-size: 14px;
-    height: 24px;
-  }
+    &.size-small {
+      padding: 2px 4px;
+      height: 24px;
+    }
 
-  &.size-default {
-    font-size: 21px;
-    height: 32px;
-  }
+    &.size-default {
+      height: 32px;
+    }
 
-  &.color-1 {
-    background-color: var(--color-1);
-  }
+    &.color-1 {
+      background-color: var(--color-1);
+    }
 
-  &.color-2 {
-    background-color: var(--color-2);
-  }
+    &.color-2 {
+      background-color: var(--color-2);
+    }
 
-  &.color-3 {
-    background-color: var(--color-3);
-  }
+    &.color-3 {
+      background-color: var(--color-3);
+    }
 
-  &.color-4 {
-    background-color: var(--color-4);
-  }
+    &.color-4 {
+      background-color: var(--color-4);
+    }
 
-  &.color-5 {
-    background-color: var(--color-5);
-  }
+    &.color-5 {
+      background-color: var(--color-5);
+    }
 
-  &.color-6 {
-    background-color: var(--color-6);
-  }
+    &.color-6 {
+      background-color: var(--color-6);
+    }
 
-  &.color-7 {
-    background-color: var(--color-7);
-  }
+    &.color-7 {
+      background-color: var(--color-7);
+    }
 
-  & .counter {
-    background: var(--color-bg);
-    padding: 2px;
-    margin: 0 2px;
-  }
-
-  & .text {
-    padding: 4px 2px;
+    & .counter {
+      background: var(--color-bg);
+      padding: 2px;
+      margin: 0 2px;
+    }
   }
 }

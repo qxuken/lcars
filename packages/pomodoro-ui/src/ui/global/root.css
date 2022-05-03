@@ -1,11 +1,19 @@
-.pomodoro-ui {
-  --color-white: #ffffff;
-  --color-bg: #000000;
-  --color-1: #dab0a8;
-  --color-2: #583c3a;
-  --color-3: #5e5b9d;
-  --color-4: #b05aa5;
-  --color-5: #b790c8;
-  --color-6: #bc662a;
-  --color-7: #d69f3b;
+@layer base, components, layout;
+
+@layer base {
+  .pomodoro-ui {
+    --color-white: #ffffff;
+    --color-bg: #000000;
+    --color-1: #dab0a8;
+    --color-2: #583c3a;
+    --color-3: #5e5b9d;
+    --color-4: #b05aa5;
+    --color-5: #b790c8;
+    --color-6: #bc662a;
+    --color-7: #d69f3b;
+  }
+
+  .pomodoro-ui * {
+    user-select: none;
+  }
 }

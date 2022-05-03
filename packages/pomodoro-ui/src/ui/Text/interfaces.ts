@@ -1,4 +1,5 @@
 import { HTMLAttributes } from 'react';
+import { StringKeyOf } from 'type-fest';
 
 export enum TextSize {
   small = 'size-small',
@@ -9,7 +10,7 @@ export enum TextSize {
 
 interface IBase<T> extends HTMLAttributes<T> {
   as?: keyof JSX.IntrinsicElements;
-  size?: TextSize;
+  size?: StringKeyOf<typeof TextSize> | TextSize;
 }
 
 interface ITextSpan extends IBase<HTMLSpanElement> {

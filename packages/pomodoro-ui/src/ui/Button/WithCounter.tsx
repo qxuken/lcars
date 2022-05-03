@@ -1,7 +1,11 @@
 import cn from 'classnames';
-import { Text, useWrapIfText, TextSize } from '../Text';
+import { useMemo } from 'react';
+import { useEnumPropValue } from '../../hooks';
+import { Text, TextSize } from '../Text';
 import { DefaultButton } from './Default';
-import { IButtonWithCounterProps } from './interfaces';
+import { useContent } from './hooks';
+import { ButtonSize, IButtonWithCounterProps } from './interfaces';
+import { getCounterTextSize } from './utils';
 import styles from './styles.module.css';
 
 export function ButtonWithCounter({
@@ -10,10 +14,12 @@ export function ButtonWithCounter({
   counter,
   ...props
 }: IButtonWithCounterProps): JSX.Element {
-  const content = useWrapIfText(children, styles.text);
+  const size: ButtonSize = useEnumPropValue(ButtonSize, ButtonSize.default, props.size);
+  const counterSize: TextSize = useMemo(() => getCounterTextSize(size), [size]);
+  const content = useContent(children, size);
   return (
     <DefaultButton {...props} className={cn(className, styles['with-counter'])}>
-      <Text className={styles.counter} size={TextSize.large}>
+      <Text className={styles.counter} size={counterSize}>
         {counter}
       </Text>
       {content}
