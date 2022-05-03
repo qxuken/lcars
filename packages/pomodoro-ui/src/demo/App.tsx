@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Text } from '../components';
-import { FullLayout } from '../composition';
+import { Button, Text } from '../ui';
+import { FullLayout } from '../layout';
 import './app.css';
 
 export function App(): JSX.Element {

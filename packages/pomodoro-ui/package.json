@@ -41,6 +41,7 @@
     "@qxuken/vite-lib-config": "workspace:*",
     "classnames": "2.3.1",
     "postcss-pxtorem": "6.0.0",
-    "postcss": "8.4.12"
+    "postcss": "8.4.12",
+    "type-fest": "2.12.2"
   }
 }

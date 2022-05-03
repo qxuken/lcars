@@ -2,7 +2,7 @@ import { ReactNode, useMemo } from 'react';
 import { Text } from './Text';
 
 function canWrap(children: ReactNode): boolean {
-  return ['string', 'number', 'boolean', 'undefined'].includes(typeof children);
+  return ['undefined', 'string', 'number', 'boolean', 'symbol', 'bigint'].includes(typeof children);
 }
 
 export function useWrapIfText(children: ReactNode, className?: string): ReactNode {
