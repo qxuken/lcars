@@ -12,13 +12,13 @@ export function FullLayout(): JSX.Element {
               pause
             </Button>
           </div>
-          <div className={cn(styles.filler, styles['t-filler-1'])} />
-          <div className={cn(styles.animated, styles['t-animated'])} />
+          <div className={styles.filler} />
+          <div className={styles.animated} />
           <div className={cn(styles.pin)}>
             <Button size="small">pin</Button>
           </div>
-          <div className={cn(styles.filler, styles['t-filler-2'])} />
-          <div className={cn(styles.minimize)}>
+          <div className={styles.filler} />
+          <div className={styles.minimize}>
             <Button size="small" color="color5">
               minimize
             </Button>

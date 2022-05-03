@@ -55,38 +55,26 @@
 
       & .filler {
         background-color: var(--color-1);
-        width: 100%;
         height: 100%;
+        width: 24px;
       }
 
       & .animated {
         background-color: var(--color-5);
-        width: 100%;
+        width: 54px;
         height: 100%;
       }
 
       & .pause {
-        grid-area: pause;
-      }
-
-      & .t-filler-1 {
-        grid-area: t-filler-1;
-      }
-
-      & .t-animated {
-        grid-area: t-animated;
+        width: 102px;
       }
 
       & .pin {
-        grid-area: pin;
-      }
-
-      & .t-filler-2 {
-        grid-area: t-filler-2;
+        width: 64px;
       }
 
       & .minimize {
-        grid-area: minimize;
+        width: 91px;
       }
 
       & .short {

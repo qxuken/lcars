@@ -1,5 +1,6 @@
 @layer components {
   .button {
+    width: 100%;
     padding: 4px 4px;
     text-align: center;
     color: var(--color-white);
