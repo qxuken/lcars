@@ -1,3 +1,7 @@
 body {
   background-color: #2d214f;
 }
+
+.demo-card {
+  width: max-content;
+}

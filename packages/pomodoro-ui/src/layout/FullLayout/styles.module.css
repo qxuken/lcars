@@ -14,16 +14,15 @@
       border-radius: var(--border-radius);
       background-color: var(--color-7);
       display: grid;
-      grid-gap: 4px;
-      grid-template-columns: 74px 94px 103px 24px 64px 64px 24px 80px 94px 74px;
+      grid-template-columns: 74px 94px auto 94px 74px;
       grid-template-rows: 24px 26px 32px 32px 51px 24px;
       grid-template-areas:
-        '. . pause t-filler-1 t-animated pin t-filler-2 minimize . .'
-        '. content content content content content content content content .'
-        'short content content content content content content content content exit'
-        'long content content content content content content content content .'
-        '. content content content content content content content content .'
-        '. . . b-filler-1 b-animated . b-filler-2 . . .';
+        '. . top-panel . .'
+        '. content content content .'
+        'short content content content exit'
+        'long content content content .'
+        '. content content content .'
+        '. . bottom-panel . .';
 
       & .content {
         grid-area: content;
@@ -34,11 +33,24 @@
         text-align: center;
       }
 
-      & .horizontal-outline {
-        box-shadow: -4px 0px 0px 0px black, 4px 0px 0px 0px black;
+      & .top-panel {
+        grid-area: top-panel;
+        background-color: var(--color-bg);
+        padding: 0 4px;
+        display: flex;
+        gap: 4px;
+        /* grid-template-columns: 103px 24px 64px 64px 24px 80px; */
+        /* grid-template-areas: 'pause t-filler-1 t-animated pin t-filler-2 minimize'; */
       }
-      & .vertical-outline {
-        box-shadow: 0px -4px 0px 0px black, 0px 4px 0px 0px black;
+
+      & .bottom-panel {
+        grid-area: bottom-panel;
+        background-color: var(--color-bg);
+        padding: 0 4px;
+        display: flex;
+        gap: 4px;
+        /* grid-template-columns: 103px 24px 64px 64px 24px 80px; */
+        /* grid-template-areas: 'b-filler-1 b-animated . b-filler-2'; */
       }
 
       & .filler {

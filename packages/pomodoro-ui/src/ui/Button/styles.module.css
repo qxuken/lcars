@@ -1,6 +1,5 @@
 @layer components {
   .button {
-    min-width: 100%;
     padding: 4px 4px;
     text-align: center;
     color: var(--color-white);
@@ -51,7 +50,7 @@
 
     & .counter {
       background: var(--color-bg);
-      padding: 2px;
+      padding: 1px 2px;
       margin: 0 2px;
     }
   }

@@ -6,21 +6,23 @@ export function FullLayout(): JSX.Element {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <div className={cn(styles.pause, styles['horizontal-outline'])}>
-          <Button size="small" color="color5">
-            pause
-          </Button>
-        </div>
-        <div className={cn(styles.filler, styles['t-filler-1'], styles['horizontal-outline'])} />
-        <div className={cn(styles.animated, styles['t-animated'], styles['horizontal-outline'])} />
-        <div className={cn(styles.pin, styles['horizontal-outline'])}>
-          <Button size="small">pin</Button>
-        </div>
-        <div className={cn(styles.filler, styles['t-filler-2'], styles['horizontal-outline'])} />
-        <div className={cn(styles.minimize, styles['horizontal-outline'])}>
-          <Button size="small" color="color5">
-            minimize
-          </Button>
+        <div className={styles['top-panel']}>
+          <div className={cn(styles.pause)}>
+            <Button size="small" color="color5">
+              pause
+            </Button>
+          </div>
+          <div className={cn(styles.filler, styles['t-filler-1'])} />
+          <div className={cn(styles.animated, styles['t-animated'])} />
+          <div className={cn(styles.pin)}>
+            <Button size="small">pin</Button>
+          </div>
+          <div className={cn(styles.filler, styles['t-filler-2'])} />
+          <div className={cn(styles.minimize)}>
+            <Button size="small" color="color5">
+              minimize
+            </Button>
+          </div>
         </div>
         <div className={styles.content}>
           <Text as="h1" size={TextSize.xlarge}>

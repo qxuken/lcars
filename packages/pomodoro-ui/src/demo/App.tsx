@@ -8,17 +8,17 @@ export function App(): JSX.Element {
   const onClick = useCallback(() => setValue(value + 1), [value]);
   return (
     <div className="pomodoro-ui">
-      <div>
+      <div className="demo-card">
         <Text as="h2">Button:</Text>
         <Button onClick={onClick}>value: {value}</Button>
       </div>
-      <div>
+      <div className="demo-card">
         <Text as="h2">Button with counter:</Text>
         <Button onClick={onClick} counter={10}>
           value: {value}
         </Button>
       </div>
-      <div>
+      <div className="demo-card">
         <Text as="h2">Full layout:</Text>
         <FullLayout />
       </div>
