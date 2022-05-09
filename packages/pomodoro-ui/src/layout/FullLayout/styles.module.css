@@ -14,13 +14,13 @@
       border-radius: var(--border-radius);
       background-color: var(--color-7);
       display: grid;
-      grid-template-columns: 74px 94px auto 94px 74px;
-      grid-template-rows: 24px 26px 32px 32px 51px 24px;
+      justify-items: center;
+      grid-template-columns: 74px auto max-content auto 74px;
+      grid-template-rows: 24px 24px minmax(64px, max-content) auto 24px;
       grid-template-areas:
         '. . top-panel . .'
         '. content content content .'
-        'short content content content exit'
-        'long content content content .'
+        'left-panel content content content right-panel'
         '. content content content .'
         '. . bottom-panel . .';
 
@@ -33,24 +33,38 @@
         text-align: center;
       }
 
-      & .top-panel {
-        grid-area: top-panel;
+      & .panel {
         background-color: var(--color-bg);
-        padding: 0 4px;
         display: flex;
         gap: 4px;
-        /* grid-template-columns: 103px 24px 64px 64px 24px 80px; */
-        /* grid-template-areas: 'pause t-filler-1 t-animated pin t-filler-2 minimize'; */
-      }
 
-      & .bottom-panel {
-        grid-area: bottom-panel;
-        background-color: var(--color-bg);
-        padding: 0 4px;
-        display: flex;
-        gap: 4px;
-        /* grid-template-columns: 103px 24px 64px 64px 24px 80px; */
-        /* grid-template-areas: 'b-filler-1 b-animated . b-filler-2'; */
+        &.horizontal {
+          width: min-content;
+          padding: 0 4px;
+
+          &.top {
+            grid-area: top-panel;
+          }
+
+          &.bottom {
+            grid-area: bottom-panel;
+          }
+        }
+
+        &.vertical {
+          width: 100%;
+          height: max-content;
+          padding: 4px 0;
+          flex-direction: column;
+
+          &.left {
+            grid-area: left-panel;
+          }
+
+          &.right {
+            grid-area: right-panel;
+          }
+        }
       }
 
       & .filler {
@@ -59,46 +73,54 @@
         width: 24px;
       }
 
-      & .animated {
-        background-color: var(--color-5);
-        width: 54px;
+      & .wide-filler {
+        background-color: var(--color-7);
         height: 100%;
+        width: 32px;
       }
 
-      & .pause {
-        width: 102px;
+      & .animated {
+        --block-width: 54px;
+        --animation-block: calc(var(--block-width) / 3);
+        --animation-width: calc(var(--block-width) - var(--animation-block));
+        position: relative;
+        width: var(--block-width);
+        height: 100%;
+
+        &:is(:before, :after) {
+          content: '';
+          position: absolute;
+          left: 0;
+        }
+
+        &:before {
+          top: 0;
+          bottom: 50%;
+          width: 100%;
+          background-color: var(--color-5);
+        }
+
+        &:after {
+          top: calc(50% + 4px);
+          bottom: 0;
+          width: var(--animation-block);
+          background-color: var(--color-1);
+          animation-duration: var(--animation-duration, 2s);
+          animation-iteration-count: infinite;
+          animation-timing-function: var(--timing-function, ease-in-out);
+        }
+
+        &.wide {
+          --block-width: 102px;
+          &:after {
+            --timing-function: cubic-bezier(0.41, 0.08, 0.59, 0.91);
+            --animation-duration: 5s;
+          }
+        }
       }
 
-      & .pin {
-        width: 64px;
-      }
-
-      & .minimize {
-        width: 91px;
-      }
-
-      & .short {
-        grid-area: short;
-      }
-
-      & .long {
-        grid-area: long;
-      }
-
-      & .exit {
-        grid-area: exit;
-      }
-
-      & .b-filler-1 {
-        grid-area: b-filler-1;
-      }
-
-      & .b-animated {
-        grid-area: b-animated;
-      }
-
-      & .b-filler-2 {
-        grid-area: b-filler-2;
+      & .button {
+        width: 80px;
       }
     }
   }
