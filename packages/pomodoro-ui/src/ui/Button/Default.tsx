@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import cn from 'classnames';
 import { useEnumPropValue } from '../../hooks';
-import { BgColor, BgColorValue, Color } from '../global';
+import { BgColor, BgColorValue, Color } from '../../global';
+import { TextWeight } from '../Text';
 import { ButtonSize, ButtonWidth, IDefaultButtonProps, ButtonAccentSide } from './interfaces';
 import { useContent, useAccentLines } from './hooks';
 import styles from './styles.module.css';
-import { TextWeight } from '../Text';
 
 export function DefaultButton({
   className,

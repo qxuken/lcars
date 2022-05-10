@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { AfterAnimationClass } from '../global';
+import { AfterAnimationClass } from '../../global';
 import styles from './styles.module.css';
 
 export interface IAnimatedProps {

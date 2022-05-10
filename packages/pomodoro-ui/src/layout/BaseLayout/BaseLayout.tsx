@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import cn from 'classnames';
-import { Box, Text, BgColor } from '../../ui';
+import { Box, Text } from '../../ui';
+import { PredefinedAnimationClass, BgColor } from '../../global';
 import styles from './styles.module.css';
-import { PredefinedAnimationClass } from '../../ui/global';
 
 export interface IBaseLayoutProps {
   className?: string;

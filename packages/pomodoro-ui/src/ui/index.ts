@@ -4,4 +4,3 @@ export * from './Animated';
 export * from './Filler';
 export * from './Panel';
 export * from './Box';
-export * from './global';

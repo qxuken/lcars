@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 import { EnumProp } from '../../types';
-import { Color } from '../global';
+import { Color } from '../../global';
 
 export enum TextSize {
   small = 'size-small',

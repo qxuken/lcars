@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
-import type { BgColor } from '../global';
+import type { BgColor } from '../../global';
 import type { EnumProp } from '../../types';
 import { TextWeight } from '../Text';
 

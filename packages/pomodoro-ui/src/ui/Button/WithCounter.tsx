@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
 import cn from 'classnames';
 import { useEnumPropValue } from '../../hooks';
+import { BgColor, Color } from '../../global';
 import { Text, TextSize } from '../Text';
-import { DefaultButton } from './Default';
 import { ButtonSize, IButtonWithCounterProps } from './interfaces';
 import { getCounterTextSize } from './utils';
+import { DefaultButton } from './Default';
 import styles from './styles.module.css';
-import { BgColor, Color } from '../global';
 
 export function ButtonWithCounter({ className, counter, ...props }: IButtonWithCounterProps): JSX.Element {
   const size: ButtonSize = useEnumPropValue(ButtonSize, ButtonSize.default, props.size);

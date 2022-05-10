@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { Box, Button, Filler, Panel, Text } from '../../ui';
 import { BaseLayout } from '../BaseLayout';
 import styles from './styles.module.css';
-import { PredefinedAnimationClass } from '../../ui/global';
+import { PredefinedAnimationClass } from '../../global';
 
 export interface IMinimizedLayoutProps {
   className?: string;

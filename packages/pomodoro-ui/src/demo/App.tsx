@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Box, Text, Root } from '../ui';
+import { Button, Box, Text } from '../ui';
+import { Root } from '../global';
 import { BaseLayout, FullLayout, MinimizedLayout } from '../layout';
 import './app.css';
 

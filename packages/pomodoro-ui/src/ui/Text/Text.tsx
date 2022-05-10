@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useEnumPropValue } from '../../hooks';
-import { Color, ColorValue } from '../global';
+import { Color, ColorValue } from '../../global';
 import { ITextProps, TextSize, TextWeight } from './interfaces';
 import styles from './styles.module.css';
 
