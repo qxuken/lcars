@@ -5,7 +5,6 @@
     padding: 0px;
     border-style: none;
     cursor: pointer;
-    color: var(--color-white);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,7 +39,6 @@
     }
 
     & .counter {
-      background: var(--color-bg);
       padding: 1px 4px;
       margin: 0 4px 0 8px;
     }
@@ -81,7 +79,6 @@
       width: 4px;
       height: 100%;
       margin: 0 8px;
-      background: var(--color-bg);
     }
   }
 }

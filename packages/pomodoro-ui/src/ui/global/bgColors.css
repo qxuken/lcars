@@ -1,4 +1,7 @@
 @layer base {
+  .bg-color-default {
+    background-color: var(--color-bg);
+  }
   .bg-color-1 {
     background-color: var(--color-1);
   }

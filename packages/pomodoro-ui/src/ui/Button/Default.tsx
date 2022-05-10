@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useEnumPropValue } from '../../hooks';
-import { BgColor } from '../global';
+import { BgColor, Color } from '../global';
 import { ButtonSize, ButtonWidth, IDefaultButtonProps, ButtonAccentSide } from './interfaces';
 import { useContent, useAccentLines } from './hooks';
 import styles from './styles.module.css';
@@ -33,12 +33,20 @@ export function DefaultButton({
   return (
     <button
       {...props}
-      className={cn(className, bgColor, styles.button, styles[size], styles[width], styles[accentSide])}
+      className={cn(
+        className,
+        Color.white,
+        bgColor,
+        styles.button,
+        styles[size],
+        styles[width],
+        styles[accentSide]
+      )}
     >
-      {accentLines.left && <div className={styles['accent-line']} />}
+      {accentLines.left && <div className={cn(styles['accent-line'], BgColor.default)} />}
       {left}
       <div className={styles.content}>{content}</div>
-      {accentLines.right && <div className={styles['accent-line']} />}
+      {accentLines.right && <div className={cn(styles['accent-line'], BgColor.default)} />}
     </button>
   );
 }

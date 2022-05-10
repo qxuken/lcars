@@ -4,4 +4,4 @@ export * from './Animated';
 export * from './Filler';
 export * from './Panel';
 export * from './Box';
-import './global';
+export * from './global';

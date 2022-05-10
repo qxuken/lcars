@@ -3,7 +3,6 @@
     font-family: Antonio1;
     line-height: 1;
     text-transform: uppercase;
-    color: var(--color-white);
     margin: 0;
 
     &.size-small {

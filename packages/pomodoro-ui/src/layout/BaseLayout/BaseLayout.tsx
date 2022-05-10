@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import cn from 'classnames';
-import { Box, Text } from '../../ui';
+import { Box, Text, BgColor } from '../../ui';
 import styles from './styles.module.css';
 import { PredefinedAnimationClass } from '../../ui/global';
 
@@ -15,13 +15,19 @@ export interface IBaseLayoutProps {
 
 export function BaseLayout({ className, top, bottom, left, right, content }: IBaseLayoutProps): JSX.Element {
   return (
-    <div className={cn(className, styles.wrapper)}>
-      <div className={styles.container}>
-        {top && <div className={cn(styles.panel, styles.horizontal, styles.top)}>{top}</div>}
-        {bottom && <div className={cn(styles.panel, styles.horizontal, styles.bottom)}>{bottom}</div>}
-        {left && <div className={cn(styles.panel, styles.vertical, styles.left)}>{left}</div>}
-        {right && <div className={cn(styles.panel, styles.vertical, styles.right)}>{right}</div>}
-        <div className={styles.content}>
+    <div className={cn(className, styles.wrapper, BgColor.default)}>
+      <div className={cn(styles.container, BgColor.color7)}>
+        {top && <div className={cn(styles.panel, styles.horizontal, styles.top, BgColor.default)}>{top}</div>}
+        {bottom && (
+          <div className={cn(styles.panel, styles.horizontal, styles.bottom, BgColor.default)}>{bottom}</div>
+        )}
+        {left && (
+          <div className={cn(styles.panel, styles.vertical, styles.left, BgColor.default)}>{left}</div>
+        )}
+        {right && (
+          <div className={cn(styles.panel, styles.vertical, styles.right, BgColor.default)}>{right}</div>
+        )}
+        <div className={cn(styles.content, BgColor.default)}>
           {content ?? (
             <Box center>
               <Text as="h1" size="xxlarge" weight="semibold" className={PredefinedAnimationClass.blink}>

@@ -1,6 +1,7 @@
 // #region colors
 
 export enum Color {
+  white = 'color-white',
   color1 = 'color-1',
   color2 = 'color-2',
   color3 = 'color-3',
@@ -10,6 +11,7 @@ export enum Color {
   color7 = 'color-7',
 }
 export enum BgColor {
+  default = 'bg-color-default',
   color1 = 'bg-color-1',
   color2 = 'bg-color-2',
   color3 = 'bg-color-3',
@@ -17,11 +19,6 @@ export enum BgColor {
   color5 = 'bg-color-5',
   color6 = 'bg-color-6',
   color7 = 'bg-color-7',
-}
-
-export enum UtilColor {
-  bg = 'color-bg',
-  white = 'color-white',
 }
 
 // #endregion

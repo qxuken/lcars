@@ -1,5 +1,6 @@
 import { HTMLAttributes } from 'react';
 import { EnumProp } from '../../types';
+import { Color } from '../global';
 
 export enum TextSize {
   small = 'size-small',
@@ -17,6 +18,7 @@ export enum TextWeight {
 
 interface IBase<T> extends HTMLAttributes<T> {
   as?: keyof JSX.IntrinsicElements;
+  color?: EnumProp<typeof Color>;
   size?: EnumProp<typeof TextSize>;
   weight?: EnumProp<typeof TextWeight>;
 }
