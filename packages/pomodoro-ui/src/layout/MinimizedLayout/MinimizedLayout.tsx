@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import cn from 'classnames';
-import { Box, Button, Filler, Panel, Text } from '../../ui';
+import { Box, Button, Filler, Panel, Text } from '../../components';
 import { BaseLayout } from '../BaseLayout';
 import styles from './styles.module.css';
 import { PredefinedAnimationClass } from '../../global';
@@ -62,7 +62,7 @@ export function MinimizedLayout({ className, content }: IMinimizedLayoutProps): 
       content={
         content ?? (
           <Box center>
-            <Text as="h1" size="xlarge" weight="semibold" className={PredefinedAnimationClass.blink}>
+            <Text as="h1" size="xlarge" weight="semibold" className={PredefinedAnimationClass.blink7}>
               stand by
             </Text>
           </Box>

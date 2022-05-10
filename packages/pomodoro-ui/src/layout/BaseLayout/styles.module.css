@@ -2,6 +2,7 @@
   .wrapper {
     --border-radius: 48px;
     --side-width: 74px;
+    --side-top-height: 24px;
     box-sizing: border-box;
     padding: 12px;
     width: var(--width, 747px);
@@ -15,7 +16,7 @@
       display: grid;
       justify-items: center;
       grid-template-columns: var(--side-width) auto max-content auto var(--side-width);
-      grid-template-rows: 24px 1fr minmax(64px, max-content) 1fr 24px;
+      grid-template-rows: 24px var(--side-top-height) minmax(64px, max-content) 1fr 24px;
       grid-template-areas:
         '. . top-panel . .'
         '. content content content .'

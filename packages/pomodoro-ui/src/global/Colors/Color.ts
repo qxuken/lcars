@@ -3,8 +3,8 @@ import { styles } from '../../utils';
 import colors from './colors.module.css';
 import bgColors from './bgColors.module.css';
 
-const main = styles.getClassNameFromModule(colors);
-const bg = styles.getClassNameFromModule(bgColors);
+const main: (style: string) => string = styles.getClassNameFromModule(colors);
+const bg: (style: string) => string = styles.getClassNameFromModule(bgColors);
 
 export const Color: {
   readonly white: string;
@@ -49,3 +49,11 @@ export const BgColor: {
 };
 
 export type BgColorValue = ValueOf<typeof BgColor>;
+
+export const BgModifications: {
+  readonly hoverable: string;
+} = {
+  hoverable: bg('hoverable'),
+};
+
+export type BgModificationsValue = ValueOf<typeof BgModifications>;

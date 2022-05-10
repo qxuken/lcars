@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import cn from 'classnames';
-import { Box, Text } from '../../ui';
-import { PredefinedAnimationClass, BgColor } from '../../global';
+import { BgColor } from '../../global';
 import styles from './styles.module.css';
 
 export interface IBaseLayoutProps {
@@ -27,15 +26,7 @@ export function BaseLayout({ className, top, bottom, left, right, content }: IBa
         {right && (
           <div className={cn(styles.panel, styles.vertical, styles.right, BgColor.default)}>{right}</div>
         )}
-        <div className={cn(styles.content, BgColor.default)}>
-          {content ?? (
-            <Box center>
-              <Text as="h1" size="xxlarge" weight="semibold" className={PredefinedAnimationClass.blink}>
-                stand by
-              </Text>
-            </Box>
-          )}
-        </div>
+        <div className={cn(styles.content, BgColor.default)}>{content}</div>
       </div>
     </div>
   );

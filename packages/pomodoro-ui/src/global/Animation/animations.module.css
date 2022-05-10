@@ -18,17 +18,31 @@
     }
   }
 
-  .blink {
-    animation-name: blink;
+  .blink-white {
+    animation-name: blink-white;
   }
 
-  .blink-predefined {
-    animation: blink 3s steps(1) infinite;
+  .blink-7 {
+    animation-name: blink-7;
   }
 
-  @keyframes blink {
+  .blink-white-predefined {
+    animation: blink-white 3s steps(1) infinite;
+  }
+
+  .blink-7-predefined {
+    animation: blink-7 3s steps(1) infinite;
+  }
+
+  @keyframes blink-white {
     50% {
-      opacity: 0;
+      color: var(--color-white);
+    }
+  }
+
+  @keyframes blink-7 {
+    50% {
+      color: var(--color-7);
     }
   }
 }

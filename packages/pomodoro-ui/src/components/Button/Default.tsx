@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import cn from 'classnames';
 import { useEnumPropValue } from '../../hooks';
-import { BgColor, BgColorValue, Color } from '../../global';
+import { BgColor, BgColorValue, Color, BgModifications } from '../../global';
 import { TextWeight } from '../Text';
 import { ButtonSize, ButtonWidth, IDefaultButtonProps, ButtonAccentSide } from './interfaces';
 import { useContent, useAccentLines } from './hooks';
@@ -37,6 +37,7 @@ export function DefaultButton({
         className,
         Color.white,
         bgColor,
+        BgModifications.hoverable,
         styles.button,
         styles[size],
         styles[width],
