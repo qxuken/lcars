@@ -1,7 +1,10 @@
 {
   "name": "@qxuken/package-json-parser",
-  "author": "Nasonov V",
-  "version": "0.1.0",
+  "author": {
+    "name": "Victor N",
+    "email": "qxuken@gmail.com"
+  },
+  "version": "0.0.1",
   "license": "MIT",
   "module": "dist/package-json-parser.esm.js",
   "main": "dist/index.js",

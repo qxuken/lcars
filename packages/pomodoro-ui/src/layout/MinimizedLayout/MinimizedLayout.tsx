@@ -1,9 +1,8 @@
 import { ReactNode } from 'react';
 import cn from 'classnames';
-import { Box, Button, Filler, Panel, Text } from '../../components';
+import { Box, Button, Filler, Panel, Text, PredefinedAnimationClass } from '@qxuken/lcars-ui';
 import { BaseLayout } from '../BaseLayout';
 import styles from './styles.module.css';
-import { PredefinedAnimationClass } from '../../global';
 
 export interface IMinimizedLayoutProps {
   className?: string;

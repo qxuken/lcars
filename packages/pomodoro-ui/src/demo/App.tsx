@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Box, Text } from '../components';
-import { Root } from '../global';
+import { Root, Button, Box, Text } from '@qxuken/lcars-ui';
 import { BaseLayout, FullLayout, MinimizedLayout } from '../layout';
 import './app.css';
+import '@qxuken/lcars-ui/dist/style.css';
 
 enum Layout {
   Base,
@@ -15,43 +15,6 @@ export function App(): JSX.Element {
   const onLayoutChange = useCallback((layout: Layout) => () => setLayout(layout), []);
   return (
     <div className={Root.root}>
-      <div className="demo-card">
-        <Text as="h2">Button:</Text>
-        <Box minFlex>
-          <Button>Button</Button>
-          <Button counter={10}>Button</Button>
-        </Box>
-        <Box minFlex>
-          <Button accentSide="none">Button</Button>
-          <Button accentSide="both" width="min10">
-            Button
-          </Button>
-          <Button accentSide="right">Button</Button>
-          <Button accentSide="left">Button</Button>
-        </Box>
-        <Box minFlex>
-          <Button accentSide="none" withAccentLine>
-            Button
-          </Button>
-          <Button accentSide="both" withAccentLine>
-            Button
-          </Button>
-          <Button accentSide="right" withAccentLine>
-            Button
-          </Button>
-          <Button accentSide="left" withAccentLine>
-            Button
-          </Button>
-        </Box>
-        <Box minFlex>
-          <Button accentSide="right" withAccentLine counter={10}>
-            Button
-          </Button>
-          <Button accentSide="left" counter={10}>
-            Button
-          </Button>
-        </Box>
-      </div>
       <div className="demo-card">
         <Text as="h2">layout:</Text>
         <Box minFlex>

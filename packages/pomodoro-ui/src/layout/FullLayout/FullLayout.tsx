@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
-import { Button, Animated, Filler, Panel, Content, Text } from '../../components';
-import { PredefinedAnimationClass } from '../../global';
+import { Button, Animated, Filler, Panel, Content, Text, PredefinedAnimationClass } from '@qxuken/lcars-ui';
 import { BaseLayout } from '../BaseLayout';
 
 function TopPanel(): JSX.Element {

@@ -484,6 +484,11 @@
       "tags": ["packages", "utils"]
     },
     {
+      "packageName": "@qxuken/lcars-ui",
+      "projectFolder": "packages/lcars-ui",
+      "tags": ["packages", "web", "desktop"]
+    },
+    {
       "packageName": "@qxuken/pomodoro-ui",
       "projectFolder": "packages/pomodoro-ui",
       "tags": ["packages", "web", "desktop", "pomodoro"]

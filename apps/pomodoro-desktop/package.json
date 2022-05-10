@@ -2,7 +2,12 @@
   "name": "@qxuken/pomodoro-desktop",
   "productName": "lcars-pomodoro",
   "description": "Pomodoro timer inspired by LCARS design",
-  "version": "1.0.0",
+  "author": {
+    "name": "Victor N",
+    "email": "qxuken@gmail.com"
+  },
+  "version": "0.0.1",
+  "license": "MIT",
   "main": ".webpack/main",
   "scripts": {
     "dev": "electron-forge start",
@@ -12,11 +17,6 @@
     "lint": "eslint --ext .ts,.tsx ."
   },
   "keywords": [],
-  "author": {
-    "name": "Victor N",
-    "email": "qxuken@gmail.com"
-  },
-  "license": "MIT",
   "config": {
     "forge": {
       "packagerConfig": {},

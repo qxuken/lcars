@@ -1,5 +1,5 @@
 {
-  "name": "@qxuken/pomodoro-ui",
+  "name": "@qxuken/lcars-ui",
   "author": {
     "name": "Victor N",
     "email": "qxuken@gmail.com"
@@ -37,8 +37,7 @@
     "postcss": "8.4.12",
     "postcss-pxtorem": "6.0.0",
     "postcss-pseudo-is": "0.3.0",
-    "postcss-nested": "5.0.6",
-    "postcss-import": "14.1.0"
+    "postcss-nested": "5.0.6"
   },
   "dependencies": {
     "@qxuken/vite-lib-config": "workspace:*",
@@ -48,7 +47,6 @@
     "ramda": "0.28.0",
     "@types/ramda": "0.28.12",
     "ts-toolbelt": "9.6.0",
-    "@qxuken/react-utils": "workspace:*",
-    "@qxuken/lcars-ui": "workspace:*"
+    "@qxuken/react-utils": "workspace:*"
   }
 }

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import cn from 'classnames';
-import { BgColor } from '../../global';
+import { BgColor } from '@qxuken/lcars-ui';
 import styles from './styles.module.css';
 
 export interface IBaseLayoutProps {
