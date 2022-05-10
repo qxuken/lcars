@@ -16,7 +16,7 @@ export function MinimizedLayout({ className, content }: IMinimizedLayoutProps): 
       className={cn(className, styles.wrapper)}
       top={
         <Panel>
-          <Button size="small" bgColor="color6" width="fixed4">
+          <Button size="small" bgColor="color6" width="fixed5" weight="light">
             pomodoro
           </Button>
           <Filler size="small" />
@@ -31,7 +31,7 @@ export function MinimizedLayout({ className, content }: IMinimizedLayoutProps): 
       }
       bottom={
         <Panel>
-          <Button size="small" bgColor="color4" width="fixed4">
+          <Button size="small" bgColor="color4" width="fixed5">
             start
           </Button>
           <Filler size="small" />

@@ -1,34 +1,66 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Text } from '../ui';
+import { Button, Box, Text } from '../ui';
 import { BaseLayout, FullLayout, MinimizedLayout } from '../layout';
 import './app.css';
 
+enum Layout {
+  Base,
+  Full,
+  Minimized,
+}
+
 export function App(): JSX.Element {
-  const [value, setValue] = useState(0);
-  const onClick = useCallback(() => setValue(value + 1), [value]);
+  const [layout, setLayout] = useState(Layout.Full);
+  const onLayoutChange = useCallback((layout: Layout) => () => setLayout(layout), []);
   return (
     <div className="pomodoro-ui">
       <div className="demo-card">
         <Text as="h2">Button:</Text>
-        <Button onClick={onClick}>value: {value}</Button>
+        <Box minFlex>
+          <Button>Button</Button>
+          <Button counter={10}>Button</Button>
+        </Box>
+        <Box minFlex>
+          <Button accentSide="none">Button</Button>
+          <Button accentSide="both" width="min10">
+            Button
+          </Button>
+          <Button accentSide="right">Button</Button>
+          <Button accentSide="left">Button</Button>
+        </Box>
+        <Box minFlex>
+          <Button accentSide="none" withAccentLine>
+            Button
+          </Button>
+          <Button accentSide="both" withAccentLine>
+            Button
+          </Button>
+          <Button accentSide="right" withAccentLine>
+            Button
+          </Button>
+          <Button accentSide="left" withAccentLine>
+            Button
+          </Button>
+        </Box>
+        <Box minFlex>
+          <Button accentSide="right" withAccentLine counter={10}>
+            Button
+          </Button>
+          <Button accentSide="left" counter={10}>
+            Button
+          </Button>
+        </Box>
       </div>
       <div className="demo-card">
-        <Text as="h2">Button with counter:</Text>
-        <Button onClick={onClick} counter={10}>
-          value: {value}
-        </Button>
-      </div>
-      <div className="demo-card">
-        <Text as="h2">Base layout:</Text>
-        <BaseLayout />
-      </div>
-      <div className="demo-card">
-        <Text as="h2">Full layout:</Text>
-        <FullLayout />
-      </div>
-      <div className="demo-card">
-        <Text as="h2">Minimized layout:</Text>
-        <MinimizedLayout />
+        <Text as="h2">layout:</Text>
+        <Box minFlex>
+          <Button onClick={onLayoutChange(Layout.Base)}>Base</Button>
+          <Button onClick={onLayoutChange(Layout.Full)}>Full</Button>
+          <Button onClick={onLayoutChange(Layout.Minimized)}>Minimized</Button>
+        </Box>
+        {layout === Layout.Base && <BaseLayout />}
+        {layout === Layout.Full && <FullLayout />}
+        {layout === Layout.Minimized && <MinimizedLayout />}
       </div>
     </div>
   );

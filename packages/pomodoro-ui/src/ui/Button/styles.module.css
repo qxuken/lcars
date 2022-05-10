@@ -1,14 +1,17 @@
 @layer components {
   .button {
-    padding: 4px 4px;
-    text-align: center;
-    color: var(--color-white);
+    --round-radius: 8px;
+    height: min-content;
+    padding: 0px;
     border-style: none;
     cursor: pointer;
+    color: var(--color-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    &.with-counter {
-      display: flex;
-      align-items: center;
+    &.center {
+      justify-content: center;
     }
 
     &.size-small {
@@ -32,10 +35,53 @@
       width: 80px;
     }
 
+    &.width-min10 {
+      min-width: 160px;
+    }
+
     & .counter {
       background: var(--color-bg);
       padding: 1px 4px;
-      margin: 0 4px;
+      margin: 0 4px 0 8px;
+    }
+
+    &.accent-none {
+      border-radius: var(--round-radius);
+
+      & .content {
+        padding: 4px 12px;
+      }
+    }
+
+    &.accent-both {
+      border-radius: 0;
+
+      & .content {
+        padding: 4px 4px;
+      }
+    }
+
+    &.accent-left {
+      border-radius: 0 var(--round-radius) var(--round-radius) 0;
+
+      & .content {
+        padding: 4px 12px 4px 4px;
+      }
+    }
+
+    &.accent-right {
+      border-radius: var(--round-radius) 0 0 var(--round-radius);
+
+      & .content {
+        padding: 4px 4px 4px 12px;
+      }
+    }
+
+    & .accent-line {
+      width: 4px;
+      height: 100%;
+      margin: 0 8px;
+      background: var(--color-bg);
     }
   }
 }

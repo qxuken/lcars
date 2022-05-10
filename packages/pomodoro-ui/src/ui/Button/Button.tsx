@@ -1,6 +1,6 @@
 import { ButtonWithCounter } from './WithCounter';
 import { DefaultButton } from './Default';
-import { IButtonProps, isButtonWithCounter, ButtonSize, ButtonWidth } from './interfaces';
+import { IButtonProps, isButtonWithCounter, ButtonSize, ButtonWidth, ButtonAccentSide } from './interfaces';
 
 export function Button(props: IButtonProps): JSX.Element {
   if (isButtonWithCounter(props)) {
@@ -11,3 +11,4 @@ export function Button(props: IButtonProps): JSX.Element {
 
 Button.Size = ButtonSize;
 Button.Width = ButtonWidth;
+Button.AccentSide = ButtonAccentSide;

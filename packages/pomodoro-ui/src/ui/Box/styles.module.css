@@ -1,5 +1,10 @@
 @layer components {
   .box {
+    &.min-flex {
+      display: flex;
+      width: min-content;
+      gap: 4px;
+    }
     &.center {
       height: 100%;
       width: 100%;

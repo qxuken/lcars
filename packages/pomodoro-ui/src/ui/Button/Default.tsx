@@ -1,9 +1,11 @@
 import cn from 'classnames';
 import { useEnumPropValue } from '../../hooks';
 import { BgColor } from '../global';
-import { ButtonSize, ButtonWidth, IDefaultButtonProps } from './interfaces';
-import { useContent } from './hooks';
+import { ButtonSize, ButtonWidth, IDefaultButtonProps, ButtonAccentSide } from './interfaces';
+import { useContent, useAccentLines } from './hooks';
 import styles from './styles.module.css';
+import { TextWeight } from '../Text';
+import { useMemo } from 'react';
 
 export function DefaultButton({
   className,
@@ -11,15 +13,32 @@ export function DefaultButton({
   bgColor: bgColorProp,
   width: widthProp,
   size: sizeProp,
+  accentSide: accentSideProp,
+  weight = TextWeight.regular,
+  withAccentLine,
+  left,
   ...props
 }: IDefaultButtonProps): JSX.Element {
   const bgColor: BgColor = useEnumPropValue(BgColor, BgColor.color6, bgColorProp);
   const size: ButtonSize = useEnumPropValue(ButtonSize, ButtonSize.default, sizeProp);
   const width: ButtonWidth = useEnumPropValue(ButtonWidth, ButtonWidth.full, widthProp);
-  const content = useContent(children, size);
+  const accentSide: ButtonAccentSide = useEnumPropValue(
+    ButtonAccentSide,
+    ButtonAccentSide.both,
+    accentSideProp
+  );
+  const accentLines = useAccentLines(accentSide, withAccentLine);
+  const textProps = useMemo(() => ({ weight }), [weight]);
+  const content = useContent(children, size, textProps);
   return (
-    <button {...props} className={cn(className, bgColor, styles.button, styles[size], styles[width])}>
-      {content}
+    <button
+      {...props}
+      className={cn(className, bgColor, styles.button, styles[size], styles[width], styles[accentSide])}
+    >
+      {accentLines.left && <div className={styles['accent-line']} />}
+      {left}
+      <div className={styles.content}>{content}</div>
+      {accentLines.right && <div className={styles['accent-line']} />}
     </button>
   );
 }
