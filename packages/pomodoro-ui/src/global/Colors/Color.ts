@@ -1,5 +1,5 @@
 import { ValueOf } from 'type-fest';
-import { styles } from '../../utils';
+import { styles } from '@qxuken/react-utils';
 import colors from './colors.module.css';
 import bgColors from './bgColors.module.css';
 

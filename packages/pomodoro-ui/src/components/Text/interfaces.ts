@@ -1,5 +1,5 @@
 import { HTMLAttributes } from 'react';
-import { EnumProp } from '../../types';
+import { EnumProp } from '@qxuken/react-utils';
 import { Color } from '../../global';
 
 export enum TextSize {

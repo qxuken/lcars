@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import cn from 'classnames';
-import { useEnumPropValue } from '../../hooks';
+import { useEnumPropValue } from '@qxuken/react-utils';
 import { BgColor, Color } from '../../global';
 import { Text, TextSize } from '../Text';
 import { ButtonSize, IButtonWithCounterProps } from './interfaces';

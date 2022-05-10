@@ -1,4 +1,4 @@
-import { PackageJsonParser } from '../src';
+import { PackageJsonParser } from './ParsedPackageJson';
 
 describe('PackageJsonParser', () => {
   it('name with prefix', () => {

@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
+import type { EnumProp } from '@qxuken/react-utils';
 import type { BgColor } from '../../global';
-import type { EnumProp } from '../../types';
 import { TextWeight } from '../Text';
 
 export enum ButtonSize {

@@ -1,7 +1,6 @@
 import cn from 'classnames';
-import { useEnumPropValue } from '../../hooks';
+import { useEnumPropValue, EnumProp } from '@qxuken/react-utils';
 import { BgColor, BgColorValue } from '../../global';
-import { EnumProp } from '../../types';
 import styles from './styles.module.css';
 
 export enum FillerSize {

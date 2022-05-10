@@ -1,4 +1,4 @@
-import { modifyConfig } from '../src';
+import { modifyConfig } from './modifyConfig';
 
 describe('modifyConfig', () => {
   it('converts default config', () => {

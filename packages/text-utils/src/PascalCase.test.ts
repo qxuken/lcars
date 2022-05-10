@@ -1,4 +1,4 @@
-import { PascalCase } from '../src';
+import { PascalCase } from './PascalCase';
 
 describe('PascalCase', () => {
   it('fromKebabCase', () => {

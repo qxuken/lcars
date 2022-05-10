@@ -10,7 +10,7 @@ export function useEnumPropValue<K extends string, V extends string>(
   const res: V = useMemo(
     () =>
       Maybe.fromEmpty(value)
-        .map((val) => enums.getValueFromKeyOrValue(base, val as K | V))
+        .flatMap((val) => enums.getValueFromKeyOrValue(base, val as K | V))
         .orSome(defaultValue),
     [base, value, defaultValue]
   );

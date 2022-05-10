@@ -1,4 +1,4 @@
-import { TextUtils } from '../src';
+import { TextUtils } from './TextUtils';
 
 describe('TextUtils', () => {
   it('capitalize', () => {

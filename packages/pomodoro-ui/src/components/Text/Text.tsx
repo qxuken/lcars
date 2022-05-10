@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { useEnumPropValue } from '../../hooks';
+import { useEnumPropValue } from '@qxuken/react-utils';
 import { Color, ColorValue } from '../../global';
 import { ITextProps, TextSize, TextWeight } from './interfaces';
 import styles from './styles.module.css';

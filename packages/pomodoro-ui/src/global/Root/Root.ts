@@ -1,4 +1,4 @@
-import { styles } from '../../utils';
+import { styles } from '@qxuken/react-utils';
 import root from './root.module.css';
 import './fonts.css';
 

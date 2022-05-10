@@ -489,6 +489,11 @@
       "tags": ["packages", "web", "desktop", "pomodoro"]
     },
     {
+      "packageName": "@qxuken/react-utils",
+      "projectFolder": "packages/react-utils",
+      "tags": ["packages", "utils"]
+    },
+    {
       "packageName": "@qxuken/vite-lib-config",
       "projectFolder": "tools/vite-lib-config",
       "tags": ["tools", "build"]

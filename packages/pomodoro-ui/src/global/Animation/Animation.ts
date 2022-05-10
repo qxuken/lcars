@@ -1,5 +1,5 @@
 import { ValueOf } from 'type-fest';
-import { styles } from '../../utils';
+import { styles } from '@qxuken/react-utils';
 import animations from './animations.module.css';
 
 const an: (style: string) => string = styles.getClassNameFromModule(animations);
