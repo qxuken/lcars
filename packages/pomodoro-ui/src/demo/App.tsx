@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Button, Text } from '../ui';
-import { FullLayout } from '../layout';
+import { BaseLayout, FullLayout, MinimizedLayout } from '../layout';
 import './app.css';
 
 export function App(): JSX.Element {
@@ -19,8 +19,16 @@ export function App(): JSX.Element {
         </Button>
       </div>
       <div className="demo-card">
+        <Text as="h2">Base layout:</Text>
+        <BaseLayout />
+      </div>
+      <div className="demo-card">
         <Text as="h2">Full layout:</Text>
         <FullLayout />
+      </div>
+      <div className="demo-card">
+        <Text as="h2">Minimized layout:</Text>
+        <MinimizedLayout />
       </div>
     </div>
   );

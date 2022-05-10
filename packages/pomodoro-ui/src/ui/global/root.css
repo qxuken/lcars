@@ -16,16 +16,4 @@
   .pomodoro-ui * {
     user-select: none;
   }
-
-  @keyframes bounce-x {
-    0% {
-      transform: translateX(0);
-    }
-    50% {
-      transform: translateX(var(--block-width));
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
 }

@@ -1,9 +1,10 @@
 @layer components {
   .text {
-    font-family: Antonio;
+    font-family: Antonio1;
     line-height: 1;
     text-transform: uppercase;
     color: var(--color-white);
+    margin: 0;
 
     &.size-small {
       font-size: 16px;
@@ -18,7 +19,22 @@
     }
 
     &.size-xlarge {
+      font-size: 48px;
+    }
+    &.size-xxlarge {
       font-size: 64px;
+    }
+
+    &.weight-light {
+      font-weight: 300;
+    }
+
+    &.weight-regular {
+      font-weight: 400;
+    }
+
+    &.weight-semibold {
+      font-weight: 600;
     }
   }
 }

@@ -1,0 +1,7 @@
+@layer layout {
+  .wrapper {
+    --side-width: 61px;
+    --width: 440px;
+    --height: 163px;
+  }
+}

@@ -1,0 +1,41 @@
+@layer components {
+  .animated {
+    --block-width: 54px;
+    --animation-block: calc(var(--block-width) / 3);
+    --animation-width: calc(var(--block-width) - var(--animation-block));
+    position: relative;
+    width: var(--block-width);
+    height: 24px;
+
+    &:is(:before, :after) {
+      content: '';
+      position: absolute;
+      left: 0;
+    }
+
+    &:before {
+      top: 0;
+      bottom: 50%;
+      width: 100%;
+      background-color: var(--color-5);
+    }
+
+    &:after {
+      top: calc(50% + 4px);
+      bottom: 0;
+      width: var(--animation-block);
+      background-color: var(--color-1);
+      animation-duration: var(--animation-duration, 2s);
+      animation-iteration-count: infinite;
+      animation-timing-function: var(--timing-function, ease-in-out);
+    }
+
+    &.wide {
+      --block-width: 102px;
+      &:after {
+        --timing-function: cubic-bezier(0.41, 0.08, 0.59, 0.91);
+        --animation-duration: 5s;
+      }
+    }
+  }
+}

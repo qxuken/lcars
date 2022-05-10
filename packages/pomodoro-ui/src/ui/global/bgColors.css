@@ -1,0 +1,29 @@
+@layer base {
+  .bg-color-1 {
+    background-color: var(--color-1);
+  }
+
+  .bg-color-2 {
+    background-color: var(--color-2);
+  }
+
+  .bg-color-3 {
+    background-color: var(--color-3);
+  }
+
+  .bg-color-4 {
+    background-color: var(--color-4);
+  }
+
+  .bg-color-5 {
+    background-color: var(--color-5);
+  }
+
+  .bg-color-6 {
+    background-color: var(--color-6);
+  }
+
+  .bg-color-7 {
+    background-color: var(--color-7);
+  }
+}

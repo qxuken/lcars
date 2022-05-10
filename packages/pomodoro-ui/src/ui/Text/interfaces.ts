@@ -1,16 +1,24 @@
 import { HTMLAttributes } from 'react';
-import { StringKeyOf } from 'type-fest';
+import { EnumProp } from '../../types';
 
 export enum TextSize {
   small = 'size-small',
   medium = 'size-medium',
   large = 'size-large',
   xlarge = 'size-xlarge',
+  xxlarge = 'size-xxlarge',
+}
+
+export enum TextWeight {
+  light = 'weight-light',
+  regular = 'weight-regular',
+  semibold = 'weight-semibold',
 }
 
 interface IBase<T> extends HTMLAttributes<T> {
   as?: keyof JSX.IntrinsicElements;
-  size?: StringKeyOf<typeof TextSize> | TextSize;
+  size?: EnumProp<typeof TextSize>;
+  weight?: EnumProp<typeof TextWeight>;
 }
 
 interface ITextSpan extends IBase<HTMLSpanElement> {

@@ -1,6 +1,5 @@
 @layer components {
   .button {
-    width: 100%;
     padding: 4px 4px;
     text-align: center;
     color: var(--color-white);
@@ -21,38 +20,22 @@
       height: 32px;
     }
 
-    &.color-1 {
-      background-color: var(--color-1);
+    &.width-full {
+      width: 100%;
     }
 
-    &.color-2 {
-      background-color: var(--color-2);
+    &.width-fixed4 {
+      width: 64px;
     }
 
-    &.color-3 {
-      background-color: var(--color-3);
-    }
-
-    &.color-4 {
-      background-color: var(--color-4);
-    }
-
-    &.color-5 {
-      background-color: var(--color-5);
-    }
-
-    &.color-6 {
-      background-color: var(--color-6);
-    }
-
-    &.color-7 {
-      background-color: var(--color-7);
+    &.width-fixed5 {
+      width: 80px;
     }
 
     & .counter {
       background: var(--color-bg);
-      padding: 1px 2px;
-      margin: 0 2px;
+      padding: 1px 4px;
+      margin: 0 4px;
     }
   }
 }

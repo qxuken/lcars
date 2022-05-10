@@ -1,16 +1,23 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
-import type { StringKeyOf } from 'type-fest';
-import type { Color } from '../global';
+import type { BgColor } from '../global';
+import type { EnumProp } from '../../types';
 
 export enum ButtonSize {
   small = 'size-small',
   default = 'size-default',
 }
 
+export enum ButtonWidth {
+  full = 'width-full',
+  fixed4 = 'width-fixed4',
+  fixed5 = 'width-fixed5',
+}
+
 export interface IDefaultButtonProps
   extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-  size?: StringKeyOf<typeof ButtonSize> | ButtonSize;
-  color?: StringKeyOf<typeof Color> | Color;
+  size?: EnumProp<typeof ButtonSize>;
+  width?: EnumProp<typeof ButtonWidth>;
+  bgColor?: EnumProp<typeof BgColor>;
 }
 
 export interface IButtonWithCounterProps extends IDefaultButtonProps {
