@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './demo';
+import './main';
 
 const rootEl: HTMLElement = document.getElementById('root')!;
 

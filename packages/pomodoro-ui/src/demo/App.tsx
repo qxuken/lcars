@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Root, Button, Box, Text } from '@qxuken/lcars-ui';
-import { BaseLayout, FullLayout, MinimizedLayout } from '../layout';
+import { BaseLayout, FullLayout, MinimizedLayout } from '../components';
 import './app.css';
-import '@qxuken/lcars-ui/dist/style.css';
 
 enum Layout {
   Base,
