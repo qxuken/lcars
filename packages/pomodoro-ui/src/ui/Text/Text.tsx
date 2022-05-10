@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useEnumPropValue } from '../../hooks';
-import { Color } from '../global';
+import { Color, ColorValue } from '../global';
 import { ITextProps, TextSize, TextWeight } from './interfaces';
 import styles from './styles.module.css';
 
@@ -13,7 +13,7 @@ export function Text({
   ...props
 }: ITextProps): JSX.Element {
   const Tag = as;
-  const color: Color = useEnumPropValue(Color, Color.white, colorProp);
+  const color: ColorValue = useEnumPropValue(Color, Color.white, colorProp);
   const size: TextSize = useEnumPropValue(TextSize, TextSize.medium, sizeProp);
   const weight: TextWeight = useEnumPropValue(TextWeight, TextWeight.regular, weightProp);
 

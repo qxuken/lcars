@@ -1,11 +1,11 @@
+import { useMemo } from 'react';
 import cn from 'classnames';
 import { useEnumPropValue } from '../../hooks';
-import { BgColor, Color } from '../global';
+import { BgColor, BgColorValue, Color } from '../global';
 import { ButtonSize, ButtonWidth, IDefaultButtonProps, ButtonAccentSide } from './interfaces';
 import { useContent, useAccentLines } from './hooks';
 import styles from './styles.module.css';
 import { TextWeight } from '../Text';
-import { useMemo } from 'react';
 
 export function DefaultButton({
   className,
@@ -19,7 +19,7 @@ export function DefaultButton({
   left,
   ...props
 }: IDefaultButtonProps): JSX.Element {
-  const bgColor: BgColor = useEnumPropValue(BgColor, BgColor.color6, bgColorProp);
+  const bgColor: BgColorValue = useEnumPropValue(BgColor, BgColor.color6, bgColorProp);
   const size: ButtonSize = useEnumPropValue(ButtonSize, ButtonSize.default, sizeProp);
   const width: ButtonWidth = useEnumPropValue(ButtonWidth, ButtonWidth.full, widthProp);
   const accentSide: ButtonAccentSide = useEnumPropValue(

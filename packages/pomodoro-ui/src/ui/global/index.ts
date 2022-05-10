@@ -1,7 +1,3 @@
-export * from './interfaces';
-
-import './root.css';
-import './animations.css';
-import './fonts.css';
-import './bgColors.css';
-import './colors.css';
+export * from './Colors';
+export * from './Animation';
+export * from './Root';

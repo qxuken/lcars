@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Box, Text } from '../ui';
+import { Button, Box, Text, Root } from '../ui';
 import { BaseLayout, FullLayout, MinimizedLayout } from '../layout';
 import './app.css';
 
@@ -13,7 +13,7 @@ export function App(): JSX.Element {
   const [layout, setLayout] = useState(Layout.Full);
   const onLayoutChange = useCallback((layout: Layout) => () => setLayout(layout), []);
   return (
-    <div className="pomodoro-ui">
+    <div className={Root.root}>
       <div className="demo-card">
         <Text as="h2">Button:</Text>
         <Box minFlex>
