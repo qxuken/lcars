@@ -380,7 +380,7 @@
    * to projects. If this property is not specified, any tag is allowed. This
    * list is useful in preventing typos when specifying tags for projects.
    */
-  "allowedProjectTags": ["apps", "tools", "packages", "web", "desktop", "pomodoro", "build", "utils"],
+  "allowedProjectTags": ["apps", "tools", "packages", "web", "desktop", "build", "utils"],
 
   /**
    * (Required) This is the inventory of projects to be managed by Rush.
@@ -471,7 +471,7 @@
     {
       "packageName": "@qxuken/pomodoro-desktop",
       "projectFolder": "apps/pomodoro-desktop",
-      "tags": ["apps", "desktop", "pomodoro"]
+      "tags": ["apps", "desktop"]
     },
     {
       "packageName": "@qxuken/text-utils",
@@ -489,9 +489,14 @@
       "tags": ["packages", "web", "desktop"]
     },
     {
-      "packageName": "@qxuken/pomodoro-ui",
-      "projectFolder": "packages/pomodoro-ui",
-      "tags": ["packages", "web", "desktop", "pomodoro"]
+      "packageName": "@qxuken/pomodoro-react",
+      "projectFolder": "packages/pomodoro-react",
+      "tags": ["packages", "web", "desktop"]
+    },
+    {
+      "packageName": "@qxuken/flowtime",
+      "projectFolder": "packages/flowtime",
+      "tags": ["packages", "web", "desktop"]
     },
     {
       "packageName": "@qxuken/react-utils",

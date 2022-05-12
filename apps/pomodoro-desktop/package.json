@@ -94,6 +94,6 @@
     "electron-squirrel-startup": "^1.0.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "@qxuken/pomodoro-ui": "workspace:*"
+    "@qxuken/pomodoro-react": "workspace:*"
   }
 }
