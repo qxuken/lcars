@@ -1,3 +1,4 @@
+import { createMachine } from 'xstate';
 import { Maybe } from 'monet';
 import { produce } from 'immer';
 import { Phase, Action, State } from './model';
@@ -9,7 +10,7 @@ export const initialState: State = {
   nextRecommendedPhase: Phase.Focus,
   recommendedPhaseDurationMin: Maybe.None(),
   lastPhaseStartTime: Maybe.None(),
-  interruptionsDuration: Maybe.None(),
+  interruptionStartTime: Maybe.None(),
 };
 
 const changePhase = produce((state: State, phase: Phase) => {
@@ -30,6 +31,31 @@ const changePhase = produce((state: State, phase: Phase) => {
   // ** calculate recommendedPhaseDurationMin on resume
 });
 
+const pause = produce((state: State) => {
+  if (state.activePhase !== Phase.Focus) {
+    return;
+  }
+  const now = new Date();
+  state.activePhase = Phase.Pause;
+  state.nextRecommendedPhase = Phase.Focus;
+  state.interruptionStartTime = Maybe.Some(now);
+});
+
+const resume = produce((state: State) => {
+  if (state.activePhase !== Phase.Pause) {
+    return;
+  }
+  const now = new Date();
+  const pauseDuration = state.interruptionStartTime
+    .map((lp) => now.getTime() - lp.getTime())
+    .map((diff) => Math.floor((diff / 60) * 5))
+    .orSome(0);
+  state.activePhase = Phase.Focus;
+  state.nextRecommendedPhase = Phase.Break;
+  state.recommendedPhaseDurationMin = getPhaseDuration(Phase.Focus, pauseDuration, state.focusPhaseCount);
+  state.interruptionStartTime = Maybe.None();
+});
+
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'startFocus':
@@ -37,9 +63,9 @@ export function reducer(state: State, action: Action): State {
     case 'startBreak':
       return changePhase(state, Phase.Break);
     case 'pause':
-      return changePhase(state, Phase.Pause);
+      return pause(state);
     case 'resume':
-      return changePhase(state, state.nextRecommendedPhase);
+      return resume(state);
     case 'stop':
       return changePhase(state, Phase.Idle);
     case 'reset':

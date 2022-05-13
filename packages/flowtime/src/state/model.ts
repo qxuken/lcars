@@ -7,13 +7,17 @@ export enum Phase {
   Pause,
 }
 
+export interface Interruption {
+  duration: Maybe<Date>;
+  startTime: Maybe<Date>;
+}
+
 export interface State {
-  activePhase: Phase;
   focusPhaseCount: number;
   nextRecommendedPhase: Phase;
   recommendedPhaseDurationMin: Maybe<number>;
   lastPhaseStartTime: Maybe<Date>;
-  interruptionsDuration: Maybe<Date>;
+  interruptionStartTime: Maybe<Date>;
 }
 
 export interface StartFocusAction {
