@@ -37,7 +37,8 @@
     "@qxuken/vite-lib-config": "workspace:*",
     "monet": "0.9.3",
     "rxjs": "7.5.5",
-    "immer": "9.0.13",
-    "xstate": "4.32.0"
+    "xstate": "4.32.0",
+    "@xstate/immer": "0.3.1",
+    "immer": "9.0.14"
   }
 }

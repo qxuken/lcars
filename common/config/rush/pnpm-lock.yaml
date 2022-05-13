@@ -76,8 +76,9 @@ importers:
       '@rushstack/eslint-config': 2.6.0
       '@types/jest': 27.5.0
       '@types/node': 17.0.32
+      '@xstate/immer': 0.3.1
       eslint: 8.15.0
-      immer: 9.0.13
+      immer: 9.0.14
       jest: 28.1.0
       monet: 0.9.3
       rxjs: 7.5.5
@@ -88,7 +89,8 @@ importers:
       xstate: 4.32.0
     dependencies:
       '@qxuken/vite-lib-config': link:../../tools/vite-lib-config
-      immer: 9.0.13
+      '@xstate/immer': 0.3.1_immer@9.0.14+xstate@4.32.0
+      immer: 9.0.14
       monet: 0.9.3
       rxjs: 7.5.5
       xstate: 4.32.0
@@ -3004,7 +3006,7 @@ packages:
     resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     requiresBuild: true
     dependencies:
-      '@types/node': 17.0.29
+      '@types/node': 17.0.32
     dev: true
     optional: true
 
@@ -3821,6 +3823,16 @@ packages:
       '@webassemblyjs/ast': 1.11.1
       '@xtuc/long': 4.2.2
     dev: true
+
+  /@xstate/immer/0.3.1_immer@9.0.14+xstate@4.32.0:
+    resolution: {integrity: sha512-YE+KY08IjEEmXo6XKKpeSGW4j9LfcXw+5JVixLLUO3fWQ3M95joWJ40VtGzx0w0zQSzoCNk8NgfvwWBGSbIaTA==}
+    peerDependencies:
+      immer: ^9.0.6
+      xstate: ^4.29.0
+    dependencies:
+      immer: 9.0.14
+      xstate: 4.32.0
+    dev: false
 
   /@xtuc/ieee754/1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -7991,8 +8003,8 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immer/9.0.13:
-    resolution: {integrity: sha512-LufFIoBO2q3CZoUiObiV6ICK7QsrxOIo8ReQHggmYHA7aSbQdsAiZ+mkR3cjRD5ZxC/0P6EMdx2kk6oj1qyFLw==}
+  /immer/9.0.14:
+    resolution: {integrity: sha512-ubBeqQutOSLIFCUBN03jGeOS6a3DoYlSYwYJTa+gSKEZKU5redJIqkIdZ3JVv/4RZpfcXdAWH5zCNLWPRv2WDw==}
     dev: false
 
   /import-fresh/3.3.0:

@@ -1,6 +1,6 @@
 import { createMachine } from 'xstate';
 
-const stateMachine = createMachine({
+export const stateMachine = createMachine({
   id: 'flowtime',
   initial: 'idle',
   states: {
@@ -20,18 +20,24 @@ const stateMachine = createMachine({
       initial: 'work',
       states: {
         work: {
-          after: {
-            '1500000': {
-              actions: 'proposeBreak',
-              description: 'after 25min propose a break',
+          initial: 'online',
+          states: {
+            online: {
+              after: {
+                '1500000': {
+                  description: 'after 25min propose a break',
+                  target: 'breakProposal',
+                },
+              },
             },
-            '3000000': {
-              actions: 'proposeBreak',
-              description: 'after 50min propose a break second time',
-            },
-            '5400000': {
-              actions: 'proposeBreak',
-              description: 'after 90min propose a break third time',
+            breakProposal: {
+              invoke: {
+                src: 'proposals',
+                id: 'break',
+              },
+              always: {
+                target: 'online',
+              },
             },
           },
           on: {
@@ -46,9 +52,9 @@ const stateMachine = createMachine({
         },
         break: {
           exit: 'clearBreakState',
-          initial: 'start',
+          initial: 'init',
           states: {
-            start: {
+            init: {
               always: [
                 {
                   actions: 'setShouldIcreaseBreak',
@@ -101,6 +107,32 @@ const stateMachine = createMachine({
           },
         },
         pause: {
+          initial: 'online',
+          after: {
+            '1500000': {
+              description: 'after 25min force stop',
+              target: '#flowtime.idle',
+            },
+          },
+          states: {
+            online: {
+              after: {
+                '900000': {
+                  description: 'after 15min propose a stop',
+                  target: 'stopProposal',
+                },
+              },
+            },
+            stopProposal: {
+              invoke: {
+                src: 'proposals',
+                id: 'stop',
+              },
+              always: {
+                target: 'online',
+              },
+            },
+          },
           on: {
             RESUME: {
               actions: 'decreaseRecommendedTimeDurationByPause',
