@@ -76,11 +76,13 @@ importers:
       '@rushstack/eslint-config': 2.6.0
       '@types/jest': 27.5.0
       '@types/node': 17.0.32
+      '@xstate/cli': 0.1.7
       '@xstate/immer': 0.3.1
       eslint: 8.15.0
       immer: 9.0.14
       jest: 28.1.0
       monet: 0.9.3
+      prettier: 2.6.2
       rxjs: 7.5.5
       ts-jest: 28.0.2
       ts-node: 10.7.0
@@ -98,8 +100,10 @@ importers:
       '@rushstack/eslint-config': 2.6.0_c3alnx6mxv77hhhkcvisj3heci
       '@types/jest': 27.5.0
       '@types/node': 17.0.32
+      '@xstate/cli': 0.1.7_prettier@2.6.2
       eslint: 8.15.0
       jest: 28.1.0_r5rwvyw2qgx3fnijwswldzdnfy
+      prettier: 2.6.2
       ts-jest: 28.0.2_gea2ru3lppphiqsppzwetjqaoq
       ts-node: 10.7.0_x37nn7bp3k2fot4fg7bbv462ye
       typescript: 4.6.3
@@ -3824,6 +3828,21 @@ packages:
       '@xtuc/long': 4.2.2
     dev: true
 
+  /@xstate/cli/0.1.7_prettier@2.6.2:
+    resolution: {integrity: sha512-BE2EumZoivO19PWXLPAx/gzOAQHrEWrp/T8L7u0LigbUODoAmZwKCuF94IYmRipUYKeyjhYUX2jstoHXg/7Asg==}
+    hasBin: true
+    dependencies:
+      '@babel/core': 7.17.9
+      '@xstate/machine-extractor': 0.6.4_lwcayfp7m4hds43lvylayg6r64
+      '@xstate/tools-shared': 1.1.5_ll2mt5qpzckxuskrddzc5wb7yq
+      chokidar: 3.5.3
+      commander: 8.3.0
+      xstate: 4.32.0
+    transitivePeerDependencies:
+      - prettier
+      - supports-color
+    dev: true
+
   /@xstate/immer/0.3.1_immer@9.0.14+xstate@4.32.0:
     resolution: {integrity: sha512-YE+KY08IjEEmXo6XKKpeSGW4j9LfcXw+5JVixLLUO3fWQ3M95joWJ40VtGzx0w0zQSzoCNk8NgfvwWBGSbIaTA==}
     peerDependencies:
@@ -3833,6 +3852,29 @@ packages:
       immer: 9.0.14
       xstate: 4.32.0
     dev: false
+
+  /@xstate/machine-extractor/0.6.4_lwcayfp7m4hds43lvylayg6r64:
+    resolution: {integrity: sha512-CTDHDdXbAdhS8XFOi0P/GF3zhh7rrcpycrM1Anlc1f0awILaNo+2kATBEVsL6k7nfFsGStjGeE8RwWeiUfYwag==}
+    peerDependencies:
+      '@babel/core': ^7
+      xstate: ^4
+    dependencies:
+      '@babel/core': 7.17.9
+      xstate: 4.32.0
+    dev: true
+
+  /@xstate/tools-shared/1.1.5_ll2mt5qpzckxuskrddzc5wb7yq:
+    resolution: {integrity: sha512-Gr9UMEMJxdrN16bEIb3eIys9pi08K4dAHK5ptIC3mBHy77JBGtgfYMTO619uy1pdmbBRVFWg7aPAcMIusqjq8w==}
+    peerDependencies:
+      prettier: ^2.3.1
+      xstate: ^4
+    dependencies:
+      '@xstate/machine-extractor': 0.6.4_lwcayfp7m4hds43lvylayg6r64
+      prettier: 2.6.2
+      xstate: 4.32.0
+    transitivePeerDependencies:
+      - '@babel/core'
+    dev: true
 
   /@xtuc/ieee754/1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -10973,6 +11015,12 @@ packages:
     hasBin: true
     dev: true
 
+  /prettier/2.6.2:
+    resolution: {integrity: sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: true
+
   /pretty-bytes/4.0.2:
     resolution: {integrity: sha1-sr+C5zUNZcbDOqlaqlpPYyf2HNk=}
     engines: {node: '>=4'}
@@ -13922,7 +13970,6 @@ packages:
 
   /xstate/4.32.0:
     resolution: {integrity: sha512-62gETqwnw4pBRe+tVWMt8hLgWEU8lq2qO8VN5PWmTELceRVt3I1bu1cwdraVRHUn4Bb2lnhNzn1A73oShuC+8g==}
-    dev: false
 
   /xtend/2.1.2:
     resolution: {integrity: sha1-bv7MKk2tjmlixJAbM3znuoe10os=}

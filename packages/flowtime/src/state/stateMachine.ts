@@ -1,151 +1,286 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+import { assign } from '@xstate/immer';
+import { Maybe } from 'monet';
 import { createMachine } from 'xstate';
+import type { IContext, IServices, Actions } from './model';
 
-export const stateMachine = createMachine({
-  id: 'flowtime',
-  initial: 'idle',
-  states: {
-    idle: {
-      on: {
-        START: {
-          actions: ['increaseActivityCounter', 'recordStartTime'],
-          target: 'focus',
-        },
-        RESET: {
-          actions: 'resetToInitial',
-          cond: 'hasRecordedActivity',
-        },
-      },
+const initialContext: IContext = {
+  activityCounter: 0,
+  workStartTime: Maybe.None(),
+  pauseStartTime: Maybe.None(),
+};
+
+// eslint-disable-next-line @rushstack/typedef-var
+export const stateMachine = createMachine(
+  {
+    tsTypes: {} as import('./stateMachine.typegen').Typegen0,
+    schema: {
+      context: initialContext,
+      events: {} as Actions,
     },
-    focus: {
-      initial: 'work',
-      states: {
-        work: {
-          initial: 'online',
-          states: {
-            online: {
-              after: {
-                '1500000': {
-                  description: 'after 25min propose a break',
-                  target: 'breakProposal',
-                },
-              },
-            },
-            breakProposal: {
-              invoke: {
-                src: 'proposals',
-                id: 'break',
-              },
-              always: {
-                target: 'online',
-              },
-            },
+    id: 'flowtime',
+    initial: 'idle',
+    context: initialContext,
+    states: {
+      idle: {
+        on: {
+          START: {
+            target: 'focus',
           },
-          on: {
-            BREAK: {
-              target: 'break',
+          RESET: [
+            {
+              actions: 'resetToInitial',
+              cond: 'hasRecordedActivity',
             },
-            PAUSE: {
-              actions: 'recordPauseStart',
-              target: 'pause',
-            },
-          },
-        },
-        break: {
-          exit: 'clearBreakState',
-          initial: 'init',
-          states: {
-            init: {
-              always: [
-                {
-                  actions: 'setShouldIcreaseBreak',
-                  cond: 'fourthActivityPointFinished',
-                  target: 'transition',
-                },
-                {
-                  actions: 'setShouldNotIcreaseBreak',
-                  target: 'transition',
-                },
-              ],
-            },
-            underTwentyFiveMinutes: {
-              type: 'final',
-            },
-            underFiftyMinutes: {
-              type: 'final',
-            },
-            underNinetyMinutes: {
-              type: 'final',
-            },
-            pastNinetyMinutes: {
-              type: 'final',
-            },
-            transition: {
-              always: [
-                {
-                  cond: 'focusUnderTwentyFiveMinutes',
-                  target: 'underTwentyFiveMinutes',
-                },
-                {
-                  cond: 'focusUnderFiftyMinutes',
-                  target: 'underFiftyMinutes',
-                },
-                {
-                  cond: 'focusUnderNinetyMinutes',
-                  target: 'underNinetyMinutes',
-                },
-                {
-                  target: 'pastNinetyMinutes',
-                },
-              ],
-            },
-          },
-          on: {
-            FOCUS: {
-              actions: ['setDefaultRecommendedTimeDuration', 'increaseActivityCounter', 'recordStartTime'],
-              target: 'work',
-            },
-          },
-        },
-        pause: {
-          initial: 'online',
-          after: {
-            '1500000': {
-              description: 'after 25min force stop',
-              target: '#flowtime.idle',
-            },
-          },
-          states: {
-            online: {
-              after: {
-                '900000': {
-                  description: 'after 15min propose a stop',
-                  target: 'stopProposal',
-                },
-              },
-            },
-            stopProposal: {
-              invoke: {
-                src: 'proposals',
-                id: 'stop',
-              },
-              always: {
-                target: 'online',
-              },
-            },
-          },
-          on: {
-            RESUME: {
-              actions: 'decreaseRecommendedTimeDurationByPause',
-              target: 'work',
-            },
-          },
+            {},
+          ],
         },
       },
-      on: {
-        STOP: {
-          target: 'idle',
+      focus: {
+        entry: 'clearPauseStartTime',
+        initial: 'work',
+        states: {
+          work: {
+            initial: 'init',
+            description: 'Work Cycle. ',
+            states: {
+              init: {
+                exit: 'clearPauseStartTime',
+                initial: 'init',
+                description: 'Decides whether it is new activity or pause resume',
+                states: {
+                  init: {
+                    always: [
+                      {
+                        cond: 'hasPauseStartTime',
+                        target: 'resume',
+                      },
+                      {
+                        target: 'new',
+                      },
+                    ],
+                  },
+                  resume: {
+                    type: 'final',
+                    entry: 'correctWorkTimer',
+                    description: 'Will change WorkStartTime by adding difference  by PauseStartTime',
+                  },
+                  new: {
+                    type: 'final',
+                    entry: ['increaseActivityCounter', 'recordWorkStartTime'],
+                  },
+                },
+                onDone: {
+                  target: 'online',
+                },
+              },
+              breakProposal: {
+                invoke: {
+                  src: 'proposals',
+                  id: 'break',
+                  onDone: [
+                    {
+                      target: 'online',
+                    },
+                  ],
+                  onError: [
+                    {
+                      target: 'online',
+                    },
+                  ],
+                },
+              },
+              online: {
+                after: {
+                  '1500000': {
+                    description: ' 25min',
+                    target: 'breakProposal',
+                  },
+                },
+              },
+            },
+            on: {
+              BREAK: {
+                target: 'break',
+              },
+              PAUSE: {
+                target: 'pause',
+              },
+            },
+          },
+          break: {
+            type: 'parallel',
+            description: 'Should provide information for break duration by merging metas of the inner states',
+            states: {
+              timer: {
+                initial: 'init',
+                states: {
+                  init: {
+                    always: [
+                      {
+                        cond: 'underTwentyFiveMinutes',
+                        target: 'underTwentyFiveMinutes',
+                      },
+                      {
+                        cond: 'underFiftyMinutes',
+                        target: 'underFiftyMinutes',
+                      },
+                      {
+                        cond: 'underNinetyMinutes',
+                        target: 'underNinetyMinutes',
+                      },
+                      {
+                        target: 'pastNinetyMinutes',
+                      },
+                    ],
+                  },
+                  underTwentyFiveMinutes: {
+                    type: 'final',
+                  },
+                  underFiftyMinutes: {
+                    type: 'final',
+                  },
+                  underNinetyMinutes: {
+                    type: 'final',
+                  },
+                  pastNinetyMinutes: {
+                    type: 'final',
+                  },
+                },
+              },
+              additionalTime: {
+                initial: 'init',
+                states: {
+                  init: {
+                    always: [
+                      {
+                        cond: 'fourthActivityPointFinished',
+                        target: 'extra',
+                      },
+                      {
+                        target: 'plain',
+                      },
+                    ],
+                  },
+                  plain: {
+                    type: 'final',
+                  },
+                  extra: {
+                    type: 'final',
+                  },
+                },
+              },
+            },
+            on: {
+              FOCUS: {
+                target: 'work',
+              },
+            },
+          },
+          pause: {
+            entry: 'recordPauseStartTime',
+            initial: 'online',
+            description: 'You can take pause, but system should notify every 15min to continue',
+            states: {
+              online: {
+                after: {
+                  '900000': {
+                    description: '15min',
+                    target: 'stopProposal',
+                  },
+                },
+              },
+              stopProposal: {
+                invoke: {
+                  src: 'proposals',
+                  id: 'stop',
+                  onDone: [
+                    {
+                      target: 'online',
+                    },
+                  ],
+                  onError: [
+                    {
+                      target: 'online',
+                    },
+                  ],
+                },
+              },
+            },
+            on: {
+              RESUME: {
+                target: 'work',
+              },
+            },
+          },
+        },
+        on: {
+          STOP: {
+            target: 'idle',
+          },
         },
       },
     },
   },
-});
+  {
+    actions: {
+      resetToInitial: assign(() => {
+        return initialContext;
+      }),
+      clearPauseStartTime: assign((context) => {
+        context.pauseStartTime = Maybe.None();
+      }),
+      recordPauseStartTime: assign((context) => {
+        context.pauseStartTime = Maybe.Some(new Date());
+      }),
+      recordWorkStartTime: assign((context) => {
+        context.workStartTime = Maybe.Some(new Date());
+      }),
+      correctWorkTimer: assign((context) => {
+        const workStartTime = context.workStartTime.getOrElse(new Date());
+        const pauseStartTime = context.pauseStartTime.getOrElse(new Date());
+        const diff = pauseStartTime.getTime() - workStartTime.getTime();
+        context.workStartTime = Maybe.Some(new Date(workStartTime.getTime() + diff));
+      }),
+      increaseActivityCounter: assign((context) => {
+        context.activityCounter += 1;
+      }),
+    },
+    guards: {
+      hasRecordedActivity: (context) => {
+        return context.activityCounter > 0;
+      },
+      hasPauseStartTime: (context) => {
+        return context.pauseStartTime.isSome();
+      },
+      underTwentyFiveMinutes: (context) => {
+        const now = new Date();
+        const workStartTime = context.workStartTime.getOrElse(new Date());
+        return now.getTime() - workStartTime.getTime() < 25 * 60 * 1000;
+      },
+      underFiftyMinutes: (context) => {
+        const now = new Date();
+        const workStartTime = context.workStartTime.getOrElse(new Date());
+        return now.getTime() - workStartTime.getTime() < 50 * 60 * 1000;
+      },
+      underNinetyMinutes: (context) => {
+        const now = new Date();
+        const workStartTime = context.workStartTime.getOrElse(new Date());
+        return now.getTime() - workStartTime.getTime() < 90 * 60 * 1000;
+      },
+      fourthActivityPointFinished: (context) => {
+        return context.activityCounter % 4 === 0;
+      },
+    },
+    services: {
+      proposals: () => ({
+        break() {
+          alert('break proposal');
+        },
+        stop() {
+          alert('stop proposal');
+        },
+      }),
+    },
+  }
+);

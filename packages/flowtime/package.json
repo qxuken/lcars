@@ -20,7 +20,9 @@
     "preview": "vite preview",
     "lint": "eslint",
     "test": "jest",
-    "test:dev": "jest --watch"
+    "test:dev": "jest --watch",
+    "xstate": "xstate typegen \"src/**/*.ts?(x)\"",
+    "xstate:dev": "xstate typegen \"src/**/*.ts?(x)\" --watch"
   },
   "devDependencies": {
     "typescript": "^4.5.4",
@@ -31,7 +33,9 @@
     "ts-jest": "28.0.2",
     "ts-node": "10.7.0",
     "@rushstack/eslint-config": "2.6.0",
-    "eslint": "8.15.0"
+    "eslint": "8.15.0",
+    "@xstate/cli": "0.1.7",
+    "prettier": "2.6.2"
   },
   "dependencies": {
     "@qxuken/vite-lib-config": "workspace:*",
