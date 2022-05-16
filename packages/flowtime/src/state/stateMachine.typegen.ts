@@ -24,16 +24,16 @@ export interface Typegen0 {
       __tip: 'See the XState TS docs to learn how to strongly type this.';
     };
     'error.platform.stop': { type: 'error.platform.stop'; data: unknown };
-    'xstate.after(1500000)#flowtime.focus.work.online': {
-      type: 'xstate.after(1500000)#flowtime.focus.work.online';
+    'xstate.after(BREAK_PROPOSAL)#flowtime.focus.work.online': {
+      type: 'xstate.after(BREAK_PROPOSAL)#flowtime.focus.work.online';
     };
-    'xstate.after(900000)#flowtime.focus.pause.online': {
-      type: 'xstate.after(900000)#flowtime.focus.pause.online';
+    'xstate.after(STOP_PROPOSAL)#flowtime.focus.pause.online': {
+      type: 'xstate.after(STOP_PROPOSAL)#flowtime.focus.pause.online';
     };
     'xstate.init': { type: 'xstate.init' };
   };
   invokeSrcNameMap: {
-    proposals: 'done.invoke.break' | 'done.invoke.stop';
+    proposal: 'done.invoke.break' | 'done.invoke.stop';
   };
   missingImplementations: {
     actions: never;
@@ -42,9 +42,9 @@ export interface Typegen0 {
     delays: never;
   };
   eventsCausingServices: {
-    proposals:
-      | 'xstate.after(1500000)#flowtime.focus.work.online'
-      | 'xstate.after(900000)#flowtime.focus.pause.online';
+    proposal:
+      | 'xstate.after(BREAK_PROPOSAL)#flowtime.focus.work.online'
+      | 'xstate.after(STOP_PROPOSAL)#flowtime.focus.pause.online';
   };
   eventsCausingGuards: {
     hasRecordedActivity: 'RESET';
@@ -54,7 +54,10 @@ export interface Typegen0 {
     underNinetyMinutes: '';
     fourthActivityPointFinished: '';
   };
-  eventsCausingDelays: {};
+  eventsCausingDelays: {
+    BREAK_PROPOSAL: 'xstate.init';
+    STOP_PROPOSAL: 'xstate.init';
+  };
   matchesStates:
     | 'idle'
     | 'focus'

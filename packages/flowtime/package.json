@@ -43,6 +43,8 @@
     "rxjs": "7.5.5",
     "xstate": "4.32.0",
     "@xstate/immer": "0.3.1",
-    "immer": "9.0.14"
+    "immer": "9.0.14",
+    "@types/ramda": "0.28.12",
+    "ramda": "0.28.0"
   }
 }

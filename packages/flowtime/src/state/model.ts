@@ -1,49 +1,45 @@
-import type { EventObject } from 'xstate';
+import type { EventObject, ServiceMap } from 'xstate';
 import type { Maybe } from 'monet';
 
-export interface StartAction extends EventObject {
+export interface IStartAction extends EventObject {
   type: 'START';
 }
 
-export interface StoptAction extends EventObject {
+export interface IStoptAction extends EventObject {
   type: 'STOP';
 }
 
-export interface ResetAction extends EventObject {
+export interface IResetAction extends EventObject {
   type: 'RESET';
 }
 
-export interface PauseAction extends EventObject {
+export interface IPauseAction extends EventObject {
   type: 'PAUSE';
 }
 
-export interface ResumeAction extends EventObject {
+export interface IResumeAction extends EventObject {
   type: 'RESUME';
 }
 
-export interface FocusAction extends EventObject {
+export interface IFocusAction extends EventObject {
   type: 'FOCUS';
 }
 
-export interface BreakAction extends EventObject {
+export interface IBreakAction extends EventObject {
   type: 'BREAK';
 }
 
-export type Actions =
-  | StartAction
-  | StoptAction
-  | ResetAction
-  | PauseAction
-  | ResumeAction
-  | FocusAction
-  | BreakAction;
+export type IActions =
+  | IStartAction
+  | IStoptAction
+  | IResetAction
+  | IPauseAction
+  | IResumeAction
+  | IFocusAction
+  | IBreakAction;
 
 export interface IContext {
   activityCounter: number;
   workStartTime: Maybe<Date>;
   pauseStartTime: Maybe<Date>;
-}
-
-export interface IServices {
-  proposals: (type: 'break' | 'focus') => {};
 }

@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { assign } from '@xstate/immer';
 import { Maybe } from 'monet';
+import { assign } from '@xstate/immer';
 import { createMachine } from 'xstate';
-import type { IContext, IServices, Actions } from './model';
+import type { IContext, IActions } from './model';
 
 const initialContext: IContext = {
   activityCounter: 0,
@@ -13,14 +12,11 @@ const initialContext: IContext = {
 // eslint-disable-next-line @rushstack/typedef-var
 export const stateMachine = createMachine(
   {
+    context: initialContext,
     tsTypes: {} as import('./stateMachine.typegen').Typegen0,
-    schema: {
-      context: initialContext,
-      events: {} as Actions,
-    },
+    schema: { context: initialContext, events: {} as IActions },
     id: 'flowtime',
     initial: 'idle',
-    context: initialContext,
     states: {
       idle: {
         on: {
@@ -76,7 +72,7 @@ export const stateMachine = createMachine(
               },
               breakProposal: {
                 invoke: {
-                  src: 'proposals',
+                  src: 'proposal',
                   id: 'break',
                   onDone: [
                     {
@@ -88,11 +84,15 @@ export const stateMachine = createMachine(
                       target: 'online',
                     },
                   ],
+                  meta: {
+                    proposalType: 'break',
+                  },
                 },
+                description: "meta: { proposalType: 'break' }",
               },
               online: {
                 after: {
-                  '1500000': {
+                  BREAK_PROPOSAL: {
                     description: ' 25min',
                     target: 'breakProposal',
                   },
@@ -136,15 +136,27 @@ export const stateMachine = createMachine(
                   },
                   underTwentyFiveMinutes: {
                     type: 'final',
+                    meta: {
+                      breakType: 'underTwentyFiveMinutes',
+                    },
                   },
                   underFiftyMinutes: {
                     type: 'final',
+                    meta: {
+                      breakType: 'underFiftyMinutes',
+                    },
                   },
                   underNinetyMinutes: {
                     type: 'final',
+                    meta: {
+                      breakType: 'underNinetyMinutes',
+                    },
                   },
                   pastNinetyMinutes: {
                     type: 'final',
+                    meta: {
+                      breakType: 'pastNinetyMinutes',
+                    },
                   },
                 },
               },
@@ -164,9 +176,15 @@ export const stateMachine = createMachine(
                   },
                   plain: {
                     type: 'final',
+                    meta: {
+                      breakModifier: 'plain',
+                    },
                   },
                   extra: {
                     type: 'final',
+                    meta: {
+                      breakModifier: 'extra',
+                    },
                   },
                 },
               },
@@ -184,7 +202,7 @@ export const stateMachine = createMachine(
             states: {
               online: {
                 after: {
-                  '900000': {
+                  STOP_PROPOSAL: {
                     description: '15min',
                     target: 'stopProposal',
                   },
@@ -192,7 +210,7 @@ export const stateMachine = createMachine(
               },
               stopProposal: {
                 invoke: {
-                  src: 'proposals',
+                  src: 'proposal',
                   id: 'stop',
                   onDone: [
                     {
@@ -204,7 +222,11 @@ export const stateMachine = createMachine(
                       target: 'online',
                     },
                   ],
+                  meta: {
+                    proposalType: 'stop',
+                  },
                 },
+                description: "meta: { proposalType: 'stop' }",
               },
             },
             on: {
@@ -273,14 +295,17 @@ export const stateMachine = createMachine(
       },
     },
     services: {
-      proposals: () => ({
-        break() {
-          alert('break proposal');
-        },
-        stop() {
-          alert('stop proposal');
-        },
-      }),
+      // eslint-disable-next-line @typescript-eslint/typedef, @typescript-eslint/naming-convention
+      async proposal(_context, _event, meta) {
+        const propose: Maybe<string> = Maybe.fromEmpty(meta.meta).map((m) => m.proposalType);
+        console.log('proposal', propose.orSome('none'));
+      },
+    },
+    delays: {
+      BREAK_PROPOSAL: 25 * 60 * 1000,
+      STOP_PROPOSAL: 15 * 60 * 1000,
     },
   }
 );
+
+export type StateMachine = typeof stateMachine;
