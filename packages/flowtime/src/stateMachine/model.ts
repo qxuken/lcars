@@ -1,5 +1,6 @@
-import type { EventObject, ServiceMap } from 'xstate';
+import type { EventObject } from 'xstate';
 import type { Maybe } from 'monet';
+import { IConfiguration } from '../configuration';
 
 export interface IStartAction extends EventObject {
   type: 'START';
@@ -42,4 +43,9 @@ export interface IContext {
   activityCounter: number;
   workStartTime: Maybe<Date>;
   pauseStartTime: Maybe<Date>;
+  config: IConfiguration;
+}
+
+export interface IService {
+  proposal(type: 'break' | 'stop'): Promise<void> | void;
 }
