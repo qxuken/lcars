@@ -489,8 +489,8 @@
       "tags": ["packages", "web", "desktop"]
     },
     {
-      "packageName": "@qxuken/pomodoro-react",
-      "projectFolder": "packages/pomodoro-react",
+      "packageName": "@qxuken/flowtime-react",
+      "projectFolder": "packages/flowtime-react",
       "tags": ["packages", "web", "desktop"]
     },
     {
