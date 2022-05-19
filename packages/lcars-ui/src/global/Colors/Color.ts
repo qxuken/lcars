@@ -1,10 +1,8 @@
 import { ValueOf } from 'type-fest';
 import { styles } from '@qxuken/react-utils';
-import colors from './colors.module.css';
-import bgColors from './bgColors.module.css';
+import colorStyles from './colors.module.css';
 
-const main: (style: string) => string = styles.getClassNameFromModule(colors);
-const bg: (style: string) => string = styles.getClassNameFromModule(bgColors);
+const colors: (style: string) => string = styles.getClassNameFromModule(colorStyles);
 
 export const Color: {
   readonly white: string;
@@ -16,14 +14,14 @@ export const Color: {
   readonly color6: string;
   readonly color7: string;
 } = {
-  white: main('color-white'),
-  color1: main('color-1'),
-  color2: main('color-2'),
-  color3: main('color-3'),
-  color4: main('color-4'),
-  color5: main('color-5'),
-  color6: main('color-6'),
-  color7: main('color-7'),
+  white: colors('color-white'),
+  color1: colors('color-1'),
+  color2: colors('color-2'),
+  color3: colors('color-3'),
+  color4: colors('color-4'),
+  color5: colors('color-5'),
+  color6: colors('color-6'),
+  color7: colors('color-7'),
 };
 
 export type ColorValue = ValueOf<typeof Color>;
@@ -38,14 +36,14 @@ export const BgColor: {
   readonly color6: string;
   readonly color7: string;
 } = {
-  default: bg('bg-color-default'),
-  color1: bg('bg-color-1'),
-  color2: bg('bg-color-2'),
-  color3: bg('bg-color-3'),
-  color4: bg('bg-color-4'),
-  color5: bg('bg-color-5'),
-  color6: bg('bg-color-6'),
-  color7: bg('bg-color-7'),
+  default: colors('bg-color-default'),
+  color1: colors('bg-color-1'),
+  color2: colors('bg-color-2'),
+  color3: colors('bg-color-3'),
+  color4: colors('bg-color-4'),
+  color5: colors('bg-color-5'),
+  color6: colors('bg-color-6'),
+  color7: colors('bg-color-7'),
 };
 
 export type BgColorValue = ValueOf<typeof BgColor>;
@@ -53,7 +51,7 @@ export type BgColorValue = ValueOf<typeof BgColor>;
 export const BgModifications: {
   readonly hoverable: string;
 } = {
-  hoverable: bg('hoverable'),
+  hoverable: colors('hoverable'),
 };
 
 export type BgModificationsValue = ValueOf<typeof BgModifications>;

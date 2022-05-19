@@ -1,4 +1,42 @@
 @layer base {
+  .bg-color-default {
+    --bg-color: var(--color-bg);
+    background-color: var(--bg-color);
+  }
+  .bg-color-1 {
+    --bg-color: var(--color-1);
+    background-color: var(--bg-color);
+  }
+
+  .bg-color-2 {
+    --bg-color: var(--color-2);
+    background-color: var(--bg-color);
+  }
+
+  .bg-color-3 {
+    --bg-color: var(--color-3);
+    background-color: var(--bg-color);
+  }
+
+  .bg-color-4 {
+    --bg-color: var(--color-4);
+    background-color: var(--bg-color);
+  }
+
+  .bg-color-5 {
+    --bg-color: var(--color-5);
+    background-color: var(--bg-color);
+  }
+
+  .bg-color-6 {
+    --bg-color: var(--color-6);
+    background-color: var(--bg-color);
+  }
+
+  .bg-color-7 {
+    --bg-color: var(--color-7);
+    background-color: var(--bg-color);
+  }
   .color-white {
     color: var(--color-white);
   }
@@ -29,5 +67,40 @@
 
   .color-7 {
     color: var(--color-7);
+  }
+
+  .hoverable:is(:hover, :focus):not([disabled]) {
+    &.bg-color-1 {
+      --bg-color: var(--color-7);
+    }
+
+    &.bg-color-2 {
+      --bg-color: var(--color-6);
+    }
+
+    &.bg-color-3 {
+      --bg-color: var(--color-5);
+    }
+
+    &.bg-color-4 {
+      --bg-color: var(--color-3);
+    }
+
+    &.bg-color-5 {
+      --bg-color: var(--color-4);
+    }
+
+    &.bg-color-6 {
+      --bg-color: var(--color-2);
+    }
+
+    &.bg-color-7 {
+      --bg-color: var(--color-1);
+    }
+  }
+
+  .hoverable[disabled]
+    :is(.color-white, .color-1, .color-2, .color-3, .color-4, .color-5, .color-6, .color-7) {
+    color: var(--bg-color);
   }
 }

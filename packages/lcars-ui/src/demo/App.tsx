@@ -102,6 +102,68 @@ export function App(): JSX.Element {
             Button
           </Button>
         </Box>
+        <Text as="h2" color="color5">
+          disabled:
+        </Text>
+        <Box minFlex>
+          <Button disabled onClick={console.log} bgColor={BgColor.color1}>
+            Button
+          </Button>
+          <Button disabled onClick={console.log} bgColor={BgColor.color2}>
+            Button
+          </Button>
+          <Button disabled onClick={console.log} bgColor={BgColor.color3}>
+            Button
+          </Button>
+          <Button disabled onClick={console.log} bgColor={BgColor.color4}>
+            Button
+          </Button>
+          <Button disabled onClick={console.log} bgColor={BgColor.color5}>
+            Button
+          </Button>
+          <Button disabled onClick={console.log} bgColor={BgColor.color6}>
+            Button
+          </Button>
+          <Button disabled onClick={console.log} bgColor={BgColor.color7}>
+            Button
+          </Button>
+        </Box>
+        <Box minFlex>
+          <Button disabled onClick={console.log} accentSide="none">
+            Button
+          </Button>
+          <Button disabled onClick={console.log} accentSide="both" width="min10">
+            Button
+          </Button>
+          <Button disabled onClick={console.log} accentSide="right">
+            Button
+          </Button>
+          <Button disabled onClick={console.log} accentSide="left">
+            Button
+          </Button>
+        </Box>
+        <Box minFlex>
+          <Button accentSide="none" withAccentLine disabled onClick={console.log}>
+            Button
+          </Button>
+          <Button accentSide="both" withAccentLine disabled onClick={console.log}>
+            Button
+          </Button>
+          <Button accentSide="right" withAccentLine disabled onClick={console.log}>
+            Button
+          </Button>
+          <Button accentSide="left" withAccentLine disabled onClick={console.log}>
+            Button
+          </Button>
+        </Box>
+        <Box minFlex>
+          <Button accentSide="right" withAccentLine counter={10} disabled onClick={console.log}>
+            Button
+          </Button>
+          <Button accentSide="left" counter={10} disabled onClick={console.log}>
+            Button
+          </Button>
+        </Box>
       </div>
       <div className="demo-card">
         <Text as="h2" size="xxlarge" color="color7">

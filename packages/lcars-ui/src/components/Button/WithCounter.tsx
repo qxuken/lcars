@@ -18,7 +18,12 @@ export function ButtonWithCounter({ className, counter, ...props }: IButtonWithC
       className={className}
       weight={Text.Weight.light}
       left={
-        <Text className={cn(styles.counter, Color.white, BgColor.default)} size={counterSize}>
+        <Text
+          className={cn(styles.counter, Color.white, {
+            [BgColor.default]: !props.disabled,
+          })}
+          size={counterSize}
+        >
           {counter}
         </Text>
       }
