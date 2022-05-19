@@ -1,17 +1,16 @@
-/* eslint-disable @rushstack/typedef-var */
-import { combineLatest } from 'rxjs';
-import { combineMeta, Flowtime, getTimeRecommendation } from './main';
+import { zip } from 'rxjs';
+import { Flowtime } from './main';
 
-const heading = document.createElement('h1');
+const heading: HTMLHeadingElement = document.createElement('h1');
 heading.innerText = 'States history:';
-const states = document.createElement('div');
+const states: HTMLDivElement = document.createElement('div');
 states.style.display = 'flex';
 states.style.gap = '1rem';
 states.style.overflow = 'scroll';
 
-const availableActions = document.createElement('div');
+const availableActions: HTMLDivElement = document.createElement('div');
 
-const flowtime = Flowtime.new({
+const flowtime: Flowtime = Flowtime.new({
   config: {
     proposalDelays: {
       break: 20000,
@@ -23,44 +22,40 @@ const flowtime = Flowtime.new({
   },
 });
 
-flowtime.state$.subscribe((state) => {
-  console.log(state);
+zip([flowtime.state$, flowtime.timeRecommendation$, flowtime.meta$, flowtime.context$]).subscribe(
+  ([state, timeRecommendation, meta, context]) => {
+    console.log(state);
 
-  const stateBlockEl = document.createElement('div');
+    const stateBlockEl = document.createElement('div');
 
-  const stateHeadingEl = document.createElement('h3');
-  stateHeadingEl.innerText = `State after ${state.event.type}:`;
-  const stateEl = document.createElement('pre');
-  stateEl.innerText = JSON.stringify(state.toStrings(), null, 2);
-  stateBlockEl.appendChild(stateHeadingEl);
-  stateBlockEl.appendChild(stateEl);
+    const stateHeadingEl = document.createElement('h3');
+    stateHeadingEl.innerText = `State after ${state.event.type}:`;
+    const stateEl = document.createElement('pre');
+    stateEl.innerText = JSON.stringify(state.toStrings(), null, 2);
+    stateBlockEl.appendChild(stateHeadingEl);
+    stateBlockEl.appendChild(stateEl);
 
-  const timeRecommendationEl = document.createElement('pre');
-  timeRecommendationEl.innerText = getTimeRecommendation(
-    state.context.config,
-    combineMeta(state.meta).recommendationType,
-    combineMeta(state.meta).recommendationModifier
-  )
-    .map(String)
-    .orSome('no recommendation');
-  stateBlockEl.appendChild(timeRecommendationEl);
+    const timeRecommendationEl = document.createElement('pre');
+    timeRecommendationEl.innerText = timeRecommendation.map(String).orSome('no recommendation');
+    stateBlockEl.appendChild(timeRecommendationEl);
 
-  const metaHeadingEl = document.createElement('h5');
-  metaHeadingEl.innerText = `Meta:`;
-  const metaEl = document.createElement('pre');
-  metaEl.innerText = JSON.stringify(combineMeta(state.meta), null, 2);
-  stateBlockEl.appendChild(metaHeadingEl);
-  stateBlockEl.appendChild(metaEl);
+    const metaHeadingEl = document.createElement('h5');
+    metaHeadingEl.innerText = `Meta:`;
+    const metaEl = document.createElement('pre');
+    metaEl.innerText = JSON.stringify(meta, null, 2);
+    stateBlockEl.appendChild(metaHeadingEl);
+    stateBlockEl.appendChild(metaEl);
 
-  const contextHeadingEl = document.createElement('h5');
-  contextHeadingEl.innerText = `Context:`;
-  const contextEl = document.createElement('pre');
-  contextEl.innerText = JSON.stringify(state.context, null, 2);
-  stateBlockEl.appendChild(contextHeadingEl);
-  stateBlockEl.appendChild(contextEl);
+    const contextHeadingEl = document.createElement('h5');
+    contextHeadingEl.innerText = `Context:`;
+    const contextEl = document.createElement('pre');
+    contextEl.innerText = JSON.stringify(context, null, 2);
+    stateBlockEl.appendChild(contextHeadingEl);
+    stateBlockEl.appendChild(contextEl);
 
-  states.appendChild(stateBlockEl);
-});
+    states.prepend(stateBlockEl);
+  }
+);
 
 flowtime.availableActions$.subscribe((actions) => {
   availableActions.innerHTML = '';

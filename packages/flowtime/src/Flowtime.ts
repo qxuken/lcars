@@ -1,14 +1,21 @@
 import type { PartialDeep } from 'type-fest';
-import type { Observable } from 'rxjs';
-import type { Maybe } from 'monet';
 import autoBind from 'auto-bind';
 
 import type { ICreateServiceProps, Service } from './service';
-import type { StateObservable } from './state';
+import type {
+  StateObservable,
+  MetaObservable,
+  TimeRecommendationObservable,
+  ContextObservable,
+} from './state';
 import type { AvailableActionObservable } from './actions';
-import type { IContext } from './machine';
 import { createService } from './service';
-import { createStateObservable, createTimeRecommendationObservable, createContextObservable } from './state';
+import {
+  createStateObservable,
+  createTimeRecommendationObservable,
+  createContextObservable,
+  createMetaObservable,
+} from './state';
 import { createAvailableActionObservable } from './actions';
 
 export class Flowtime {
@@ -36,11 +43,15 @@ export class Flowtime {
     return createAvailableActionObservable(this.state$);
   }
 
-  public get timeRecommendation$(): Observable<Maybe<number>> {
-    return createTimeRecommendationObservable(this.state$);
+  public get meta$(): MetaObservable {
+    return createMetaObservable(this.state$);
   }
 
-  public get context$(): Observable<IContext> {
+  public get timeRecommendation$(): TimeRecommendationObservable {
+    return createTimeRecommendationObservable(this.state$, this.meta$);
+  }
+
+  public get context$(): ContextObservable {
     return createContextObservable(this.state$);
   }
 }

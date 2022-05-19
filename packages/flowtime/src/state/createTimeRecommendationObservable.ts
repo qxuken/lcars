@@ -1,18 +1,25 @@
 import type { Maybe } from 'monet';
-import { map, Observable } from 'rxjs';
+import { map, Observable, shareReplay, withLatestFrom } from 'rxjs';
 
+import type { MetaObservable } from './createMetaObservable';
 import type { StateObservable } from './createStateObservable';
-import { combineMeta, getTimeRecommendation } from './helpers';
+import { getTimeRecommendation } from './helpers';
 
-export function createTimeRecommendationObservable(state$: StateObservable): Observable<Maybe<number>> {
-  return state$.pipe(
-    map((state) => {
-      const combinedMeta = combineMeta(state.meta);
+export type TimeRecommendationObservable = Observable<Maybe<number>>;
+
+export function createTimeRecommendationObservable(
+  state$: StateObservable,
+  meta$: MetaObservable
+): TimeRecommendationObservable {
+  return meta$.pipe(
+    withLatestFrom(state$),
+    map(([meta, state]) => {
       return getTimeRecommendation(
         state.context.config,
-        combinedMeta.recommendationType,
-        combinedMeta.recommendationModifier
+        meta.recommendationType,
+        meta.recommendationModifier
       );
-    })
+    }),
+    shareReplay(1)
   );
 }
