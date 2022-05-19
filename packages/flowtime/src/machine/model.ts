@@ -1,6 +1,7 @@
 import type { EventObject } from 'xstate';
 import type { Maybe } from 'monet';
-import { IConfiguration } from '../configuration';
+
+import type { IConfiguration } from '../configuration';
 
 export interface IStartAction extends EventObject {
   type: 'START';
@@ -30,7 +31,7 @@ export interface IBreakAction extends EventObject {
   type: 'BREAK';
 }
 
-export type IActions =
+export type IAction =
   | IStartAction
   | IStoptAction
   | IResetAction
@@ -38,6 +39,18 @@ export type IActions =
   | IResumeAction
   | IFocusAction
   | IBreakAction;
+
+export type IActionType = IAction['type'];
+
+export const ActionTypes: Array<IActionType> = [
+  'START',
+  'STOP',
+  'RESET',
+  'PAUSE',
+  'RESUME',
+  'FOCUS',
+  'BREAK',
+];
 
 export interface IContext {
   activityCounter: number;
@@ -47,5 +60,5 @@ export interface IContext {
 }
 
 export interface IService {
-  proposal(type: 'break' | 'stop'): Promise<void> | void;
+  propose(type: 'break' | 'stop'): Promise<void> | void;
 }

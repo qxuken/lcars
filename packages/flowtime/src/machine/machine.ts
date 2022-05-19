@@ -1,14 +1,15 @@
 import { Maybe } from 'monet';
 import { assign } from '@xstate/immer';
-import { createMachine } from 'xstate';
-import type { IContext, IActions } from './model';
+import { createMachine, assign as plainAssign } from 'xstate';
+
+import type { IContext, IAction, IService } from './model';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const StateMachine = (initialContext: IContext) =>
+export const StateMachine = (initialContext: IContext, services: IService) =>
   createMachine(
     {
-      tsTypes: {} as import('./stateMachine.typegen').Typegen0,
-      schema: { context: {} as IContext, events: {} as IActions },
+      tsTypes: {} as import('./machine.typegen').Typegen0,
+      schema: { context: {} as IContext, events: {} as IAction },
       context: initialContext,
       id: 'flowtime',
       initial: 'idle',
@@ -23,7 +24,6 @@ export const StateMachine = (initialContext: IContext) =>
                 actions: 'resetToInitial',
                 cond: 'hasRecordedActivity',
               },
-              {},
             ],
           },
         },
@@ -34,6 +34,9 @@ export const StateMachine = (initialContext: IContext) =>
             work: {
               initial: 'init',
               description: 'Work Cycle. ',
+              meta: {
+                recommendationType: 'focus',
+              },
               states: {
                 init: {
                   exit: 'clearPauseStartTime',
@@ -133,25 +136,25 @@ export const StateMachine = (initialContext: IContext) =>
                     underTwentyFiveMinutes: {
                       type: 'final',
                       meta: {
-                        breakType: 'underTwentyFiveMinutes',
+                        recommendationType: 'underTwentyFiveMinutes',
                       },
                     },
                     underFiftyMinutes: {
                       type: 'final',
                       meta: {
-                        breakType: 'underFiftyMinutes',
+                        recommendationType: 'underFiftyMinutes',
                       },
                     },
                     underNinetyMinutes: {
                       type: 'final',
                       meta: {
-                        breakType: 'underNinetyMinutes',
+                        recommendationType: 'underNinetyMinutes',
                       },
                     },
                     pastNinetyMinutes: {
                       type: 'final',
                       meta: {
-                        breakType: 'pastNinetyMinutes',
+                        recommendationType: 'pastNinetyMinutes',
                       },
                     },
                   },
@@ -173,13 +176,13 @@ export const StateMachine = (initialContext: IContext) =>
                     plain: {
                       type: 'final',
                       meta: {
-                        breakModifier: 'plain',
+                        recommendationModifier: 'plain',
                       },
                     },
                     extra: {
                       type: 'final',
                       meta: {
-                        breakModifier: 'extra',
+                        recommendationModifier: 'extra',
                       },
                     },
                   },
@@ -242,9 +245,7 @@ export const StateMachine = (initialContext: IContext) =>
     },
     {
       actions: {
-        resetToInitial: assign(() => {
-          return initialContext;
-        }),
+        resetToInitial: plainAssign(() => initialContext),
         clearPauseStartTime: assign((context) => {
           context.pauseStartTime = Maybe.None();
         }),
@@ -255,9 +256,10 @@ export const StateMachine = (initialContext: IContext) =>
           context.workStartTime = Maybe.Some(new Date());
         }),
         correctWorkTimer: assign((context) => {
+          const now = new Date();
           const workStartTime = context.workStartTime.getOrElse(new Date());
           const pauseStartTime = context.pauseStartTime.getOrElse(new Date());
-          const diff = pauseStartTime.getTime() - workStartTime.getTime();
+          const diff = now.getTime() - pauseStartTime.getTime();
           context.workStartTime = Maybe.Some(new Date(workStartTime.getTime() + diff));
         }),
         increaseActivityCounter: assign((context) => {
@@ -293,8 +295,13 @@ export const StateMachine = (initialContext: IContext) =>
       services: {
         // eslint-disable-next-line @typescript-eslint/typedef, @typescript-eslint/naming-convention
         async proposal(_context, _event, meta) {
-          const propose: Maybe<string> = Maybe.fromEmpty(meta.meta).map((m) => m.proposalType);
-          console.log('proposal', propose.orSome('none'));
+          const isProposalType = (type: string): type is 'break' | 'stop' => ['break', 'stop'].includes(type);
+          const propose = Maybe.fromUndefined(meta.meta)
+            .flatMap((m) => Maybe.fromUndefined(m.proposalType))
+            .filter(isProposalType);
+          if (propose.isSome()) {
+            await services.propose(propose.some());
+          }
         },
       },
       delays: {
