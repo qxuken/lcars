@@ -65,7 +65,7 @@ function StandByContent(): JSX.Element {
       right={
         <Panel vertical minWidth>
           <Button bgColor="color6" accentSide="right" counter={10}>
-            pomodoro
+            Flowtime
           </Button>
         </Panel>
       }
