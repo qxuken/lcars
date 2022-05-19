@@ -25,33 +25,29 @@ export class Flowtime {
 
   public readonly state$: StateObservable;
 
+  public readonly availableActions$: AvailableActionObservable;
+
+  public readonly meta$: MetaObservable;
+
+  public readonly timeRecommendation$: TimeRecommendationObservable;
+
+  public readonly context$: ContextObservable;
+
   public constructor(props: PartialDeep<ICreateServiceProps>) {
     this.service = createService(props);
     this.dispatch = this.service.send;
     this.state$ = createStateObservable(this.service);
+    this.availableActions$ = createAvailableActionObservable(this.state$);
+    this.meta$ = createMetaObservable(this.state$);
+    this.timeRecommendation$ = createTimeRecommendationObservable(this.state$, this.meta$);
+    this.context$ = createContextObservable(this.state$);
 
     autoBind(this, {
-      exclude: ['can', 'new'],
+      exclude: ['new'],
     });
   }
 
   public static new(props: PartialDeep<ICreateServiceProps>): Flowtime {
     return new Flowtime(props);
-  }
-
-  public get availableActions$(): AvailableActionObservable {
-    return createAvailableActionObservable(this.state$);
-  }
-
-  public get meta$(): MetaObservable {
-    return createMetaObservable(this.state$);
-  }
-
-  public get timeRecommendation$(): TimeRecommendationObservable {
-    return createTimeRecommendationObservable(this.state$, this.meta$);
-  }
-
-  public get context$(): ContextObservable {
-    return createContextObservable(this.state$);
   }
 }

@@ -21,6 +21,7 @@ const flowtime: Flowtime = Flowtime.new({
     propose: (t) => console.log(t),
   },
 });
+console.log(flowtime);
 
 zip([flowtime.state$, flowtime.timeRecommendation$, flowtime.meta$, flowtime.context$]).subscribe(
   ([state, timeRecommendation, meta, context]) => {
