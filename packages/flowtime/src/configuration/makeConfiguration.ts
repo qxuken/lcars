@@ -1,5 +1,5 @@
 import type { PartialDeep } from 'type-fest';
-import { Maybe } from 'monet';
+import type { Maybe } from 'monet';
 import { mergeDeepRight } from 'ramda';
 
 import type { IConfiguration } from './configuration';

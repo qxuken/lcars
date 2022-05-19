@@ -79,6 +79,7 @@ importers:
       '@types/ramda': 0.28.12
       '@xstate/cli': 0.1.7
       '@xstate/immer': 0.3.1
+      auto-bind: 5.0.1
       eslint: 8.15.0
       immer: 9.0.14
       jest: 28.1.0
@@ -96,6 +97,7 @@ importers:
       '@qxuken/vite-lib-config': link:../../tools/vite-lib-config
       '@types/ramda': 0.28.12
       '@xstate/immer': 0.3.1_immer@9.0.14+xstate@4.32.0
+      auto-bind: 5.0.1
       immer: 9.0.14
       monet: 0.9.3
       ramda: 0.28.0
@@ -4315,6 +4317,11 @@ packages:
     engines: {node: '>=0.8'}
     requiresBuild: true
     dev: true
+
+  /auto-bind/5.0.1:
+    resolution: {integrity: sha512-ooviqdwwgfIfNmDwo94wlshcdzfO64XV0Cg6oDsDYBJfITDz1EngD2z7DkbvCWn+XIMsIqW27sEVF6qcpJrRcg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
 
   /aws-sign2/0.7.0:
     resolution: {integrity: sha1-tG6JCTSpWR8tL2+G1+ap8bP+dqg=}

@@ -2,10 +2,19 @@ import { Maybe } from 'monet';
 
 import type { IConfiguration } from '../../configuration';
 
-export function getTimeRecommendation(config: IConfiguration, type: string, modifier: string): Maybe<number> {
+export function getTimeRecommendation(
+  config: IConfiguration,
+  type: Maybe<string>,
+  modifier: Maybe<string>
+): Maybe<number> {
+  if (type.isNone()) {
+    return Maybe.none();
+  }
+
   const withModifier = (value: number): number =>
-    modifier === 'extra' ? value + config.breakRecommendation.breakModifier : value;
-  switch (type) {
+    modifier.filter((m) => m === 'extra').isSome() ? value + config.breakRecommendation.breakModifier : value;
+
+  switch (type.some()) {
     case 'focus':
       return Maybe.Some(config.focusRecommendation);
     case 'underTwentyFiveMinutes':

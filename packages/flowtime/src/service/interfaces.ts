@@ -1,10 +1,10 @@
 import type { IConfiguration } from '../configuration';
-import type { IService, IStateMachine } from '../machine';
+import type { IMachineServiceProp, StateMachine } from '../machine';
 
-export type StateMachineBuilder = (config: IStateMachine) => IStateMachine;
+export type StateMachineBuilder = (config: StateMachine) => StateMachine;
 
 export interface ICreateServiceProps {
-  services: IService;
   config: IConfiguration;
+  services: IMachineServiceProp;
   StateMachineBuilder: StateMachineBuilder;
 }

@@ -2,14 +2,14 @@ import { Maybe } from 'monet';
 import { assign } from '@xstate/immer';
 import { createMachine, assign as plainAssign } from 'xstate';
 
-import type { IContext, IAction, IService } from './model';
+import type { IContext, Action, IMachineServiceProp } from './model';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const StateMachine = (initialContext: IContext, services: IService) =>
+export const StateMachine = (initialContext: IContext, externalService: IMachineServiceProp) =>
   createMachine(
     {
       tsTypes: {} as import('./machine.typegen').Typegen0,
-      schema: { context: {} as IContext, events: {} as IAction },
+      schema: { context: {} as IContext, events: {} as Action },
       context: initialContext,
       id: 'flowtime',
       initial: 'idle',
@@ -300,7 +300,7 @@ export const StateMachine = (initialContext: IContext, services: IService) =>
             .flatMap((m) => Maybe.fromUndefined(m.proposalType))
             .filter(isProposalType);
           if (propose.isSome()) {
-            await services.propose(propose.some());
+            await externalService.propose(propose.some());
           }
         },
       },
@@ -313,4 +313,4 @@ export const StateMachine = (initialContext: IContext, services: IService) =>
     }
   );
 
-export type IStateMachine = ReturnType<typeof StateMachine>;
+export type StateMachine = ReturnType<typeof StateMachine>;

@@ -1,13 +1,6 @@
 /* eslint-disable @rushstack/typedef-var */
-import {
-  createFlowtimeService,
-  FlowtimeService,
-  createStateSubscriber,
-  createAvailableActionSubscriber,
-  createDispatcher,
-  combineMeta,
-  getTimeRecommendation,
-} from './main';
+import { combineLatest } from 'rxjs';
+import { combineMeta, Flowtime, getTimeRecommendation } from './main';
 
 const heading = document.createElement('h1');
 heading.innerText = 'States history:';
@@ -18,7 +11,7 @@ states.style.overflow = 'scroll';
 
 const availableActions = document.createElement('div');
 
-const localService: FlowtimeService = createFlowtimeService({
+const flowtime = Flowtime.new({
   config: {
     proposalDelays: {
       break: 20000,
@@ -29,11 +22,8 @@ const localService: FlowtimeService = createFlowtimeService({
     propose: (t) => console.log(t),
   },
 });
-const dispatch = createDispatcher(localService);
-const state$ = createStateSubscriber(localService);
-const availableAction$ = createAvailableActionSubscriber(state$);
 
-state$.subscribe((state) => {
+flowtime.state$.subscribe((state) => {
   console.log(state);
 
   const stateBlockEl = document.createElement('div');
@@ -48,8 +38,8 @@ state$.subscribe((state) => {
   const timeRecommendationEl = document.createElement('pre');
   timeRecommendationEl.innerText = getTimeRecommendation(
     state.context.config,
-    combineMeta(state.meta).recommendationType as string,
-    combineMeta(state.meta).recommendationModifier as string
+    combineMeta(state.meta).recommendationType,
+    combineMeta(state.meta).recommendationModifier
   )
     .map(String)
     .orSome('no recommendation');
@@ -72,12 +62,12 @@ state$.subscribe((state) => {
   states.appendChild(stateBlockEl);
 });
 
-availableAction$.subscribe((actions) => {
+flowtime.availableActions$.subscribe((actions) => {
   availableActions.innerHTML = '';
   actions.forEach((action) => {
     const button = document.createElement('button');
     button.innerHTML = action;
-    button.onclick = () => dispatch(action);
+    button.onclick = () => flowtime.dispatch(action);
     availableActions.appendChild(button);
   });
 });

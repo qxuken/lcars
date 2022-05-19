@@ -31,7 +31,7 @@ export interface IBreakAction extends EventObject {
   type: 'BREAK';
 }
 
-export type IAction =
+export type Action =
   | IStartAction
   | IStoptAction
   | IResetAction
@@ -40,17 +40,9 @@ export type IAction =
   | IFocusAction
   | IBreakAction;
 
-export type IActionType = IAction['type'];
+export type ActionType = Action['type'];
 
-export const ActionTypes: Array<IActionType> = [
-  'START',
-  'STOP',
-  'RESET',
-  'PAUSE',
-  'RESUME',
-  'FOCUS',
-  'BREAK',
-];
+export const ActionTypes: Array<ActionType> = ['START', 'STOP', 'RESET', 'PAUSE', 'RESUME', 'FOCUS', 'BREAK'];
 
 export interface IContext {
   activityCounter: number;
@@ -59,6 +51,11 @@ export interface IContext {
   config: IConfiguration;
 }
 
-export interface IService {
+export interface IMachineServiceProp {
   propose(type: 'break' | 'stop'): Promise<void> | void;
+}
+
+export interface IMeta {
+  recommendationType: Maybe<string>;
+  recommendationModifier: Maybe<string>;
 }

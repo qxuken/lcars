@@ -46,6 +46,7 @@
     "immer": "9.0.14",
     "@types/ramda": "0.28.12",
     "ramda": "0.28.0",
-    "type-fest": "2.12.2"
+    "type-fest": "2.12.2",
+    "auto-bind": "5.0.1"
   }
 }
