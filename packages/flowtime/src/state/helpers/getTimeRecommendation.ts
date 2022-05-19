@@ -2,11 +2,13 @@ import { Maybe } from 'monet';
 
 import type { IConfiguration } from '../../configuration';
 
+import type { TimeRecommendation } from '../interfaces';
+
 export function getTimeRecommendation(
   config: IConfiguration,
   type: Maybe<string>,
   modifier: Maybe<string>
-): Maybe<number> {
+): TimeRecommendation {
   if (type.isNone()) {
     return Maybe.none();
   }

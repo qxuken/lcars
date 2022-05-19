@@ -34,5 +34,3 @@ export function createService(p?: PartialDeep<ICreateServiceProps>) {
 
   return service;
 }
-
-export type Service = ReturnType<typeof createService>;

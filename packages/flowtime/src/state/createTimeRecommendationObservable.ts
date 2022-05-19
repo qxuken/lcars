@@ -1,11 +1,7 @@
-import type { Maybe } from 'monet';
-import { map, Observable, shareReplay, withLatestFrom } from 'rxjs';
+import { map, shareReplay, withLatestFrom } from 'rxjs';
 
-import type { MetaObservable } from './createMetaObservable';
-import type { StateObservable } from './createStateObservable';
+import type { StateObservable, MetaObservable, TimeRecommendationObservable } from './interfaces';
 import { getTimeRecommendation } from './helpers';
-
-export type TimeRecommendationObservable = Observable<Maybe<number>>;
 
 export function createTimeRecommendationObservable(
   state$: StateObservable,

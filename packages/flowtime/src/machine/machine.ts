@@ -2,7 +2,7 @@ import { Maybe } from 'monet';
 import { assign } from '@xstate/immer';
 import { createMachine, assign as plainAssign } from 'xstate';
 
-import type { IContext, Action, IMachineServiceProp } from './model';
+import type { IContext, Action, IMachineServiceProp } from './interfaces';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const StateMachine = (initialContext: IContext, externalService: IMachineServiceProp) =>

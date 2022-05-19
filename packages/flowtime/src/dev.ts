@@ -24,7 +24,7 @@ const flowtime: Flowtime = Flowtime.new({
 
 zip([flowtime.state$, flowtime.timeRecommendation$, flowtime.meta$, flowtime.context$]).subscribe(
   ([state, timeRecommendation, meta, context]) => {
-    console.log(state);
+    console.log([state, timeRecommendation, meta, context]);
 
     const stateBlockEl = document.createElement('div');
 
