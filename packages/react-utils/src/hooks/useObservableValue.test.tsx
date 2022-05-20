@@ -1,37 +1,38 @@
+import { Maybe } from 'monet';
 import * as React from 'react';
-import { create, act } from 'react-test-renderer';
+import { create, act, ReactTestRenderer } from 'react-test-renderer';
 import { Observable, Subject } from 'rxjs';
 import { useObservableValue } from './useObservableValue';
 
 describe('useObservableValue', () => {
-  function TestComponent({ observable }: { observable: Observable<string> }) {
+  function TestComponent({ observable }: { observable: Maybe<Observable<string>> }): JSX.Element {
     const result = useObservableValue(observable);
     return <div>{result.orSome('none')}</div>;
   }
 
-  it('return none if no value emitted ', () => {
+  it('return none if no value emitted ', async () => {
     const observable = new Subject<string>();
-    let testRenderer = create(<TestComponent observable={observable} />);
-    act(() => {
-      testRenderer = create(<TestComponent observable={observable} />);
+    let testRenderer: Maybe<ReactTestRenderer> = Maybe.None();
+    await act(() => {
+      testRenderer = Maybe.Some(create(<TestComponent observable={Maybe.Some(observable)} />));
     });
 
-    expect(testRenderer.root.findByType('div').children).toEqual(['none']);
+    expect(testRenderer.some().root.findByType('div').children).toEqual(['none']);
   });
 
-  it('return value when observable emits', () => {
+  it('return value when observable emits', async () => {
     const observable = new Subject<string>();
-    let testRenderer = create(<TestComponent observable={observable} />);
-    act(() => {
-      testRenderer = create(<TestComponent observable={observable} />);
+    let testRenderer: Maybe<ReactTestRenderer> = Maybe.None();
+    await act(() => {
+      testRenderer = Maybe.Some(create(<TestComponent observable={Maybe.Some(observable)} />));
     });
-    act(() => {
+    await act(() => {
       observable.next('value');
     });
-    expect(testRenderer.root.findByType('div').children).toEqual(['value']);
-    act(() => {
+    expect(testRenderer.some().root.findByType('div').children).toEqual(['value']);
+    await act(() => {
       observable.next('value2');
     });
-    expect(testRenderer.root.findByType('div').children).toEqual(['value2']);
+    expect(testRenderer.some().root.findByType('div').children).toEqual(['value2']);
   });
 });
