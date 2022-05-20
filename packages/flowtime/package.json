@@ -12,7 +12,6 @@
   ],
   "main": "./dist/main.umd.js",
   "module": "./dist/main.es.js",
-  "style": "./dist/style.css",
   "types": "./dist/main.d.ts",
   "scripts": {
     "dev": "vite",

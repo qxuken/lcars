@@ -1,14 +1,17 @@
-import { createContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Maybe } from 'monet';
 import { always } from 'ramda';
 import { Flowtime, ICreateServiceProps } from '@qxuken/flowtime';
 
-const FlowtimeServiceContext = createContext<Maybe<Flowtime>>(Maybe.None());
+import { FlowtimeServiceContext } from './FlowtimeServiceContext';
 
-export interface IFlowtimeServiceProviderProps extends ICreateServiceProps {
+export interface IFlowtimeServiceControllerProps extends ICreateServiceProps {
   children: React.ReactNode;
 }
-export function FlowtimeServiceProvider({ children, ...props }: IFlowtimeServiceProviderProps): JSX.Element {
+export function FlowtimeServiceController({
+  children,
+  ...props
+}: IFlowtimeServiceControllerProps): JSX.Element {
   const service = useMemo(always(Maybe.Some(new Flowtime(props))), [props]);
   return <FlowtimeServiceContext.Provider value={service}>{children}</FlowtimeServiceContext.Provider>;
 }
