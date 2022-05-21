@@ -1,5 +1,14 @@
+@import '@qxuken/flowtime-react';
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: transparent;
   margin: auto;
-  border-radius: 2rem;
+  border-radius: 4rem;
+}
+
+#app {
+  -webkit-app-region: drag;
+}
+#app button:not([disabled]) {
+  -webkit-app-region: no-drag;
 }

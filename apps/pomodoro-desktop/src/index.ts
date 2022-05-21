@@ -22,6 +22,7 @@ const createWindow = (): void => {
     fullscreenable: false,
     frame: false,
     darkTheme: true,
+    transparent: true,
   });
 
   // and load the index.html of the app.

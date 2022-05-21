@@ -1,12 +1,22 @@
 import React from 'react';
+import { Maybe } from 'monet';
 import ReactDom from 'react-dom/client';
+import { FullLayout, FlowtimeServiceController } from '@qxuken/flowtime-react';
+import { Root } from '@qxuken/lcars-ui';
 import './index.css';
 
 export let App = () => (
   <div>
-    <button>hello</button>
+    <FlowtimeServiceController>
+      <FullLayout className={Root.root} />
+    </FlowtimeServiceController>
   </div>
 );
 
-let root = ReactDom.createRoot(document.getElementById('app'));
-root.render(<App />);
+const root = Maybe.fromNull(document.getElementById('app')).orLazy(() => {
+  const root = document.createElement('div');
+  root.id = 'app';
+  document.body.appendChild(root);
+  return root;
+});
+ReactDom.createRoot(root).render(<App />);
