@@ -1,33 +1,62 @@
-import { format, differenceInHours, differenceInMilliseconds, subHours } from 'date-fns';
+import {
+  format,
+  differenceInHours,
+  differenceInMilliseconds,
+  differenceInDays,
+  intervalToDuration,
+  formatDuration,
+} from 'date-fns';
 import { Maybe } from 'monet';
-import { Observable, map, interval } from 'rxjs';
+import { Observable, map, interval, switchMap } from 'rxjs';
 import { useObservableValue } from '@qxuken/react-utils';
-import { useMemo } from 'react';
+import { FC, memo, useMemo } from 'react';
+import { always, of, pipe } from 'ramda';
 
-const defaultDate: Maybe<Date> = Maybe.None();
+const defaultNone: Maybe<never> = Maybe.None();
 
 const displayTime = (date: Date): string => {
   const now = new Date();
   const diff = differenceInMilliseconds(now, date);
-  if (differenceInHours(now, date) > 0) {
-    // todo: investigate why this is not working
-    return format(subHours(diff, 3), 'hh:mm:ss');
+  const hourDifference = differenceInHours(now, date);
+  const daysDifference = differenceInDays(now, date);
+  let result = format(diff, 'mm:ss');
+
+  if (hourDifference > 0) {
+    result = `${hourDifference}:${result}`;
   }
-  return format(diff, 'mm:ss');
+
+  if (daysDifference > 0) {
+    result = pipe(
+      intervalToDuration,
+      formatDuration
+    )({
+      start: date,
+      end: now,
+    });
+  }
+  return result;
 };
 
 export interface IStopwatchProps {
   from?: Maybe<Date>;
 }
-export function Stopwatch({ from = defaultDate }: IStopwatchProps): JSX.Element {
-  const countFrom: Date = useMemo(() => from.orSome(new Date()), [from]);
-  const observable: Maybe<Observable<string>> = useMemo(
-    () => Maybe.Some(interval(1000).pipe(map(() => displayTime(countFrom)))),
-    [countFrom]
-  );
-  const time = useObservableValue(observable);
+export const Stopwatch: FC<IStopwatchProps> = memo(
+  ({ from = defaultNone }) => {
+    const countFrom: Date = useMemo(() => from.orSome(new Date()), [from]);
+    const observable: Maybe<Observable<string>> = useMemo(
+      () => Maybe.Some(interval(1000).pipe(switchMap(always(of(countFrom))), map(displayTime))),
+      [countFrom]
+    );
+    const time = useObservableValue(observable, () => Maybe.Some(displayTime(countFrom)));
 
-  const content = time.orLazy(() => displayTime(countFrom));
+    const content = time.orSome('Fatal error');
 
-  return <span>{content}</span>;
-}
+    return <span>{content}</span>;
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.from?.map((d) => d.getTime()).orUndefined() ===
+      nextProps.from?.map((d) => d.getTime()).orUndefined()
+    );
+  }
+);

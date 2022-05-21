@@ -19,12 +19,10 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
             START: {
               target: 'focus',
             },
-            RESET: [
-              {
-                actions: 'resetToInitial',
-                cond: 'hasRecordedActivity',
-              },
-            ],
+            RESET: {
+              actions: 'resetToInitial',
+              cond: 'hasRecordedActivity',
+            },
           },
         },
         focus: {
@@ -33,7 +31,7 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
           states: {
             work: {
               initial: 'init',
-              description: 'Work Cycle. ',
+              description: "meta: {\n            recommendationType: 'focus',\n          },",
               meta: {
                 recommendationType: 'focus',
               },
@@ -57,11 +55,11 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                     resume: {
                       type: 'final',
                       entry: 'correctWorkTimer',
-                      description: 'Will change WorkStartTime by adding difference by PauseStartTime',
+                      description: 'Will change WorkStartTime by adding difference  by PauseStartTime',
                     },
                     new: {
                       type: 'final',
-                      entry: ['increaseActivityCounter', 'recordWorkStartTime'],
+                      entry: 'recordWorkStartTime',
                     },
                   },
                   onDone: {
@@ -82,11 +80,9 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                         target: 'online',
                       },
                     ],
-                    meta: {
-                      proposalType: 'break',
-                    },
+                    meta: { proposalType: 'break' },
                   },
-                  description: "meta: { proposalType: 'break' }",
+                  description: "invoke meta: { proposalType: 'break' }",
                 },
                 online: {
                   after: {
@@ -135,24 +131,32 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                     },
                     underTwentyFiveMinutes: {
                       type: 'final',
+                      description:
+                        "\n                    meta: {\n                      recommendationType: 'underTwentyFiveMinutes',\n                    }",
                       meta: {
                         recommendationType: 'underTwentyFiveMinutes',
                       },
                     },
                     underFiftyMinutes: {
                       type: 'final',
+                      description:
+                        "meta: {\n                      recommendationType: 'underFiftyMinutes',\n                    }",
                       meta: {
                         recommendationType: 'underFiftyMinutes',
                       },
                     },
                     underNinetyMinutes: {
                       type: 'final',
+                      description:
+                        "meta: {\n                      recommendationType: 'underNinetyMinutes',\n                    }",
                       meta: {
                         recommendationType: 'underNinetyMinutes',
                       },
                     },
                     pastNinetyMinutes: {
                       type: 'final',
+                      description:
+                        "meta: {\n                      recommendationType: 'pastNinetyMinutes',\n                    }",
                       meta: {
                         recommendationType: 'pastNinetyMinutes',
                       },
@@ -175,15 +179,39 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                     },
                     plain: {
                       type: 'final',
+                      description:
+                        "meta: {\n                      recommendationModifier: 'plain',\n                    }",
                       meta: {
                         recommendationModifier: 'plain',
                       },
                     },
                     extra: {
                       type: 'final',
+                      description:
+                        "meta: {\n                      recommendationModifier: 'extra',\n                    }",
                       meta: {
                         recommendationModifier: 'extra',
                       },
+                    },
+                  },
+                },
+                activity: {
+                  initial: 'init',
+                  states: {
+                    init: {
+                      always: [
+                        {
+                          actions: 'increaseActivityCounter',
+                          cond: 'pastMinimumActivityDuration',
+                          target: 'done',
+                        },
+                        {
+                          target: 'done',
+                        },
+                      ],
+                    },
+                    done: {
+                      type: 'final',
                     },
                   },
                 },
@@ -221,11 +249,9 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                         target: 'online',
                       },
                     ],
-                    meta: {
-                      proposalType: 'stop',
-                    },
+                    meta: { proposalType: 'stop' },
                   },
-                  description: "meta: { proposalType: 'stop' }",
+                  description: "invoke meta: { proposalType: 'stop' }",
                 },
               },
               on: {
@@ -287,6 +313,13 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
           const now = new Date();
           const workStartTime = context.workStartTime.getOrElse(new Date());
           return now.getTime() - workStartTime.getTime() < 90 * 60 * 1000;
+        },
+        pastMinimumActivityDuration: (context) => {
+          const now = new Date();
+          const workStartTime = context.workStartTime.getOrElse(new Date());
+          return (
+            now.getTime() - workStartTime.getTime() >= context.config.minimumActivityDuration * 60 * 1000
+          );
         },
         fourthActivityPointFinished: (context) => {
           return context.activityCounter % context.config.activityStreak === 0;

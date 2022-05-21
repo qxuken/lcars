@@ -1,16 +1,11 @@
 import { ActionType } from '@qxuken/flowtime';
 import { equals } from 'ramda';
 import { useCallback, useMemo } from 'react';
-import { Opaque } from 'type-fest';
 import { useFlowtimeAvailableActions, useFlowtimeDispatch } from '../services';
 
-type ButtonIsDisabled = Opaque<boolean, 'ButtonIsDisabled'>;
-type ButtonHandler = Opaque<() => void, 'ButtonHandler'>;
-
-export function useFlowtimeButton(action: ActionType): [ButtonHandler, ButtonIsDisabled] {
+export function useFlowtimeButton(action: ActionType): [() => void, boolean] {
   const dispatch = useFlowtimeDispatch();
   const availableActions = useFlowtimeAvailableActions();
-
   const pauseClickHandler = useCallback(
     () =>
       dispatch.cata(
@@ -25,5 +20,5 @@ export function useFlowtimeButton(action: ActionType): [ButtonHandler, ButtonIsD
     [availableActions]
   );
 
-  return [pauseClickHandler as ButtonHandler, pauseIsDisabled as ButtonIsDisabled];
+  return [pauseClickHandler, pauseIsDisabled];
 }

@@ -131,12 +131,12 @@ function RightPanel(): JSX.Element {
     </Panel>
   );
 }
-
 function LayoutContent(): JSX.Element {
   const context = useFlowtimeContext();
   const activities = useMemo(() => context.map(prop('activityCounter')).filter(Boolean), [context]);
   const state = useFlowtimeState();
   const timeRecommendation = useFlowtimeTimeRecommendation();
+
   const content = useMemo(() => {
     if (state.filter((s) => s.matches('idle')).isSome()) {
       return (
@@ -158,7 +158,7 @@ function LayoutContent(): JSX.Element {
         <Panel vertical>
           <Text color="color7">focus</Text>
           <Text size="xlarge" weight="semibold">
-            <Stopwatch key="focus" from={context.chain((c) => c.workStartTime)} />
+            <Stopwatch key="focus" from={context.chain(prop('workStartTime'))} />
           </Text>
           <Text size="small" color="color1">
             recommended time: {timeRecommendation}
@@ -186,7 +186,7 @@ function LayoutContent(): JSX.Element {
             On Pause
           </Text>
           <Text size="xlarge" weight="semibold">
-            <Stopwatch key="pause" from={context.chain((c) => c.pauseStartTime)} />
+            <Stopwatch key="pause" from={context.chain(prop('pauseStartTime'))} />
           </Text>
           <Text size="small" color="color1" className={PredefinedAnimationClass.blinkWhite}>
             Remember to resume when you are ready

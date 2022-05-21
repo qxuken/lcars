@@ -11,19 +11,38 @@ enum Layout {
 }
 
 export function App(): JSX.Element {
-  const [layout, setLayout] = useState(Layout.Full);
+  const [layout, setLayout] = useState(Layout.FullWithProvider);
   const onLayoutChange = useCallback((layout: Layout) => () => setLayout(layout), []);
   return (
     <div className={Root.root}>
       <div className="demo-card">
         <Text as="h2">layout:</Text>
         <Panel minWidth>
-          <Button onClick={onLayoutChange(Layout.Base)}>Base</Button>
-          <Button onClick={onLayoutChange(Layout.Full)}>Full</Button>
-          <Button onClick={onLayoutChange(Layout.FullWithProvider)} width="min10">
+          <Button
+            bgColor={layout === Layout.Base ? 'color4' : undefined}
+            onClick={onLayoutChange(Layout.Base)}
+          >
+            Base
+          </Button>
+          <Button
+            bgColor={layout === Layout.Full ? 'color4' : undefined}
+            onClick={onLayoutChange(Layout.Full)}
+          >
+            Full
+          </Button>
+          <Button
+            bgColor={layout === Layout.FullWithProvider ? 'color4' : undefined}
+            onClick={onLayoutChange(Layout.FullWithProvider)}
+            width="min10"
+          >
             with provider
           </Button>
-          <Button onClick={onLayoutChange(Layout.Minimized)}>Minimized</Button>
+          <Button
+            bgColor={layout === Layout.Minimized ? 'color4' : undefined}
+            onClick={onLayoutChange(Layout.Minimized)}
+          >
+            Minimized
+          </Button>
         </Panel>
         {layout === Layout.Base && <BaseLayout />}
         {layout === Layout.Full && <FullLayout />}
