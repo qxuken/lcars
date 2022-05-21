@@ -47,7 +47,11 @@ export function App(): JSX.Element {
         {layout === Layout.Base && <BaseLayout />}
         {layout === Layout.Full && <FullLayout />}
         {layout === Layout.FullWithProvider && (
-          <FlowtimeServiceController>
+          <FlowtimeServiceController
+            config={{
+              minimumActivityDuration: 0,
+            }}
+          >
             <FullLayout />
           </FlowtimeServiceController>
         )}

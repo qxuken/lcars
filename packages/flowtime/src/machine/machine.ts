@@ -94,9 +94,16 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                 },
               },
               on: {
-                BREAK: {
-                  target: 'break',
-                },
+                BREAK: [
+                  {
+                    actions: 'increaseActivityCounter',
+                    cond: 'pastMinimumActivityDuration',
+                    target: 'break',
+                  },
+                  {
+                    target: 'break',
+                  },
+                ],
                 PAUSE: {
                   target: 'pause',
                 },
@@ -195,26 +202,6 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                     },
                   },
                 },
-                activity: {
-                  initial: 'init',
-                  states: {
-                    init: {
-                      always: [
-                        {
-                          actions: 'increaseActivityCounter',
-                          cond: 'pastMinimumActivityDuration',
-                          target: 'done',
-                        },
-                        {
-                          target: 'done',
-                        },
-                      ],
-                    },
-                    done: {
-                      type: 'final',
-                    },
-                  },
-                },
               },
               on: {
                 FOCUS: {
@@ -262,9 +249,16 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
             },
           },
           on: {
-            STOP: {
-              target: 'idle',
-            },
+            STOP: [
+              {
+                actions: 'increaseActivityCounter',
+                cond: 'pastMinimumActivityDuration',
+                target: 'idle',
+              },
+              {
+                target: 'idle',
+              },
+            ],
           },
         },
       },

@@ -4,7 +4,7 @@ export interface Typegen0 {
   '@@xstate/typegen': true;
   eventsCausingActions: {
     resetToInitial: 'RESET';
-    increaseActivityCounter: '';
+    increaseActivityCounter: 'STOP' | 'BREAK';
     clearPauseStartTime: 'START';
     correctWorkTimer: '';
     recordWorkStartTime: '';
@@ -48,12 +48,12 @@ export interface Typegen0 {
   };
   eventsCausingGuards: {
     hasRecordedActivity: 'RESET';
+    pastMinimumActivityDuration: 'STOP' | 'BREAK';
     hasPauseStartTime: '';
     underTwentyFiveMinutes: '';
     underFiftyMinutes: '';
     underNinetyMinutes: '';
     fourthActivityPointFinished: '';
-    pastMinimumActivityDuration: '';
   };
   eventsCausingDelays: {
     BREAK_PROPOSAL: 'xstate.init';
@@ -80,9 +80,6 @@ export interface Typegen0 {
     | 'focus.break.additionalTime.init'
     | 'focus.break.additionalTime.plain'
     | 'focus.break.additionalTime.extra'
-    | 'focus.break.activity'
-    | 'focus.break.activity.init'
-    | 'focus.break.activity.done'
     | 'focus.pause'
     | 'focus.pause.online'
     | 'focus.pause.stopProposal'
@@ -96,7 +93,6 @@ export interface Typegen0 {
               break?:
                 | 'timer'
                 | 'additionalTime'
-                | 'activity'
                 | {
                     timer?:
                       | 'init'
@@ -105,7 +101,6 @@ export interface Typegen0 {
                       | 'underNinetyMinutes'
                       | 'pastNinetyMinutes';
                     additionalTime?: 'init' | 'plain' | 'extra';
-                    activity?: 'init' | 'done';
                   };
               pause?: 'online' | 'stopProposal';
             };
