@@ -4,10 +4,23 @@
     height: min-content;
     padding: 0px;
     border-style: none;
-    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    &:not([disabled]) {
+      cursor: pointer;
+    }
+
+    &.default-cursor {
+      cursor: default;
+    }
+
+    & .counter {
+      padding: 1px 4px;
+      margin: 0 4px 0 8px;
+      min-width: 25px;
+    }
 
     &.center {
       justify-content: center;
@@ -36,11 +49,6 @@
 
     &.width-min10 {
       min-width: 160px;
-    }
-
-    & .counter {
-      padding: 1px 4px;
-      margin: 0 4px 0 8px;
     }
 
     &.accent-none {

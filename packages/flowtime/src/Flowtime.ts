@@ -1,7 +1,7 @@
 import type { PartialDeep } from 'type-fest';
 import autoBind from 'auto-bind';
 
-import type { ICreateServiceProps, Service } from './service';
+import type { Dispatch, ICreateServiceProps, Service } from './service';
 import type {
   StateObservable,
   MetaObservable,
@@ -21,7 +21,7 @@ import { createAvailableActionObservable } from './actions';
 export class Flowtime {
   public readonly service: Service;
 
-  public readonly dispatch: Service['send'];
+  public readonly dispatch: Dispatch;
 
   public readonly state$: StateObservable;
 

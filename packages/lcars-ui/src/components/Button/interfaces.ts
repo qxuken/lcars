@@ -32,6 +32,7 @@ export interface IDefaultButtonProps
   accentSide?: EnumProp<typeof ButtonAccentSide>;
   center?: boolean;
   withAccentLine?: boolean;
+  hoverable?: boolean;
 }
 
 export interface IButtonWithCounterProps extends IDefaultButtonProps {

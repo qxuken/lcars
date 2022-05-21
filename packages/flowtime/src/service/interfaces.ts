@@ -13,3 +13,5 @@ export interface ICreateServiceProps {
 export type Service = ReturnType<typeof createService>;
 
 export type State = Service['state'];
+
+export type Dispatch = Service['send'];

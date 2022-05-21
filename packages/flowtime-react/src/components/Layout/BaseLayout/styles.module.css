@@ -3,6 +3,7 @@
     --border-radius: 48px;
     --side-width: 74px;
     --side-top-height: 24px;
+    --disabled-bg-color: var(--color-7);
     box-sizing: border-box;
     padding: 12px;
     width: var(--width, 747px);

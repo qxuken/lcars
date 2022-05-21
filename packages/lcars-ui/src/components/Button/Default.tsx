@@ -17,6 +17,7 @@ export function DefaultButton({
   weight = TextWeight.regular,
   withAccentLine,
   left,
+  hoverable = true,
   ...props
 }: IDefaultButtonProps): JSX.Element {
   const bgColor: BgColorValue = useEnumPropValue(BgColor, BgColor.color6, bgColorProp);
@@ -37,11 +38,14 @@ export function DefaultButton({
         className,
         Color.white,
         bgColor,
-        BgModifications.hoverable,
         styles.button,
         styles[size],
         styles[width],
-        styles[accentSide]
+        styles[accentSide],
+        {
+          [BgModifications.hoverable]: hoverable,
+          [styles['default-cursor']]: !hoverable,
+        }
       )}
     >
       {accentLines.left && <div className={cn(styles['accent-line'], BgColor.default)} />}

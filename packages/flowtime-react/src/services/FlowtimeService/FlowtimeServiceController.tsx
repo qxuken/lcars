@@ -4,8 +4,9 @@ import { always } from 'ramda';
 import { Flowtime, ICreateServiceProps } from '@qxuken/flowtime';
 
 import { FlowtimeServiceContext } from './FlowtimeServiceContext';
+import { PartialDeep } from 'type-fest';
 
-export interface IFlowtimeServiceControllerProps extends ICreateServiceProps {
+export interface IFlowtimeServiceControllerProps extends PartialDeep<ICreateServiceProps> {
   children: React.ReactNode;
 }
 export function FlowtimeServiceController({
