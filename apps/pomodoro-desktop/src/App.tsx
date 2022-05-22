@@ -1,16 +1,13 @@
 import React from 'react';
 import { Maybe } from 'monet';
 import ReactDom from 'react-dom/client';
-import { FullLayout, FlowtimeServiceController } from '@qxuken/flowtime-react';
-import { Root } from '@qxuken/lcars-ui';
+import { FlowtimeUI, FlowtimeServiceController } from '@qxuken/flowtime-react';
 import './index.css';
 
 export let App = () => (
-  <div>
-    <FlowtimeServiceController>
-      <FullLayout className={Root.root} />
-    </FlowtimeServiceController>
-  </div>
+  <FlowtimeServiceController>
+    <FlowtimeUI />
+  </FlowtimeServiceController>
 );
 
 const root = Maybe.fromNull(document.getElementById('app')).orLazy(() => {

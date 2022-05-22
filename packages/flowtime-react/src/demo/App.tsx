@@ -1,17 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import { Root, Button, Panel, Text } from '@qxuken/lcars-ui';
-import { BaseLayout, FullLayout, MinimizedLayout, FlowtimeServiceController } from '../main';
+import { FullLayout, PinnedLayout, FlowtimeServiceController, FlowtimeUI } from '../main';
 import './app.css';
 
 enum Layout {
-  Base,
+  UIWithProvider,
   Full,
-  FullWithProvider,
-  Minimized,
+  Pinned,
 }
 
 export function App(): JSX.Element {
-  const [layout, setLayout] = useState(Layout.FullWithProvider);
+  const [layout, setLayout] = useState(Layout.UIWithProvider);
   const onLayoutChange = useCallback((layout: Layout) => () => setLayout(layout), []);
   return (
     <div className={Root.root}>
@@ -19,10 +18,11 @@ export function App(): JSX.Element {
         <Text as="h2">layout:</Text>
         <Panel minWidth>
           <Button
-            bgColor={layout === Layout.Base ? 'color4' : undefined}
-            onClick={onLayoutChange(Layout.Base)}
+            bgColor={layout === Layout.UIWithProvider ? 'color4' : undefined}
+            onClick={onLayoutChange(Layout.UIWithProvider)}
+            width="min10"
           >
-            Base
+            ui with provider
           </Button>
           <Button
             bgColor={layout === Layout.Full ? 'color4' : undefined}
@@ -31,31 +31,23 @@ export function App(): JSX.Element {
             Full
           </Button>
           <Button
-            bgColor={layout === Layout.FullWithProvider ? 'color4' : undefined}
-            onClick={onLayoutChange(Layout.FullWithProvider)}
-            width="min10"
+            bgColor={layout === Layout.Pinned ? 'color4' : undefined}
+            onClick={onLayoutChange(Layout.Pinned)}
           >
-            with provider
-          </Button>
-          <Button
-            bgColor={layout === Layout.Minimized ? 'color4' : undefined}
-            onClick={onLayoutChange(Layout.Minimized)}
-          >
-            Minimized
+            Pinned
           </Button>
         </Panel>
-        {layout === Layout.Base && <BaseLayout />}
-        {layout === Layout.Full && <FullLayout />}
-        {layout === Layout.FullWithProvider && (
+        {layout === Layout.UIWithProvider && (
           <FlowtimeServiceController
             config={{
               minimumActivityDuration: 0,
             }}
           >
-            <FullLayout />
+            <FlowtimeUI />
           </FlowtimeServiceController>
         )}
-        {layout === Layout.Minimized && <MinimizedLayout />}
+        {layout === Layout.Full && <FullLayout />}
+        {layout === Layout.Pinned && <PinnedLayout />}
       </div>
     </div>
   );

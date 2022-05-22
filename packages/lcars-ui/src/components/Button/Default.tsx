@@ -18,8 +18,10 @@ export function DefaultButton({
   withAccentLine,
   left,
   hoverable = true,
+  if: ifProp = true,
   ...props
-}: IDefaultButtonProps): JSX.Element {
+}: // eslint-disable-next-line @rushstack/no-new-null
+IDefaultButtonProps): JSX.Element | null {
   const bgColor: BgColorValue = useEnumPropValue(BgColor, BgColor.color6, bgColorProp);
   const size: ButtonSize = useEnumPropValue(ButtonSize, ButtonSize.default, sizeProp);
   const width: ButtonWidth = useEnumPropValue(ButtonWidth, ButtonWidth.full, widthProp);
@@ -31,6 +33,9 @@ export function DefaultButton({
   const accentLines = useAccentLines(accentSide, withAccentLine);
   const textProps = useMemo(() => ({ weight }), [weight]);
   const content = useContent(children, size, textProps);
+  if (!ifProp) {
+    return null;
+  }
   return (
     <button
       {...props}

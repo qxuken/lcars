@@ -95,7 +95,6 @@
     "react": "18.1.0",
     "react-dom": "18.0.0",
     "@qxuken/flowtime-react": "workspace:*",
-    "@qxuken/lcars-ui": "workspace:*",
     "monet": "0.9.3"
   }
 }

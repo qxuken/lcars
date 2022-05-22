@@ -33,6 +33,7 @@ export interface IDefaultButtonProps
   center?: boolean;
   withAccentLine?: boolean;
   hoverable?: boolean;
+  if?: boolean;
 }
 
 export interface IButtonWithCounterProps extends IDefaultButtonProps {
