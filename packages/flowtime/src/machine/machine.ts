@@ -31,10 +31,8 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
           states: {
             work: {
               initial: 'init',
-              description: "meta: {\n            recommendationType: 'focus',\n          },",
-              meta: {
-                recommendationType: 'focus',
-              },
+              description: "meta: { recommendationType:  'focus' },",
+              meta: { recommendationType: 'focus' },
               states: {
                 init: {
                   exit: 'clearPauseStartTime',
@@ -138,35 +136,23 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                     },
                     underTwentyFiveMinutes: {
                       type: 'final',
-                      description:
-                        "\n                    meta: {\n                      recommendationType: 'underTwentyFiveMinutes',\n                    }",
-                      meta: {
-                        recommendationType: 'underTwentyFiveMinutes',
-                      },
+                      description: "meta: { recommendationType: 'underTwentyFiveMinutes' }",
+                      meta: { recommendationType: 'underTwentyFiveMinutes' },
                     },
                     underFiftyMinutes: {
                       type: 'final',
-                      description:
-                        "meta: {\n                      recommendationType: 'underFiftyMinutes',\n                    }",
-                      meta: {
-                        recommendationType: 'underFiftyMinutes',
-                      },
+                      description: "meta: { recommendationType: 'underFiftyMinutes' }",
+                      meta: { recommendationType: 'underFiftyMinutes' },
                     },
                     underNinetyMinutes: {
                       type: 'final',
-                      description:
-                        "meta: {\n                      recommendationType: 'underNinetyMinutes',\n                    }",
-                      meta: {
-                        recommendationType: 'underNinetyMinutes',
-                      },
+                      description: "meta: { recommendationType: 'underNinetyMinutes  }",
+                      meta: { recommendationType: 'underNinetyMinutes' },
                     },
                     pastNinetyMinutes: {
                       type: 'final',
-                      description:
-                        "meta: {\n                      recommendationType: 'pastNinetyMinutes',\n                    }",
-                      meta: {
-                        recommendationType: 'pastNinetyMinutes',
-                      },
+                      description: "meta: { recommendationType: 'pastNinetyMinutes' }",
+                      meta: { recommendationType: 'pastNinetyMinutes' },
                     },
                   },
                 },
@@ -186,19 +172,13 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                     },
                     plain: {
                       type: 'final',
-                      description:
-                        "meta: {\n                      recommendationModifier: 'plain',\n                    }",
-                      meta: {
-                        recommendationModifier: 'plain',
-                      },
+                      description: "meta: { recommendationModifier: 'plain' }",
+                      meta: { recommendationModifier: 'plain' },
                     },
                     extra: {
                       type: 'final',
-                      description:
-                        "meta: {\n                      recommendationModifier: 'extra',\n                    }",
-                      meta: {
-                        recommendationModifier: 'extra',
-                      },
+                      description: "meta: { recommendationModifier: 'extra' }",
+                      meta: { recommendationModifier: 'extra' },
                     },
                   },
                 },
@@ -244,6 +224,11 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
               on: {
                 RESUME: {
                   target: 'work',
+                },
+                BREAK: {
+                  actions: 'increaseActivityCounter',
+                  cond: 'pastMinimumActivityDuration',
+                  target: 'break',
                 },
               },
             },
