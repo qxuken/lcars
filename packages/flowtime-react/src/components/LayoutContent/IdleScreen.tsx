@@ -44,7 +44,7 @@ export function IdleScreen({ small }: ILayoutContentProps): JSX.Element {
               ready to arm
             </Text>
             <Text size="small" color="color1" className={PredefinedAnimationClass.blinkWhite}>
-              recommended next: pomodoro
+              recommended next: focus
             </Text>
           </>
         )}
