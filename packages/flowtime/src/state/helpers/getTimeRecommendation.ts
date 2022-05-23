@@ -18,7 +18,7 @@ export function getTimeRecommendation(
 
   switch (type.some()) {
     case 'focus':
-      return Maybe.Some(config.focusRecommendation);
+      return Maybe.Some(config.focusRecommendationMinutes);
     case 'underTwentyFiveMinutes':
       return Maybe.Some(withModifier(config.breakRecommendation.underTwentyFiveMinutes));
     case 'underFiftyMinutes':

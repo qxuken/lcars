@@ -4,11 +4,12 @@ export interface Typegen0 {
   '@@xstate/typegen': true;
   eventsCausingActions: {
     resetToInitial: 'RESET';
-    increaseActivityCounter: 'STOP' | 'BREAK';
+    createActivityWithWorkDuration: 'STOP' | 'BREAK';
+    clearBreakStartTime: 'FOCUS' | 'START';
     clearPauseStartTime: 'START';
     correctWorkTimer: '';
     recordWorkStartTime: '';
-    clearBreakStartTime: 'xstate.init';
+    addBreakDurationToLastActivity: 'xstate.init';
     recordBreakStartTime: 'BREAK';
     recordPauseStartTime: 'PAUSE';
   };
@@ -56,6 +57,7 @@ export interface Typegen0 {
     underFiftyMinutes: '';
     underNinetyMinutes: '';
     fourthActivityPointFinished: '';
+    pastMinimumActivityDurationMinusPause: 'BREAK';
   };
   eventsCausingDelays: {
     BREAK_PROPOSAL: 'xstate.init';

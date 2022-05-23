@@ -82,6 +82,7 @@ importers:
       '@xstate/cli': 0.1.7
       '@xstate/immer': 0.3.1
       auto-bind: 5.0.1
+      date-fns: 2.28.0
       eslint: 8.15.0
       immer: 9.0.14
       jest: 28.1.0
@@ -100,6 +101,7 @@ importers:
       '@types/ramda': 0.28.12
       '@xstate/immer': 0.3.1_immer@9.0.14+xstate@4.32.0
       auto-bind: 5.0.1
+      date-fns: 2.28.0
       immer: 9.0.14
       monet: 0.9.3
       ramda: 0.28.0

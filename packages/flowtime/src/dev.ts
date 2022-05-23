@@ -12,10 +12,7 @@ const availableActions: HTMLDivElement = document.createElement('div');
 
 const flowtime: Flowtime = Flowtime.new({
   config: {
-    proposalDelays: {
-      break: 20000,
-      stop: 10000,
-    },
+    minimumActivityDurationMinutes: 1,
   },
   services: {
     propose: (t) => console.log(t),

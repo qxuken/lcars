@@ -1,9 +1,11 @@
+import { differenceInMinutes } from 'date-fns';
 import { Maybe } from 'monet';
 import { assign } from '@xstate/immer';
-import { createMachine, assign as plainAssign } from 'xstate';
+import { createMachine, assign as plainAssign, InvokeMeta } from 'xstate';
 
-import type { IContext, Action, IMachineServiceProp } from './interfaces';
+import { IContext, Action, IMachineServiceProp, isProposalType } from './interfaces';
 
+//* based on: https://stately.ai/registry/editor/share/eb9558c6-d263-44c0-ba52-a926faa742b3
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const StateMachine = (initialContext: IContext, externalService: IMachineServiceProp) =>
   createMachine(
@@ -15,6 +17,8 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
       initial: 'idle',
       states: {
         idle: {
+          description:
+            'suggested interface IContext {\n  activityCounter: number;\n  workStartTime: Maybe<Date>;\n  pauseStartTime: Maybe<Date>;\n  breakStartTime: Maybe<Date>;\n  config: IConfiguration;\n}',
           on: {
             START: {
               target: 'focus',
@@ -26,12 +30,12 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
           },
         },
         focus: {
-          entry: 'clearPauseStartTime',
+          entry: ['clearPauseStartTime', 'clearBreakStartTime'],
           initial: 'work',
           states: {
             work: {
               initial: 'init',
-              description: "meta: { recommendationType:  'focus' },",
+              description: "meta: { recommendationType:  'focus' }",
               meta: { recommendationType: 'focus' },
               states: {
                 init: {
@@ -92,27 +96,22 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                 },
               },
               on: {
-                BREAK: [
-                  {
-                    actions: 'increaseActivityCounter',
-                    cond: 'pastMinimumActivityDuration',
-                    target: 'break',
-                  },
-                  {
-                    target: 'break',
-                  },
-                ],
+                BREAK: {
+                  actions: 'createActivityWithWorkDuration',
+                  cond: 'pastMinimumActivityDuration',
+                  target: 'break',
+                },
                 PAUSE: {
                   target: 'pause',
                 },
               },
             },
             break: {
+              exit: 'addBreakDurationToLastActivity',
               type: 'parallel',
+              entry: 'recordBreakStartTime',
               description:
                 'Should provide information for break duration by merging metas of the inner states',
-              entry: 'recordBreakStartTime',
-              exit: 'clearBreakStartTime',
               states: {
                 timer: {
                   initial: 'init',
@@ -187,6 +186,7 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
               },
               on: {
                 FOCUS: {
+                  actions: 'clearBreakStartTime',
                   target: 'work',
                 },
               },
@@ -228,8 +228,8 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
                   target: 'work',
                 },
                 BREAK: {
-                  actions: 'increaseActivityCounter',
-                  cond: 'pastMinimumActivityDuration',
+                  actions: 'createActivityWithWorkDuration',
+                  cond: 'pastMinimumActivityDurationMinusPause',
                   target: 'break',
                 },
               },
@@ -238,7 +238,7 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
           on: {
             STOP: [
               {
-                actions: 'increaseActivityCounter',
+                actions: 'createActivityWithWorkDuration',
                 cond: 'pastMinimumActivityDuration',
                 target: 'idle',
               },
@@ -275,13 +275,28 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
           const diff = now.getTime() - pauseStartTime.getTime();
           context.workStartTime = Maybe.Some(new Date(workStartTime.getTime() + diff));
         }),
-        increaseActivityCounter: assign((context) => {
-          context.activityCounter += 1;
+        createActivityWithWorkDuration: assign((context) => {
+          const now = new Date();
+          const workStartTime = context.workStartTime.getOrElse(new Date());
+          context.activities.push({
+            workDurationMinutes: differenceInMinutes(now, workStartTime),
+            breakDurationMinutes: Maybe.None(),
+          });
+        }),
+
+        addBreakDurationToLastActivity: assign((context) => {
+          const lastItem = context.activities.at(-1);
+          if (!lastItem) {
+            return;
+          }
+          const now = new Date();
+          const breakStartTime = context.breakStartTime.getOrElse(new Date());
+          lastItem.breakDurationMinutes = Maybe.fromFalsy(differenceInMinutes(now, breakStartTime));
         }),
       },
       guards: {
         hasRecordedActivity: (context) => {
-          return context.activityCounter > 0;
+          return context.activities.length > 0;
         },
         hasPauseStartTime: (context) => {
           return context.pauseStartTime.isSome();
@@ -289,39 +304,43 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
         underTwentyFiveMinutes: (context) => {
           const now = new Date();
           const workStartTime = context.workStartTime.getOrElse(new Date());
-          return now.getTime() - workStartTime.getTime() < 25 * 60 * 1000;
+          return differenceInMinutes(now, workStartTime) < 25;
         },
         underFiftyMinutes: (context) => {
           const now = new Date();
           const workStartTime = context.workStartTime.getOrElse(new Date());
-          return now.getTime() - workStartTime.getTime() < 50 * 60 * 1000;
+          return differenceInMinutes(now, workStartTime) < 50;
         },
         underNinetyMinutes: (context) => {
           const now = new Date();
           const workStartTime = context.workStartTime.getOrElse(new Date());
-          return now.getTime() - workStartTime.getTime() < 90 * 60 * 1000;
+          return differenceInMinutes(now, workStartTime) < 90;
         },
         pastMinimumActivityDuration: (context) => {
           const now = new Date();
           const workStartTime = context.workStartTime.getOrElse(new Date());
+          return differenceInMinutes(now, workStartTime) >= context.config.minimumActivityDurationMinutes;
+        },
+        pastMinimumActivityDurationMinusPause: (context) => {
+          const now = new Date();
+          const workStartTime = context.workStartTime.getOrElse(new Date());
+          const pauseStartTime = context.pauseStartTime.getOrElse(new Date());
           return (
-            now.getTime() - workStartTime.getTime() >= context.config.minimumActivityDuration * 60 * 1000
+            differenceInMinutes(now, workStartTime) - differenceInMinutes(now, pauseStartTime) >=
+            context.config.minimumActivityDurationMinutes
           );
         },
         fourthActivityPointFinished: (context) => {
-          return context.activityCounter % context.config.activityStreak === 0;
+          return context.activities.length % context.config.activityStreak === 0;
         },
       },
       services: {
-        // eslint-disable-next-line @typescript-eslint/typedef, @typescript-eslint/naming-convention
-        async proposal(_context, _event, meta) {
-          const isProposalType = (type: string): type is 'break' | 'stop' => ['break', 'stop'].includes(type);
-          const propose = Maybe.fromUndefined(meta.meta)
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        async proposal(_context: IContext, _event: Record<'type', string>, meta: InvokeMeta) {
+          return Maybe.fromUndefined(meta.meta)
             .flatMap((m) => Maybe.fromUndefined(m.proposalType))
-            .filter(isProposalType);
-          if (propose.isSome()) {
-            await externalService.propose(propose.some());
-          }
+            .filter(isProposalType)
+            .cata<void | Promise<void>>(Promise.resolve, externalService.propose);
         },
       },
       delays: {

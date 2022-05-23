@@ -14,8 +14,8 @@ export interface IBreakRecommendation {
 export interface IConfiguration {
   proposalDelays: IDelays;
   breakRecommendation: IBreakRecommendation;
-  focusRecommendation: number;
-  minimumActivityDuration: number;
+  focusRecommendationMinutes: number;
+  minimumActivityDurationMinutes: number;
   activityStreak: number;
 }
 
@@ -31,7 +31,7 @@ export const defaultConfiguration: IConfiguration = {
     pastNinetyMinutes: 35,
     breakModifier: 15,
   },
-  focusRecommendation: 25,
-  minimumActivityDuration: 5,
+  focusRecommendationMinutes: 25,
+  minimumActivityDurationMinutes: 5,
   activityStreak: 4,
 };

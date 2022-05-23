@@ -9,7 +9,7 @@ import type { ICreateServiceProps } from './interfaces';
 import { getConfig, getMachineService, getStateMachineBuilder } from './helpers';
 
 const initialContext: Omit<IContext, 'config'> = {
-  activityCounter: 0,
+  activities: [],
   workStartTime: Maybe.None(),
   pauseStartTime: Maybe.None(),
   breakStartTime: Maybe.None(),

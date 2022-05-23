@@ -44,14 +44,21 @@ export type ActionType = Action['type'];
 
 export const ActionTypes: Array<ActionType> = ['START', 'STOP', 'RESET', 'PAUSE', 'RESUME', 'FOCUS', 'BREAK'];
 
+export interface IActivity {
+  workDurationMinutes: number;
+  breakDurationMinutes: Maybe<number>;
+}
 export interface IContext {
-  activityCounter: number;
+  activities: Array<IActivity>;
   workStartTime: Maybe<Date>;
   pauseStartTime: Maybe<Date>;
   breakStartTime: Maybe<Date>;
   config: IConfiguration;
 }
 
+export function isProposalType(type: string): type is 'break' | 'stop' {
+  return ['break', 'stop'].includes(type);
+}
 export interface IMachineServiceProp {
   propose(type: 'break' | 'stop'): Promise<void> | void;
 }
