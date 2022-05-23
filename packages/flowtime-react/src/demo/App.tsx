@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { Root, Button, Panel, Text } from '@qxuken/lcars-ui';
-import { FullLayout, PinnedLayout, FlowtimeServiceController, FlowtimeUI } from '../main';
+import { FullLayout, FlowtimeServiceController, FlowtimeUI } from '../main';
 import './app.css';
 
 enum Layout {
   UIWithProvider,
   Full,
-  Pinned,
 }
 
 export function App(): JSX.Element {
@@ -30,12 +29,6 @@ export function App(): JSX.Element {
           >
             Full
           </Button>
-          <Button
-            bgColor={layout === Layout.Pinned ? 'color4' : undefined}
-            onClick={onLayoutChange(Layout.Pinned)}
-          >
-            Pinned
-          </Button>
         </Panel>
         {layout === Layout.UIWithProvider && (
           <FlowtimeServiceController
@@ -47,7 +40,6 @@ export function App(): JSX.Element {
           </FlowtimeServiceController>
         )}
         {layout === Layout.Full && <FullLayout />}
-        {layout === Layout.Pinned && <PinnedLayout />}
       </div>
     </div>
   );

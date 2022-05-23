@@ -1,7 +1,7 @@
 {
-  "name": "@qxuken/pomodoro-desktop",
-  "productName": "lcars-pomodoro",
-  "description": "Pomodoro timer inspired by LCARS design",
+  "name": "@qxuken/flowtime-desktop",
+  "productName": "lcars-flowtime",
+  "description": "Flowtime timer inspired by LCARS design",
   "author": {
     "name": "Victor N",
     "email": "qxuken@gmail.com"
@@ -53,7 +53,10 @@
                 {
                   "html": "./src/index.html",
                   "js": "./src/renderer.ts",
-                  "name": "main_window"
+                  "name": "main_window",
+                  "preload": {
+                    "js": "./src/preload.ts"
+                  }
                 }
               ]
             }

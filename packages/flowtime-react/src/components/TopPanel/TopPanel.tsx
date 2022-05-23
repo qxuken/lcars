@@ -2,13 +2,15 @@ import { useMemo } from 'react';
 import { Button, Animated, Filler, Panel, IFillerProps, IButtonProps } from '@qxuken/lcars-ui';
 import { useFlowTimeTopPanel } from '../../services';
 import { useFlowtimePin } from '../../services/FlowtimePin';
+import { useFlowtimeCompact } from '../../services/FlowtimeCompact';
 
 export interface ITopPanelProps {
   small?: boolean;
 }
 export function TopPanel({ small = false }: ITopPanelProps): JSX.Element {
-  const { onMinimize, onExit } = useFlowTimeTopPanel();
+  const { onExit } = useFlowTimeTopPanel();
   const [pinned, pinIsDisabled, pinHandle] = useFlowtimePin();
+  const [compact, compactIsDisabled, compactHandle] = useFlowtimeCompact();
   const size: IFillerProps['size'] = useMemo(() => (small ? 'small' : undefined), [small]);
   const width: IButtonProps['width'] = useMemo(() => (small ? 'fixed4' : 'fixed5'), [small]);
   return (
@@ -18,8 +20,8 @@ export function TopPanel({ small = false }: ITopPanelProps): JSX.Element {
       </Button>
       <Filler size={size} />
       <Animated if={!small} />
-      <Button size="small" width={width} onClick={onMinimize.orUndefined()} disabled={onMinimize.isNone()}>
-        minimize
+      <Button size="small" width={width} onClick={compactHandle} disabled={compactIsDisabled}>
+        {compact ? 'expand' : 'compact'}
       </Button>
       <Filler size={size} />
       <Button

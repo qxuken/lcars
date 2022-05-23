@@ -1,4 +1,4 @@
-import { always, prop } from 'ramda';
+import { always, not, prop } from 'ramda';
 import { useCallback, useContext } from 'react';
 import { useFlowTimeTopPanel } from '../../FlowtimeTopPanel';
 
@@ -13,7 +13,7 @@ export function useFlowtimePin(): [Value, Disabled, Toggle] {
   const { onPin } = useFlowTimeTopPanel();
   const togglePinnedWithReporter = useCallback(() => {
     context.cata(always(undefined), ({ toggle }) => toggle());
-    onPin.apTo(context.map(prop('value')));
+    onPin.apTo(context.map(prop('value')).map(not));
   }, [context]);
 
   return [context.map(prop('value')).filter(Boolean).isSome(), context.isNone(), togglePinnedWithReporter];

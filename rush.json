@@ -469,8 +469,8 @@
     //   "tags": ["tools"]
     // }
     {
-      "packageName": "@qxuken/pomodoro-desktop",
-      "projectFolder": "apps/pomodoro-desktop",
+      "packageName": "@qxuken/flowtime-desktop",
+      "projectFolder": "apps/flowtime-desktop",
       "tags": ["apps", "desktop"]
     },
     {
