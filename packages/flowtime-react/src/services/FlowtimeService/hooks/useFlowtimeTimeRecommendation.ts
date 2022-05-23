@@ -8,8 +8,11 @@ import { FlowtimeServiceContext } from '../FlowtimeServiceContext';
 
 export function useFlowtimeTimeRecommendation(): Maybe<TimeRecommendation> {
   const service = useContext(FlowtimeServiceContext);
-  const observable = useMemo(always(service.map(prop('timeRecommendation$'))), [service]);
-  const value = useObservableValue(observable);
+  const [observable, defaultValue] = useMemo(
+    always([service.map(prop('timeRecommendation$')), service.chain(prop('timeRecommendation'))]),
+    [service]
+  );
+  const value = useObservableValue(observable, defaultValue);
 
   return value;
 }

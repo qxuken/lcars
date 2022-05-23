@@ -6,10 +6,14 @@ import type { IMeta, IContext } from '../machine';
 
 export type TimeRecommendation = Maybe<number>;
 
-export type StateObservable = Observable<State>;
+export type StateObservableValue = State;
+export type StateObservable = Observable<StateObservableValue>;
 
-export type ContextObservable = Observable<IContext>;
+export type ContextObservableValue = IContext;
+export type ContextObservable = Observable<ContextObservableValue>;
 
-export type MetaObservable = Observable<IMeta>;
+export type MetaObservableValue = IMeta;
+export type MetaObservable = Observable<MetaObservableValue>;
 
-export type TimeRecommendationObservable = Observable<TimeRecommendation>;
+export type TimeRecommendationObservableValue = TimeRecommendation;
+export type TimeRecommendationObservable = Observable<TimeRecommendationObservableValue>;

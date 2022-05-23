@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Maybe } from 'monet';
 import { always } from 'ramda';
 import { Flowtime, ICreateServiceProps } from '@qxuken/flowtime';
@@ -14,5 +14,12 @@ export function FlowtimeServiceController({
   ...props
 }: IFlowtimeServiceControllerProps): JSX.Element {
   const service = useMemo(always(Maybe.Some(new Flowtime(props))), [props]);
+  useEffect(() => {
+    if (service.isSome()) {
+      return () => {
+        service.some().destroy();
+      };
+    }
+  }, [service]);
   return <FlowtimeServiceContext.Provider value={service}>{children}</FlowtimeServiceContext.Provider>;
 }

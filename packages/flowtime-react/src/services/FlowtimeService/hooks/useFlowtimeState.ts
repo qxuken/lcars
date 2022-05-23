@@ -8,8 +8,11 @@ import { FlowtimeServiceContext } from '../FlowtimeServiceContext';
 
 export function useFlowtimeState(): Maybe<State> {
   const service = useContext(FlowtimeServiceContext);
-  const observable = useMemo(always(service.map(prop('state$'))), [service]);
-  const value = useObservableValue(observable);
+  const [observable, defaultValue] = useMemo(
+    always([service.map(prop('state$')), service.chain(prop('state'))]),
+    [service]
+  );
+  const value = useObservableValue(observable, defaultValue);
 
   return value;
 }

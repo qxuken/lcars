@@ -2,9 +2,9 @@ import { BaseLayout } from '../BaseLayout';
 import { LeftPanel } from '../LeftPanel';
 import { RightPanel } from '../RightPanel';
 import { TopPanel } from '../TopPanel';
+import { LayoutContent } from '../LayoutContent';
 
 import { BottomPanel } from './BottomPanel';
-import { LayoutContent } from './LayoutContent';
 
 export interface IFullLayoutProps {
   className?: string;

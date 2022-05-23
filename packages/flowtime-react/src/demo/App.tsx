@@ -2,10 +2,12 @@ import React, { useCallback, useState } from 'react';
 import { Root, Button, Panel, Text } from '@qxuken/lcars-ui';
 import { FullLayout, FlowtimeServiceController, FlowtimeUI } from '../main';
 import './app.css';
+import { CompactLayout } from '../components';
 
 enum Layout {
   UIWithProvider,
   Full,
+  Compact,
 }
 
 export function App(): JSX.Element {
@@ -29,6 +31,12 @@ export function App(): JSX.Element {
           >
             Full
           </Button>
+          <Button
+            bgColor={layout === Layout.Compact ? 'color4' : undefined}
+            onClick={onLayoutChange(Layout.Compact)}
+          >
+            Compact
+          </Button>
         </Panel>
         {layout === Layout.UIWithProvider && (
           <FlowtimeServiceController
@@ -40,6 +48,7 @@ export function App(): JSX.Element {
           </FlowtimeServiceController>
         )}
         {layout === Layout.Full && <FullLayout />}
+        {layout === Layout.Compact && <CompactLayout />}
       </div>
     </div>
   );
