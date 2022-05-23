@@ -12,6 +12,7 @@ const initialContext: Omit<IContext, 'config'> = {
   activityCounter: 0,
   workStartTime: Maybe.None(),
   pauseStartTime: Maybe.None(),
+  breakStartTime: Maybe.None(),
 };
 
 const defaultService: IMachineServiceProp = {

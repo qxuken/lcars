@@ -48,6 +48,7 @@ export interface IContext {
   activityCounter: number;
   workStartTime: Maybe<Date>;
   pauseStartTime: Maybe<Date>;
+  breakStartTime: Maybe<Date>;
   config: IConfiguration;
 }
 

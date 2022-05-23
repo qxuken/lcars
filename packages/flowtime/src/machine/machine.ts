@@ -111,6 +111,8 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
               type: 'parallel',
               description:
                 'Should provide information for break duration by merging metas of the inner states',
+              entry: 'recordBreakStartTime',
+              exit: 'clearBreakStartTime',
               states: {
                 timer: {
                   initial: 'init',
@@ -251,14 +253,20 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
     {
       actions: {
         resetToInitial: plainAssign(() => initialContext),
-        clearPauseStartTime: assign((context) => {
-          context.pauseStartTime = Maybe.None();
+        recordWorkStartTime: assign((context) => {
+          context.workStartTime = Maybe.Some(new Date());
+        }),
+        recordBreakStartTime: assign((context) => {
+          context.breakStartTime = Maybe.Some(new Date());
+        }),
+        clearBreakStartTime: assign((context) => {
+          context.breakStartTime = Maybe.None();
         }),
         recordPauseStartTime: assign((context) => {
           context.pauseStartTime = Maybe.Some(new Date());
         }),
-        recordWorkStartTime: assign((context) => {
-          context.workStartTime = Maybe.Some(new Date());
+        clearPauseStartTime: assign((context) => {
+          context.pauseStartTime = Maybe.None();
         }),
         correctWorkTimer: assign((context) => {
           const now = new Date();

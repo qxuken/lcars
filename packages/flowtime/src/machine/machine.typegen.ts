@@ -8,6 +8,8 @@ export interface Typegen0 {
     clearPauseStartTime: 'START';
     correctWorkTimer: '';
     recordWorkStartTime: '';
+    clearBreakStartTime: 'xstate.init';
+    recordBreakStartTime: 'BREAK';
     recordPauseStartTime: 'PAUSE';
   };
   internalEvents: {
