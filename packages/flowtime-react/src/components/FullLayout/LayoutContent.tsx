@@ -6,7 +6,10 @@ import { Stopwatch } from '../Stopwatch';
 
 export function LayoutContent(): JSX.Element {
   const context = useFlowtimeContext();
-  const activities = useMemo(() => context.map(prop('activityCounter')).filter(Boolean), [context]);
+  const activities = useMemo(
+    () => context.map(prop('activities')).map(prop('length')).filter(Boolean),
+    [context]
+  );
   const state = useFlowtimeState();
   const timeRecommendation = useFlowtimeTimeRecommendation();
 
@@ -44,7 +47,7 @@ export function LayoutContent(): JSX.Element {
         <Panel vertical>
           <Text color="color7">Time to take a break</Text>
           <Text size="xlarge" weight="semibold">
-            <Stopwatch key="break" />
+            <Stopwatch key="break" from={context.chain(prop('breakStartTime'))} />
           </Text>
           <Text size="small" color="color1">
             recommended time: {timeRecommendation}
@@ -84,18 +87,11 @@ export function LayoutContent(): JSX.Element {
 
   return (
     <Content
-      // left={
-      //   <Panel vertical minWidth>
-      //     <Button bgColor="color4" accentSide="left" withAccentLine>
-      //       start
-      //     </Button>
-      //     <Button bgColor="color6" accentSide="left" withAccentLine>
-      //       reset
-      //     </Button>
-      //   </Panel>
-      // }
       right={
-        activities.isSome() && (
+        activities
+          .chain(() => state)
+          .filter((s) => s.matches('idle'))
+          .isSome() && (
           <Panel vertical minWidth>
             <Button bgColor="color6" accentSide="right" counter={activities.some()} hoverable={false}>
               done

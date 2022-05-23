@@ -31,7 +31,7 @@ export function LayoutContent(): JSX.Element {
       return (
         <Box center>
           <Text size="xlarge" weight="semibold">
-            <Stopwatch key="break" />
+            <Stopwatch key="break" from={context.chain(prop('breakStartTime'))} />
           </Text>
         </Box>
       );

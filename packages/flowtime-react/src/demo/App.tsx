@@ -33,7 +33,7 @@ export function App(): JSX.Element {
         {layout === Layout.UIWithProvider && (
           <FlowtimeServiceController
             config={{
-              minimumActivityDuration: 0,
+              minimumActivityDurationMinutes: 4,
             }}
           >
             <FlowtimeUI />

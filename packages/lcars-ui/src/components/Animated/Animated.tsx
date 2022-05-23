@@ -9,7 +9,7 @@ export interface IAnimatedProps {
 }
 
 // eslint-disable-next-line @rushstack/no-new-null
-export function Animated({ className, wide, if: ifProp }: IAnimatedProps): JSX.Element | null {
+export function Animated({ className, wide, if: ifProp = true }: IAnimatedProps): JSX.Element | null {
   if (!ifProp) {
     return null;
   }
