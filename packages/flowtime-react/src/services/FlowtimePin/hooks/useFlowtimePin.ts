@@ -16,5 +16,5 @@ export function useFlowtimePin(): [Value, Disabled, Toggle] {
     onPin.apTo(context.map(prop('value')).map(not));
   }, [context]);
 
-  return [context.map(prop('value')).filter(Boolean).isSome(), context.isNone(), togglePinnedWithReporter];
+  return [context.map(prop('value')).filter(Boolean).isSome(), onPin.isNone(), togglePinnedWithReporter];
 }

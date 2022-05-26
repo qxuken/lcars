@@ -5,13 +5,13 @@ import './app.css';
 import { CompactLayout } from '../components';
 
 enum Layout {
-  UIWithProvider,
+  FlowtimeUI,
   Full,
   Compact,
 }
 
 export function App(): JSX.Element {
-  const [layout, setLayout] = useState(Layout.UIWithProvider);
+  const [layout, setLayout] = useState(Layout.FlowtimeUI);
   const onLayoutChange = useCallback((layout: Layout) => () => setLayout(layout), []);
   return (
     <div className={Root.root}>
@@ -19,11 +19,11 @@ export function App(): JSX.Element {
         <Text as="h2">layout:</Text>
         <Panel minWidth>
           <Button
-            bgColor={layout === Layout.UIWithProvider ? 'color4' : undefined}
-            onClick={onLayoutChange(Layout.UIWithProvider)}
+            bgColor={layout === Layout.FlowtimeUI ? 'color4' : undefined}
+            onClick={onLayoutChange(Layout.FlowtimeUI)}
             width="min10"
           >
-            ui with provider
+            FlowtimeUI
           </Button>
           <Button
             bgColor={layout === Layout.Full ? 'color4' : undefined}
@@ -38,7 +38,7 @@ export function App(): JSX.Element {
             Compact
           </Button>
         </Panel>
-        {layout === Layout.UIWithProvider && (
+        {layout === Layout.FlowtimeUI && (
           <FlowtimeServiceController
             config={{
               minimumActivityDurationMinutes: 4,

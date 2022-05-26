@@ -15,15 +15,17 @@ function Content(): JSX.Element {
 
 export function FlowtimeUI(): JSX.Element {
   const [pinned, setPinned] = useState(false);
-  const [compact, setCompact] = useState(false);
   const flowtimePinController = useMemo(
     () => Maybe.Some({ value: pinned, toggle: () => setPinned(!pinned) }),
     [pinned]
   );
+
+  const [compact, setCompact] = useState(false);
   const flowtimeCompactController = useMemo(
     () => Maybe.Some({ value: compact, toggle: () => setCompact(!compact) }),
     [compact]
   );
+
   return (
     <FlowtimePinController value={flowtimePinController}>
       <FlowtimeCompactController value={flowtimeCompactController}>

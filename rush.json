@@ -474,6 +474,11 @@
       "tags": ["apps", "desktop"]
     },
     {
+      "packageName": "@qxuken/flowtime-web",
+      "projectFolder": "apps/flowtime-web",
+      "tags": ["apps", "web"]
+    },
+    {
       "packageName": "@qxuken/text-utils",
       "projectFolder": "packages/text-utils",
       "tags": ["packages", "utils"]
