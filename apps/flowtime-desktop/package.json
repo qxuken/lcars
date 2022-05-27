@@ -19,12 +19,14 @@
   "keywords": [],
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "./src/icon/ICON.png"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "qxuken-pomodoro"
+            "name": "lcars-flowtime"
           }
         },
         {
