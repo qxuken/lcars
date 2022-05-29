@@ -7,6 +7,7 @@ import { RightPanel } from '../RightPanel';
 import { TopPanel } from '../TopPanel';
 import { LayoutContent } from '../LayoutContent';
 
+import { BottomPanel } from './BottomPanel';
 import styles from './styles.module.css';
 
 export interface ICompactLayoutProps {
@@ -19,6 +20,7 @@ export function CompactLayout({ className, content }: ICompactLayoutProps): JSX.
     <BaseLayout
       className={cn(className, styles.wrapper)}
       top={<TopPanel small />}
+      bottom={<BottomPanel />}
       left={<LeftPanel small />}
       right={<RightPanel small />}
       content={<LayoutContent small />}

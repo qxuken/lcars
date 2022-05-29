@@ -13,14 +13,19 @@ function Content(): JSX.Element {
   return <FullLayout className={Root.root} />;
 }
 
-export function FlowtimeUI(): JSX.Element {
-  const [pinned, setPinned] = useState(false);
+export interface IFlowtimeUIProp {
+  defaultCompact?: boolean;
+  defaultPin?: boolean;
+}
+
+export function FlowtimeUI(props: IFlowtimeUIProp): JSX.Element {
+  const [pinned, setPinned] = useState(props.defaultPin ?? false);
   const flowtimePinController = useMemo(
     () => Maybe.Some({ value: pinned, toggle: () => setPinned(!pinned) }),
     [pinned]
   );
 
-  const [compact, setCompact] = useState(false);
+  const [compact, setCompact] = useState(props.defaultCompact ?? false);
   const flowtimeCompactController = useMemo(
     () => Maybe.Some({ value: compact, toggle: () => setCompact(!compact) }),
     [compact]

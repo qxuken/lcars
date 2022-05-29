@@ -15,7 +15,7 @@ export function TopPanel({ small = false }: ITopPanelProps): JSX.Element {
   const width: IButtonProps['width'] = useMemo(() => (small ? 'fixed4' : 'fixed5'), [small]);
   return (
     <Panel>
-      <Button size="small" bgColor="color5" width={width} onClick={pinHandle} disabled={pinIsDisabled}>
+      <Button size="small" bgColor="color5" width={width} onClick={pinHandle} if={!pinIsDisabled}>
         {pinned ? 'unpin' : 'pin'}
       </Button>
       <Filler size={size} />
@@ -24,13 +24,7 @@ export function TopPanel({ small = false }: ITopPanelProps): JSX.Element {
         {compact ? 'expand' : 'compact'}
       </Button>
       <Filler size={size} />
-      <Button
-        size="small"
-        bgColor="color5"
-        width={width}
-        onClick={onExit.orUndefined()}
-        disabled={onExit.isNone()}
-      >
+      <Button size="small" bgColor="color5" width={width} onClick={onExit.orUndefined()} if={onExit.isSome()}>
         exit
       </Button>
     </Panel>
