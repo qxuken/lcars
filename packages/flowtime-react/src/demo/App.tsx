@@ -27,7 +27,10 @@ const topPanelConfig: IFlowtimeTopPanelContextValue = {
 const storageKey: string = 'flowtime-demo:layout';
 
 const getLayoutValue = (): Layout =>
-  Maybe.fromEmpty(localStorage.getItem(storageKey)).map(parseInt).orSome(Layout.FlowtimeUI);
+  Maybe.fromEmpty(localStorage.getItem(storageKey))
+    .map(parseInt)
+    .filter((v) => Object.values(Layout).includes(v))
+    .orSome(Layout.FlowtimeUI);
 
 export function App(): JSX.Element {
   const [layout, setLayout] = useState(getLayoutValue);
@@ -51,14 +54,14 @@ export function App(): JSX.Element {
             Flowtime UI
           </Button>
           <Button
-            bgColor={layout === Layout.FlowtimeUI ? 'color4' : undefined}
+            bgColor={layout === Layout.FlowtimeUICompact ? 'color4' : undefined}
             onClick={onLayoutChange(Layout.FlowtimeUICompact)}
             width="min10"
           >
             Provided Compact
           </Button>
           <Button
-            bgColor={layout === Layout.FlowtimeUI ? 'color4' : undefined}
+            bgColor={layout === Layout.FlowtimeUIPin ? 'color4' : undefined}
             onClick={onLayoutChange(Layout.FlowtimeUIPin)}
             width="min10"
           >
