@@ -58,7 +58,7 @@ export function App(): JSX.Element {
             onClick={onLayoutChange(Layout.FlowtimeUICompact)}
             width="min10"
           >
-            Provided Compact
+            Default Compact
           </Button>
           <Button
             bgColor={layout === Layout.FlowtimeUIPin ? 'color4' : undefined}

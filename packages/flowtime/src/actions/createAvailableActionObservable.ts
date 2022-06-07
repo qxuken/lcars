@@ -5,7 +5,7 @@ import type { StateObservable } from '../state';
 import type { AvailableActionObservable } from './interfaces';
 import { actionIsDispatchable } from './actionIsDispatchable';
 
-const interval$: Observable<number> = merge(of(0), interval(10000));
+const interval$: Observable<number> = merge(of(0), interval(5000));
 
 export function createAvailableActionObservable(state$: StateObservable): AvailableActionObservable {
   return merge(interval$, state$).pipe(

@@ -29,7 +29,7 @@ export function LeftPanel({ small = false }: ILeftPanelProps): JSX.Element {
       <Button size={size} bgColor="color5" if={!resumeIsDisabled} onClick={resumeHandler}>
         resume
       </Button>
-      <Button size={size} bgColor="color3" disabled={breakIsDisabled} onClick={breakHandler}>
+      <Button size={size} bgColor="color3" if={!breakIsDisabled} onClick={breakHandler}>
         break
       </Button>
     </Panel>
