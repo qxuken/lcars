@@ -2,20 +2,26 @@ import type { EventObject } from 'xstate';
 import type { Maybe } from 'monet';
 
 import type { IConfiguration } from '../configuration';
+import { SetRequired } from 'type-fest';
+import { Dictionary } from 'ramda';
 
 export interface INotification {
+  id: string;
   message: string;
-  meta?: Record<string, unknown>;
+  duration: Maybe<number>;
+  meta: Maybe<Dictionary<unknown>>;
 }
+
+export type INotificationEventPayload = SetRequired<Partial<Omit<INotification, 'id'>>, 'message'>;
 
 export interface INotifyAction extends EventObject {
   type: 'NOTIFY';
-  payload: INotification;
+  payload: INotificationEventPayload;
 }
 
 export interface INotifyImmediateAction extends EventObject {
   type: 'NOTIFY_IMMEDIATE';
-  payload: INotification;
+  payload: INotificationEventPayload;
   skipCurrentNotification?: boolean;
 }
 

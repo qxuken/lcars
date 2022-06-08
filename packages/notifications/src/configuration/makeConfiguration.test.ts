@@ -9,7 +9,7 @@ describe('makeConfiguration', () => {
   });
   it('returns merged configuration if config is provided', () => {
     const testConfig = {
-      notificationDelay: 500,
+      notificationDuration: 500,
     };
     const config = makeConfiguration(Maybe.some(testConfig));
     expect(config).toEqual({

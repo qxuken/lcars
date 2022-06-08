@@ -1,8 +1,8 @@
 import { Maybe } from 'monet';
-import { assign } from '@xstate/immer';
-import { createMachine } from 'xstate';
+import { v4 } from 'uuid';
+import { createMachine, assign } from 'xstate';
 
-import { IContext, Action } from './interfaces';
+import { IContext, Action, INotification } from './interfaces';
 
 //* based on: https://stately.ai/registry/editor/share/5b81d81d-8fec-4616-b372-791174a9c735
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -13,64 +13,92 @@ export const createStateMachine = (initialContext: IContext) =>
       schema: { context: {} as IContext, events: {} as Action },
       context: initialContext,
       id: 'notifications',
-      initial: 'notificationWorker',
+      initial: 'idle',
       states: {
-        notificationWorker: {
-          initial: 'idle',
-          states: {
-            idle: {
-              always: {
-                actions: 'moveFirstPendingToCurrentNotification',
-                cond: 'hasPendingNotification',
-                target: 'notify',
-              },
-            },
-            notify: {
-              exit: 'removeCurrentNotification',
-              after: {
-                NOTIFICATION_DELAY: {
-                  target: 'idle',
-                },
-              },
+        idle: {
+          always: {
+            cond: 'hasPendingNotification',
+            target: 'notify',
+          },
+        },
+        notify: {
+          exit: 'removeCurrentNotification',
+          entry: 'moveFirstPendingToCurrentNotification',
+          after: {
+            NOTIFICATION_DURATION: {
+              target: 'idle',
             },
           },
-          on: {
-            NOTIFY: {
-              actions: 'addPendingNotification',
-            },
-            NOTIFY_IMMEDIATE: {
-              actions: 'addImmediateNotification',
-              target: '.notify',
-            },
-            CLEAR: {
-              actions: 'clearPendingNotifications',
-            },
-          },
+        },
+      },
+      on: {
+        NOTIFY_IMMEDIATE: {
+          actions: 'addImmediateNotification',
+          target: '.notify',
+        },
+        CLEAR: {
+          actions: 'clearPendingNotifications',
+          target: '.idle',
+        },
+        NOTIFY: {
+          actions: 'addPendingNotification',
+          target: '.notify',
         },
       },
     },
     {
       actions: {
-        addPendingNotification: assign((context, event) => context.pendingNotifications.push(event.payload)),
+        addPendingNotification: assign((context, event) => ({
+          ...context,
+          pendingNotifications: [
+            ...context.pendingNotifications,
+            {
+              id: v4(),
+              duration: Maybe.None(),
+              meta: Maybe.None(),
+              ...event.payload,
+            } as INotification,
+          ],
+        })),
         addImmediateNotification: assign((context, event) => {
+          const newEvents: INotification[] = [];
           if (!event.skipCurrentNotification && context.currentNotification.isSome()) {
-            context.pendingNotifications.unshift(context.currentNotification.some());
+            newEvents.push(context.currentNotification.some());
           }
-          context.currentNotification = Maybe.Some(event.payload);
+          newEvents.push({
+            id: v4(),
+            duration: Maybe.None(),
+            meta: Maybe.None(),
+            ...event.payload,
+          });
+          return {
+            ...context,
+            pendingNotifications: [...newEvents, ...context.pendingNotifications],
+          };
         }),
-        moveFirstPendingToCurrentNotification: assign((context) => {
-          const firstPending = context.pendingNotifications.shift();
-          context.currentNotification = Maybe.fromUndefined(firstPending);
-        }),
-        removeCurrentNotification: assign((context) => (context.currentNotification = Maybe.None())),
-        clearPendingNotifications: assign((context) => (context.pendingNotifications = [])),
+        moveFirstPendingToCurrentNotification: assign((context) => ({
+          ...context,
+          currentNotification: Maybe.fromUndefined(context.pendingNotifications[0]),
+          pendingNotifications: context.pendingNotifications.slice(1),
+        })),
+        removeCurrentNotification: assign((context) => ({
+          ...context,
+          currentNotification: Maybe.None(),
+        })),
+        clearPendingNotifications: assign((context) => ({
+          ...context,
+          pendingNotifications: [],
+        })),
       },
       guards: {
-        hasPendingNotification: (context) => context.pendingNotifications[0] !== undefined,
+        hasPendingNotification: (context) => context.pendingNotifications.length > 0,
       },
       delays: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        NOTIFICATION_DELAY: (context) => context.config.notificationDelay,
+        NOTIFICATION_DURATION: (context) =>
+          context.currentNotification
+            .chain((notification) => notification.duration)
+            .orSome(context.config.notificationDuration),
       },
     }
   );

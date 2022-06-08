@@ -11,7 +11,7 @@ import { createService } from './service';
 import { createStateObservable, createContextObservable } from './state';
 import { Maybe } from 'monet';
 import autoBind from 'auto-bind';
-import { INotification } from './machine';
+import { INotificationEventPayload } from './machine';
 
 export class Notifications {
   public readonly service: Service;
@@ -63,14 +63,14 @@ export class Notifications {
     return this.#context;
   }
 
-  public notify(notification: INotification): State {
+  public notify(notification: INotificationEventPayload): State {
     return this.#dispatch({
       type: 'NOTIFY',
       payload: notification,
     });
   }
 
-  public notifyImmediate(notification: INotification, skipCurrentNotification?: boolean): State {
+  public notifyImmediate(notification: INotificationEventPayload, skipCurrentNotification?: boolean): State {
     return this.#dispatch({
       type: 'NOTIFY_IMMEDIATE',
       payload: notification,

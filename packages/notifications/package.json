@@ -4,7 +4,7 @@
     "name": "Victor N",
     "email": "qxuken@gmail.com"
   },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "files": [
     "dist",
@@ -41,11 +41,12 @@
     "monet": "0.9.3",
     "rxjs": "7.5.5",
     "xstate": "4.32.0",
-    "@xstate/immer": "0.3.1",
     "immer": "9.0.14",
     "@types/ramda": "0.28.12",
     "ramda": "0.28.0",
     "type-fest": "2.12.2",
-    "auto-bind": "5.0.1"
+    "auto-bind": "5.0.1",
+    "uuid": "8.3.2",
+    "@types/uuid": "8.3.4"
   }
 }

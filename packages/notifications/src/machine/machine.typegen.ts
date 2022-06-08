@@ -3,11 +3,11 @@
 export interface Typegen0 {
   '@@xstate/typegen': true;
   eventsCausingActions: {
-    addPendingNotification: 'NOTIFY';
     addImmediateNotification: 'NOTIFY_IMMEDIATE';
     clearPendingNotifications: 'CLEAR';
-    moveFirstPendingToCurrentNotification: '';
+    addPendingNotification: 'NOTIFY';
     removeCurrentNotification: 'xstate.init';
+    moveFirstPendingToCurrentNotification: 'NOTIFY_IMMEDIATE' | 'NOTIFY' | '';
   };
   internalEvents: {
     '': { type: '' };
@@ -25,12 +25,8 @@ export interface Typegen0 {
     hasPendingNotification: '';
   };
   eventsCausingDelays: {
-    NOTIFICATION_DELAY: 'xstate.init';
+    NOTIFICATION_DURATION: 'xstate.init';
   };
-  matchesStates:
-    | 'notificationWorker'
-    | 'notificationWorker.idle'
-    | 'notificationWorker.notify'
-    | { notificationWorker?: 'idle' | 'notify' };
+  matchesStates: 'idle' | 'notify';
   tags: never;
 }

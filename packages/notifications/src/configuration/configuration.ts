@@ -1,7 +1,7 @@
 export interface IConfiguration {
-  notificationDelay: number;
+  notificationDuration: number;
 }
 
 export const defaultConfiguration: IConfiguration = {
-  notificationDelay: 0,
+  notificationDuration: 0,
 };
