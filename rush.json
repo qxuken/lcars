@@ -504,6 +504,11 @@
       "tags": ["packages", "web", "desktop"]
     },
     {
+      "packageName": "@qxuken/notifications",
+      "projectFolder": "packages/notifications",
+      "tags": ["packages", "web", "desktop"]
+    },
+    {
       "packageName": "@qxuken/react-utils",
       "projectFolder": "packages/react-utils",
       "tags": ["packages", "utils"]

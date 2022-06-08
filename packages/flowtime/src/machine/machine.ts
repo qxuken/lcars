@@ -7,7 +7,7 @@ import { IContext, Action, IMachineServiceProp, isProposalType } from './interfa
 
 //* based on: https://stately.ai/registry/editor/share/eb9558c6-d263-44c0-ba52-a926faa742b3
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const StateMachine = (initialContext: IContext, externalService: IMachineServiceProp) =>
+export const createStateMachine = (initialContext: IContext, externalService: IMachineServiceProp) =>
   createMachine(
     {
       tsTypes: {} as import('./machine.typegen').Typegen0,
@@ -352,4 +352,4 @@ export const StateMachine = (initialContext: IContext, externalService: IMachine
     }
   );
 
-export type StateMachine = ReturnType<typeof StateMachine>;
+export type StateMachine = ReturnType<typeof createStateMachine>;

@@ -27,7 +27,7 @@ export const defaultConfiguration: IConfiguration = {
   breakRecommendation: {
     underTwentyFiveMinutes: 10,
     underFiftyMinutes: 15,
-    underNinetyMinutes: 20,
+    underNinetyMinutes: 25,
     pastNinetyMinutes: 35,
     breakModifier: 15,
   },
