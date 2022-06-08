@@ -9,9 +9,9 @@ import { modifyConfig } from '@qxuken/vite-lib-config';
 
 import packageJson from './package.json';
 
-let entry = resolve(__dirname, 'src/main.ts');
+const entry = resolve(__dirname, 'src/main.ts');
 
-let baseConfig: UserConfig = {
+export const baseConfig: UserConfig = {
   plugins: [react()],
   css: {
     postcss: {
