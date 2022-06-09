@@ -61,19 +61,21 @@ export const createStateMachine = (initialContext: IContext) =>
           ],
         })),
         addImmediateNotification: assign((context, event) => {
-          const newEvents: INotification[] = [];
-          if (!event.skipCurrentNotification && context.currentNotification.isSome()) {
-            newEvents.push(context.currentNotification.some());
-          }
-          newEvents.push({
+          const notification: INotification = {
             id: v4(),
             duration: Maybe.None(),
             meta: Maybe.None(),
             ...event.payload,
-          });
+          };
+          if (event.skipCurrentNotification) {
+            return {
+              ...context,
+              currentNotification: Maybe.Some(notification),
+            };
+          }
           return {
             ...context,
-            pendingNotifications: [...newEvents, ...context.pendingNotifications],
+            pendingNotifications: [notification, ...context.pendingNotifications],
           };
         }),
         moveFirstPendingToCurrentNotification: assign((context) => ({
